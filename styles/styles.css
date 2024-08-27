@@ -1,0 +1,112 @@
+/* General Styles */
+.country-logo {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #6c757d;
+}
+
+.header-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #6c757d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle {
+    width: 2rem;
+    height: 2rem;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle i {
+    font-size: 1rem;
+}
+
+.bg-gray {
+    background-color: #6c757d;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.text-dark {
+    color: #000 !important;
+}
+
+.dropdown-menu {
+    background-color: #343a40;
+    border: none;
+    box-shadow: none;
+}
+
+.dropdown-item {
+    color: #fff;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #495057;
+}
+
+.btn-light {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.btn-light .bi-search {
+    color: gray;
+    font-size: 1.2rem;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+/* Background Image Styling */
+.bg-image {
+    background-image: url('/tech_web/assets/bg_1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+/* Text Styling */
+.text-gradient {
+    background: linear-gradient(to right, #ffb6c1, #ff69b4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Image Styling */
+.custom-image {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+}
+
+/* Padding */
+.py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
