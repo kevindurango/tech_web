@@ -21,8 +21,8 @@
 }
 
 .icon-circle {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     background-color: #f0f0f0;
     border-radius: 50%;
     display: flex;
@@ -86,12 +86,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 0;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 /* Text Styling */
 .text-gradient {
-    background: linear-gradient(to right, #ffb6c1, #ff69b4);
+    background: linear-gradient(to right, #ffb6c1, #f651a3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -101,12 +102,44 @@
 /* Image Styling */
 .custom-image {
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     height: auto;
+    padding: 0%;
 }
 
-/* Padding */
-.py-5 {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+.custom-row-padding {
+    padding-left: 3rem; 
+    padding-right: 8rem;
+}
+
+.nav-column-spacing:first-child {
+    margin-left: 3rem;
+}
+
+.nav-column-spacing:last-child {
+    margin-right: 6rem;
+}
+
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #ff69b4; 
+}
+
+.nav-link.active {
+    color: #ff69b4; 
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid #ced4da; 
 }

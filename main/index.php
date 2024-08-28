@@ -10,110 +10,227 @@
 <body>
 <!-- First Header Section: Country Dropdown and Social Links -->
 <header class="bg-dark py-1 px-4">
-    <div class="container-fluid d-flex align-items-center">
-        <!-- Dropdown and Offer Text -->
-        <div class="d-flex align-items-center flex-grow-1">
-            <div class="dropdown me-3 ps-4 pe-5">
-                <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/us.svg');"></div>
-                    <span class="text-white">US</span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="countryDropdown">
-                    <li><a class="dropdown-item d-flex align-items-center" href="#">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+
+            <div class="col d-flex align-items-center">
+                <div class="dropdown me-3 ps-4 pe-5">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/us.svg');"></div>
-                        <span>US - United States</span>
-                    </a></li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/ca.svg');"></div>
-                        <span>CA - Canada</span>
-                    </a></li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/gb.svg');"></div>
-                        <span>UK - United Kingdom</span>
-                    </a></li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/au.svg');"></div>
-                        <span>AU - Australia</span>
-                    </a></li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/in.svg');"></div>
-                        <span>IN - India</span>
-                    </a></li>
-                </ul>
+                        <span class="text-white">US</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="countryDropdown">
+
+                    </ul>
+                </div>
+                <span class="text-white ps-5">Free returns. Standard shipping. Orders $99</span>
             </div>
-            <span class="text-white ps-5">Free returns. Standard shipping. Orders $99</span>
-        </div>
-        <!-- Navigation Links -->
-        <nav>
-            <ul class="nav pe-4">
-                <li class="nav-item"><a class="nav-link text-white small" href="#">Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link text-white small" href="#">About Us</a></li>
-                <li class="nav-item"><a class="nav-link text-white small" href="#">Terms</a></li>
-                <li class="nav-item"><a class="nav-link text-white small" href="#">FAQ</a></li>
-            </ul>
-        </nav>
-        <!-- Social Media Icons -->
-        <div class="ps-4 pe-4">
-            <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="text-white me-2"><i class="bi bi-github"></i></a>
-            <a href="#" class="text-white me-2"><i class="bi bi-youtube"></i></a>
-            <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+
+            <div class="col d-flex justify-content-between align-items-center">
+
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link text-white small" href="#">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white small" href="#">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link text-white small" href="#">Terms</a></li>
+                        <li class="nav-item"><a class="nav-link text-white small" href="#">FAQ</a></li>
+                    </ul>
+                </nav>
+
+                <div>
+                    <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-github"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </header>
 <!-- Second Header Section: Search Bar and Icons -->
 <header class="bg-white py-2 border-bottom">
-    <div class="container d-flex justify-content-between align-items-center">
-        <!-- Search Form -->
-        <form class="d-flex w-25">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-light d-flex align-items-center border-0" type="submit">
-                <i class="bi bi-search text-gray"></i>
-            </button>
-        </form>
-        <!-- Icons and Texts -->
-        <div class="d-flex">
-            <!-- My Cart -->
-            <div class="d-flex align-items-center me-3 text-dark">
-                <div class="icon-circle me-2">
-                    <i class="bi bi-cart"></i>
-                </div>
-                <div class="text-start">
-                    <div class="fs-7 fw-light">My Cart</div>
-                    <div class="fs-6 fw-bold">$0.00</div>
-                </div>
+    <div class="container-fluid px-5">
+        <div class="row align-items-center">
+            <!-- Search Form Column -->
+            <div class="col-md-6 d-flex justify-content-end">
+                <form class="d-flex w-50">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light d-flex align-items-center border-0" type="submit">
+                        <i class="bi bi-search text-gray"></i>
+                    </button>
+                </form>
             </div>
-            <!-- My Wishlist -->
-            <div class="d-flex align-items-center me-3 text-dark">
-                <div class="icon-circle me-2">
-                    <i class="bi bi-heart"></i>
+            <!-- Icons and Texts Column -->
+            <div class="col-md-6 d-flex justify-content-end">
+                <!-- My Cart -->
+                <div class="d-flex align-items-center mx-4 text-dark">
+                    <div class="icon-circle me-2">
+                        <i class="bi bi-cart"></i>
+                    </div>
+                    <div class="text-start">
+                        <div class="fs-7 fw-light">My Cart</div>
+                        <div class="fs-6 fw-bold">$0.00</div>
+                    </div>
                 </div>
-                <div class="text-start">
-                    <div class="fs-7 fw-light">My Wishlist</div>
-                    <div class="fs-6 fw-bold">View Wishlist</div>
+                <!-- My Wishlist -->
+                <div class="d-flex align-items-center mx-4 text-dark">
+                    <div class="icon-circle me-2">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <div class="text-start">
+                        <div class="fs-7 fw-light">My Wishlist</div>
+                        <div class="fs-6 fw-bold">View Wishlist</div>
+                    </div>
                 </div>
-            </div>
-            <!-- Guest Account -->
-            <div class="d-flex align-items-center text-dark">
-                <div class="icon-circle me-2">
-                    <i class="bi bi-person"></i>
-                </div>
-                <div class="text-start">
-                    <div class="fs-7 fw-light">Guest</div>
-                    <div class="fs-6 fw-bold">My Account</div>
+                <!-- Guest Account -->
+                <div class="d-flex align-items-center ms-4 text-dark">
+                    <div class="icon-circle me-2">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <div class="text-start">
+                        <div class="fs-7 fw-light">Guest</div>
+                        <div class="fs-6 fw-bold">My Account</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
+<!-- Navigation Section -->
+<section class="container-fluid py-3 bg-white border-bottom">
+    <div class="row text-center align-items-center">
+
+        <div class="col nav-column-spacing">
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-grid me-1"></i> Categories
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                    <li><a class="dropdown-item" href="#">Category 1</a></li>
+                    <li><a class="dropdown-item" href="#">Category 2</a></li>
+                    <li><a class="dropdown-item" href="#">Category 3</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <a href="#" class="nav-link text-dark fw-semibold">Home</a>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <a href="#" class="nav-link text-dark fw-semibold">Shop</a>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="popularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Popular
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="popularDropdown">
+                    <li><a class="dropdown-item" href="#">Popular Item 1</a></li>
+                    <li><a class="dropdown-item" href="#">Popular Item 2</a></li>
+                    <li><a class="dropdown-item" href="#">Popular Item 3</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="trendingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Trending
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="trendingDropdown">
+                    <li><a class="dropdown-item" href="#">Trending Item 1</a></li>
+                    <li><a class="dropdown-item" href="#">Trending Item 2</a></li>
+                    <li><a class="dropdown-item" href="#">Trending Item 3</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="collectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Collection
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="collectionDropdown">
+                    <li><a class="dropdown-item" href="#">Collection Item 1</a></li>
+                    <li><a class="dropdown-item" href="#">Collection Item 2</a></li>
+                    <li><a class="dropdown-item" href="#">Collection Item 3</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <a href="#" class="nav-link text-dark fw-semibold">All Brands</a>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <a href="#" class="nav-link text-dark fw-semibold">Contact Us</a>
+        </div>
+
+        <div class="col nav-column-spacing">
+            <a href="#" class="nav-link text-dark fw-semibold">Top Deals</a>
+        </div>
+    </div>
+</section>
 <!-- Product Introduction Section -->
-<section class="container-fluid bg-image py-5">
+<section class="container-fluid bg-image">
     <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start mb-4 mb-md-0 ps-5">
-            <h2 class="display-4 fw-bold text-gradient mb-3">Google Pixel 8</h2>
+        <div class="col-md-6 mb-4 ps-5">
+            <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4">Google Pixel 8</h2>
             <p class="lead text-dark">Experience the future with the Google Pixel 8, featuring a vibrant 6.2-inch OLED display, cutting-edge Tensor G3 chip, and a powerful 50MP camera system. Designed with a sleek, modern aesthetic and built to last with all-day battery life and 5G connectivity, the Pixel 8 delivers exceptional performance and seamless integration with Google Assistant. Embrace a new era of technology with a device that combines style, power, and intelligent features for an unparalleled smartphone experience.</p>
+  
+            <!-- Specifications Section -->
+            <div class="row text-start mt-4 g-3"> 
+
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="bi bi-battery-charging text-gradient" style="font-size: 2.5rem;"></i> 
+                        </div>
+                        <div>
+                            <h5 class="fw-bold">All-Day Battery</h5>
+                            <p class="text-muted">Up to 24 hours of usage on a single charge.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="bi bi-cpu text-gradient" style="font-size: 2.5rem;"></i> 
+                        </div>
+                        <div>
+                            <h5 class="fw-bold">Tensor G3 Chip</h5>
+                            <p class="text-muted">High-performance processor for seamless multitasking.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="bi bi-motherboard text-gradient" style="font-size: 2.5rem;"></i> 
+                        </div>
+                        <div>
+                            <h5 class="fw-bold">Sleek Design</h5>
+                            <p class="text-muted">Modern, ergonomic design with premium materials.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="bi bi-camera text-gradient" style="font-size: 2.5rem;"></i> 
+                        </div>
+                        <div>
+                            <h5 class="fw-bold">50MP Camera</h5>
+                            <p class="text-muted">Capture stunning photos with high-resolution clarity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Product Image -->
         <div class="col-md-6 text-center">
@@ -124,5 +241,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </body>
 </html>
