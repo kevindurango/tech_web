@@ -184,7 +184,6 @@
   
             <!-- Specifications Section -->
             <div class="row text-start mt-4 g-3"> 
-
                 <div class="col-md-6 mb-4">
                     <div class="d-flex align-items-center">
                         <div class="me-3">
@@ -207,7 +206,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-md-6 mb-4">
                     <div class="d-flex align-items-center">
                         <div class="me-3">
@@ -231,10 +229,141 @@
                     </div>
                 </div>
             </div>
+
+            <div class="text-center text-md-start mt-4">
+                <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+            </div>
         </div>
-        <!-- Product Image -->
+
         <div class="col-md-6 text-center">
             <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
+        </div>
+        <!-- New container for the six columns -->
+        <div class="container-md mt-4 py-4 bg-white custom-container">
+            <div class="row text-center">
+                <div class="col-12 col-md-2 mb-4 vertical-bar">
+                    <div class="d-flex align-items-start justify-content-center">
+                        <i class="bi bi-truck text-gradient me-3" style="font-size: 2.5rem;"></i>
+                        <div>
+                            <h6 class="fw-bold">Free Delivery</h6>
+                            <p class="text-muted small">On all orders over $100</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 mb-4 vertical-bar">
+                    <div class="d-flex align-items-start justify-content-center">
+                        <i class="bi bi-credit-card text-gradient me-3" style="font-size: 2.5rem;"></i>
+                        <div>
+                            <h6 class="fw-bold">Safe Payment</h6>
+                            <p class="text-muted small">100% secure payment</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 mb-4 vertical-bar">
+                    <div class="d-flex align-items-start justify-content-center">
+                        <i class="bi bi-telephone text-gradient me-3" style="font-size: 2.5rem;"></i>
+                        <div>
+                            <h6 class="fw-bold">Help Center</h6>
+                            <p class="text-muted small">24 x 7 Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 mb-4 vertical-bar">
+                    <div class="d-flex align-items-start justify-content-center">
+                        <i class="bi bi-arrow-return-left text-gradient me-3" style="font-size: 2.5rem;"></i>
+                        <div>
+                            <h6 class="fw-bold">Free Returns</h6>
+                            <p class="text-muted small">No Questions Asked</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 mb-4 vertical-bar">
+                    <div class="d-flex align-items-start justify-content-center">
+                        <i class="bi bi-rocket text-gradient me-3" style="font-size: 2.5rem;"></i>
+                        <div>
+                            <h6 class="fw-bold">Fast Shipping</h6>
+                            <p class="text-muted small">In 2-3 days</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2 mb-4 vertical-bar">
+                    <div class="d-flex align-items-start justify-content-center">
+                        <i class="bi bi-emoji-smile text-gradient me-3" style="font-size: 2.5rem;"></i>
+                        <div>
+                            <h6 class="fw-bold">Happy Customers</h6>
+                            <p class="text-muted small">12k+ Customers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Discover and Shop By Category Section -->
+<section class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 mb-5 text-center">
+
+            <a href="#" class="btn btn-danger text-white btn-sm mb-2 custom-discover">Discover</a>
+            <h2 class="fw-bold mb-2">SHOP BY CATEGORY</h2>
+            <p class="text-muted">We add new products every day, Explore our great range of products.</p>
+        </div>
+    </div>
+    <div class="row mt-4">
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <img src="/tech_web/assets/com_acc.png" class="card-img-top" alt="Category 1">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Computers and Accessories</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Subtitle 1</h6>
+                    <a href="#" class="btn btn-custom-outline">View Products</a>                
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <img src="/tech_web/assets/sma_tab.png" class="card-img-top" alt="Category 2">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Smartphones and Tablets</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Subtitle 2</h6>
+                    <a href="#" class="btn btn-custom-outline">View Products</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <img src="/tech_web/assets/tv_audio.png" class="card-img-top" alt="Category 3">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">TV, Video & Audio</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Subtitle 3</h6>
+                    <a href="#" class="btn btn-custom-outline">View Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- New Section with Product Image -->
+<section class="container-fluid bg-image-section py-5">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="text-center text-white">
+                    <h2 class="display-4 fw-bold">Smart Fitness Band</h2>
+                    <p class="lead">Discover the remarkable features that set our product apart from the rest.</p>
+                    <a href="#" class="btn btn-light">Learn More</a>
+                      <div class="text-center text-md-start mt-4">
+                <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+            </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <img src="/tech_web/assets/smartwatch.png" alt="Amazing Feature 2" class="img-fluid rounded">
+            </div>
         </div>
     </div>
 </section>
