@@ -99,6 +99,10 @@
     color: transparent;
 }
 
+.custom-red {
+    color: #e91e63;
+}
+
 /* Image Styling */
 .custom-image {
     width: 100%;
@@ -186,6 +190,62 @@
 
 .bg-image-section {
     background-image: url('/tech_web/assets/blue.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.custom-icon-container {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #e91e63;
+    color: #ffffff;
+    font-size: 1.6rem;
+}
+
+/* Custom button styling */
+
+.btn-custom-rec {
+    background-color: transparent;
+    color: #000; 
+    border: 1px solid #ccc; 
+}
+
+.btn-custom-rec:active,
+.btn-custom-rec:focus,
+.btn-custom-rec:hover {
+    background-color:  #e91e63; 
+    color: #fff; 
+    border-color:#ccc; 
+}
+
+/* add to cart button */
+.btn-cart-custom {
+    position: absolute;
+    bottom: -15px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.btn-cart-custom i {
+    color: #fff;
+}
+
+.sale-section {
+    background-image: url('/tech_web/assets/banner.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

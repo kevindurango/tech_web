@@ -239,7 +239,7 @@
             <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
         </div>
         <!-- New container for the six columns -->
-        <div class="container-md mt-4 py-4 bg-white custom-container">
+        <div class="container-md py-3 bg-white custom-container">
             <div class="row text-center">
                 <div class="col-12 col-md-2 mb-4 vertical-bar">
                     <div class="d-flex align-items-start justify-content-center">
@@ -349,24 +349,167 @@
 <section class="container-fluid bg-image-section py-5">
     <div class="container">
         <div class="row">
-
             <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <div class="text-center text-white">
+                <div class="text-white">
+
+                    <h5 class="fw-bold text-white mb-3">New Features</h5>
+                    
                     <h2 class="display-4 fw-bold">Smart Fitness Band</h2>
-                    <p class="lead">Discover the remarkable features that set our product apart from the rest.</p>
-                    <a href="#" class="btn btn-light">Learn More</a>
-                      <div class="text-center text-md-start mt-4">
-                <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
-            </div>
+                    <p class="lead">The smartwatch features a 1.4-inch AMOLED display, offering vibrant clarity and up to 10 days of battery life. It includes comprehensive health monitoring with heart rate, SpO2, and sleep tracking, plus support for over 100 workout modes. With Bluetooth 5.0, GPS, and compatibility with Android and iOS, it keeps you connected with notifications and offers NFC for payments</p>
+                    
+                    <div class="row mt-4">
+
+                        <div class="col-md-6">
+                            <p><i class="bi bi-check-circle text-white"></i> 24x7 customer support</p>
+                            <p><i class="bi bi-check-circle text-white"></i> Cash on delivery</p>
+                            <p><i class="bi bi-check-circle text-white"></i> 30 days replacement</p>
+                            <p><i class="bi bi-check-circle text-white"></i> Fast delivery</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <p><i class="bi bi-check-circle text-white"></i> 12k+ happy customers</p>
+                            <p><i class="bi bi-check-circle text-white"></i> 100% secure payment</p>
+                            <p><i class="bi bi-check-circle text-white"></i> Quality products</p>
+                            <p><i class="bi bi-check-circle text-white"></i> Easy returns</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-md-start mt-4">
+                        <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+                    </div>
                 </div>
             </div>
-
             <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <img src="/tech_web/assets/smartwatch.png" alt="Amazing Feature 2" class="img-fluid rounded">
+                <img src="/tech_web/assets/smartwatch.png" alt="Smart Fitness Band" class="img-fluid rounded">
             </div>
         </div>
     </div>
 </section>
+
+<section class="container-fluid py-4">
+    <!-- New Container with Icon and Shop By Category Section -->
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 mb-5 text-center">
+                <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; border-radius: 50%; background-color: #e91e63;">
+                    <i class="bi bi-people-fill" style="font-size: 2rem; color: #ffffff;"></i>
+                </div>
+                <h2 class="fw-bold mb-2 mt-3">Shop at <span class="custom-red">Best Price</span></h2>
+                <p class="text-muted">Experience the future of technology with our revolutionary device.</p>
+            </div>
+        </div>
+        <!-- New Row with Buttons -->
+    <div class="container py-5">
+        <div class="row justify-content-center gx-0">
+            <div class="col-auto">
+                <button class="btn btn-custom-rec mb-3 ms-2 me-2">Computers and Accessories</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-custom-rec mb-3 ms-2 me-2">Smartphones and Tablets</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-custom-rec mb-3 ms-2 me-2">TV, Video, and Audio</button>
+            </div>
+        </div>
+    </div>
+<!-- New Row with four card for products -->
+<div class="container-fluid py-5">
+  <div class="row">
+    <!-- First Column -->
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100 position-relative">
+        <div class="position-relative">
+          <img src="/tech_web/assets/applecore15.png" class="card-img-top" alt="Device Image">
+          <button class="btn btn-danger btn-cart-custom">
+            <i class="bi bi-cart-plus"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <h6 class="text-muted">Desktop PC's</h6>
+          <h5 class="card-title">Apple Core 15</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text mb-0">$Price: 600.00</p>
+            <div class="star-rating">★★★★☆</div>
+          </div>
+          <p class="text-muted">Color Scheme</p>
+        </div>
+      </div>
+    </div>
+    <!-- Second Column -->
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100 position-relative">
+        <div class="position-relative">
+          <img src="/tech_web/assets/procore15.png" class="card-img-top" alt="Device Image">
+          <button class="btn btn-danger btn-cart-custom">
+            <i class="bi bi-cart-plus"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <h6 class="text-muted">Laptops</h6>
+          <h5 class="card-title">Apple Macbook Pro Core i5</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text mb-0">$Price</p>
+            <div class="star-rating">★★★★☆</div>
+          </div>
+          <p class="text-muted">Color Scheme</p>
+        </div>
+      </div>
+    </div>
+    <!-- Third Column -->
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100 position-relative">
+        <div class="position-relative">
+          <img src="/tech_web/assets/imac_pro.png" class="card-img-top" alt="Device Image">
+          <button class="btn btn-danger btn-cart-custom">
+            <i class="bi bi-cart-plus"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <h6 class="text-muted">Desktop Pc'</h6>
+          <h5 class="card-title">Apple iMac Pro</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text mb-0">$Price: 600</p>
+            <div class="star-rating">★★★★☆</div>
+          </div>
+          <p class="text-muted">Color Scheme</p>
+        </div>
+      </div>
+    </div>
+    <!-- Fourth Column -->
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card h-100 position-relative">
+        <div class="position-relative">
+          <img src="/tech_web/assets/hp_printer.png" class="card-img-top" alt="Device Image">
+
+          <button class="btn btn-danger btn-cart-custom">
+            <i class="bi bi-cart-plus"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <h6 class="text-muted">Printers</h6>
+          <h5 class="card-title">Hp Multi-Function Printer</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text mb-0">$Price: 200</p>
+            <div class="star-rating">★★★★☆</div>
+          </div>
+          <p class="text-muted">Color Scheme</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- Sale Section -->
+<div class="container-fluid sale-section position-relative">
+  <div class="row text-center text-dark py-5 position-absolute top-0 start-50 translate-middle-x">
+    <div class="col-12 mt-4">
+      <p class="h5 mb-2">Hurry up!</p>
+      <h1 class="display-4 fw-bold">HUGE SALE!</h1>
+      <p class="h5 mb-4 fw-bold">Up to 20% off on all products.</p>
+      <a href="#" class="btn btn-pink text-white px-4 py-2 mt-4 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
