@@ -12,22 +12,19 @@
 <header class="bg-dark py-1 px-4">
     <div class="container-fluid">
         <div class="row align-items-center">
-
-            <div class="col d-flex align-items-center">
+            <div class="col d-none d-md-flex align-items-center">
                 <div class="dropdown me-3 ps-4 pe-5">
                     <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="country-logo rounded-circle bg-gray" style="background-image: url('https://flagcdn.com/us.svg');"></div>
                         <span class="text-white">US</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="countryDropdown">
-
                     </ul>
                 </div>
                 <span class="text-white ps-5">Free returns. Standard shipping. Orders $99</span>
             </div>
 
-            <div class="col d-flex justify-content-between align-items-center">
-
+            <div class="col d-none d-md-flex justify-content-between align-items-center">
                 <nav>
                     <ul class="nav">
                         <li class="nav-item"><a class="nav-link text-white small" href="#">Contact Us</a></li>
@@ -37,7 +34,7 @@
                     </ul>
                 </nav>
 
-                <div>
+                <div class="d-none d-md-block">
                     <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
                     <a href="#" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
@@ -46,11 +43,136 @@
                     <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
+
+            <div class="col d-md-none text-center">
+                <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-white me-2"><i class="bi bi-github"></i></a>
+                <a href="#" class="text-white me-2"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+            </div>
         </div>
     </div>
 </header>
+<!-- Hamburger Menu for Smaller Screens -->
+<div class="d-md-none d-flex justify-content-between align-items-center">
+    <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavigation" aria-controls="offcanvasNavigation">
+        <i class="bi bi-list"></i>
+    </button>
+    <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+        <i class="bi bi-cart"></i>
+    </button>
+</div>
+<!-- Offcanvas Menu -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavigation" aria-labelledby="offcanvasNavigationLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasNavigationLabel" class="offcanvas-title">Navigation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="dropdown mb-3">
+            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid me-1"></i> Categories
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="offcanvasCategoriesDropdown">
+                <li><a class="dropdown-item" href="#">Category 1</a></li>
+                <li><a class="dropdown-item" href="#">Category 2</a></li>
+                <li><a class="dropdown-item" href="#">Category 3</a></li>
+            </ul>
+        </div>
+
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Home</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Shop</a>
+        <div class="dropdown mb-3">
+            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasPopularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Popular
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="offcanvasPopularDropdown">
+                <li><a class="dropdown-item" href="#">Popular Item 1</a></li>
+                <li><a class="dropdown-item" href="#">Popular Item 2</a></li>
+                <li><a class="dropdown-item" href="#">Popular Item 3</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown mb-3">
+            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasTrendingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Trending
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="offcanvasTrendingDropdown">
+                <li><a class="dropdown-item" href="#">Trending Item 1</a></li>
+                <li><a class="dropdown-item" href="#">Trending Item 2</a></li>
+                <li><a class="dropdown-item" href="#">Trending Item 3</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown mb-3">
+            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasCollectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Collection
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="offcanvasCollectionDropdown">
+                <li><a class="dropdown-item" href="#">Collection Item 1</a></li>
+                <li><a class="dropdown-item" href="#">Collection Item 2</a></li>
+                <li><a class="dropdown-item" href="#">Collection Item 3</a></li>
+            </ul>
+        </div>
+
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">All Brands</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Contact Us</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Top Deals</a>
+    </div>
+</div>
+<!-- Offcanvas Menu for Smaller Screens -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasMenuLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <form class="d-flex mb-3">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-light d-flex align-items-center border-0" type="submit">
+                <i class="bi bi-search text-gray"></i>
+            </button>
+        </form>
+
+        <div class="d-flex flex-column">
+            <!-- My Cart -->
+            <div class="d-flex align-items-center mb-3 text-dark">
+                <div class="icon-circle me-2">
+                    <i class="bi bi-cart"></i>
+                </div>
+                <div class="text-start">
+                    <div class="fs-7 fw-light">My Cart</div>
+                    <div class="fs-6 fw-bold">$0.00</div>
+                </div>
+            </div>
+            <!-- My Wishlist -->
+            <div class="d-flex align-items-center mb-3 text-dark">
+                <div class="icon-circle me-2">
+                    <i class="bi bi-heart"></i>
+                </div>
+                <div class="text-start">
+                    <div class="fs-7 fw-light">My Wishlist</div>
+                    <div class="fs-6 fw-bold">View Wishlist</div>
+                </div>
+            </div>
+            <!-- Guest Account -->
+            <div class="d-flex align-items-center text-dark">
+                <div class="icon-circle me-2">
+                    <i class="bi bi-person"></i>
+                </div>
+                <div class="text-start">
+                    <div class="fs-7 fw-light">Guest</div>
+                    <div class="fs-6 fw-bold">My Account</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Second Header Section: Search Bar and Icons -->
-<header class="bg-white py-2 border-bottom">
+<header class="bg-white py-2 border-bottom d-none d-md-block">
     <div class="container-fluid px-5">
         <div class="row align-items-center">
             <!-- Search Form Column -->
@@ -99,9 +221,8 @@
     </div>
 </header>
 <!-- Navigation Section -->
-<section class="container-fluid py-3 bg-white border-bottom">
+<section class="container-fluid py-3 bg-white border-bottom d-none d-md-block">
     <div class="row text-center align-items-center">
-
         <div class="col nav-column-spacing">
             <div class="dropdown">
                 <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -233,7 +354,7 @@
             <div class="text-center text-md-start mt-4">
                 <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
             </div>
-        </div>
+           </div>
 
         <div class="col-md-6 text-center">
             <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
@@ -375,7 +496,7 @@
                     </div>
                     
                     <div class="text-center text-md-start mt-4">
-                        <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+                        <a href="#" class="btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -412,7 +533,7 @@
             </div>
         </div>
     </div>
-<!-- New Row with four card for products -->
+<!-- New Row with four columns for products -->
 <div class="container-fluid py-5">
   <div class="row">
     <!-- First Column -->
@@ -507,6 +628,78 @@
       <h1 class="display-4 fw-bold">HUGE SALE!</h1>
       <p class="h5 mb-4 fw-bold">Up to 20% off on all products.</p>
       <a href="#" class="btn btn-pink text-white px-4 py-2 mt-4 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+    </div>
+  </div>
+</div>
+<!-- On sale products section -->
+<div class="container-fluid py-4">
+  <div class="row">
+
+  <div class="col-lg-6 mb-4">
+      <div class="d-flex border rounded p-3 h-100">
+        <img src="/tech_web/assets/galaxys10.png" class="img-fluid me-3" alt="Product Image" style="max-width: auto;">
+        <div>
+          <h6 class="text-muted">SMARTPHONES</h6>
+          <h5 class="fw-bold">Samsung Galaxy S10</h5>
+          <div class="d-flex align-items-center mb-2">
+            <div class="star-rating me-2">★★★★☆</div>
+            <p class="mb-0 fw-bold">320.00$</p>
+          </div>
+          <p class="text-muted">Product Description</p>
+          <p class="text-danger fw-bold">Hurry up! Limited time offer.</p>
+        </div>
+      </div>
+    </div>
+    
+<div class="col-lg-6">
+  <div class="row justify-content-center">
+
+  <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 text-center">
+        <img src="/tech_web/assets/home_theater.png" class="card-img-top" alt="Product Image">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <p class="text-muted">HOME THEATERS</p>
+            <h5 class="fw-bold">120 W Home Theater</h5>
+            <p class="text-danger">248.00$</p>
+          </div>
+          <button class="btn btn-pink mt-3">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 text-center">
+        <img src="/tech_web/assets/galaxy_fit.png" class="card-img-top" alt="Product Image">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <p class="text-muted">FITNESS TRACKERS</p>
+            <h5 class="fw-bold">Galaxy Fit e Smart Band</h5>
+            <p class="text-danger">140.65$</p>
+          </div>
+          <button class="btn btn-pink mt-3">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 text-center">
+        <img src="/tech_web/assets/ipad_7th_gen.png" class="card-img-top" alt="Product Image">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <p class="text-muted">TABLET</p>
+            <h5 class="fw-bold">Apple Ipad (7th Gen)</h5>
+            <p class="text-danger">334.88$</p>
+          </div>
+          <button class="btn btn-pink mt-3">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
