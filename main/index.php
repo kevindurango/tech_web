@@ -359,66 +359,66 @@
         <div class="col-md-6 text-center">
             <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
         </div>
-        <!-- New container for the six columns -->
-        <div class="container-md py-3 bg-white custom-container">
-            <div class="row text-center">
-                <div class="col-12 col-md-2 mb-4 vertical-bar">
-                    <div class="d-flex align-items-start justify-content-center">
-                        <i class="bi bi-truck text-gradient me-3" style="font-size: 2.5rem;"></i>
-                        <div>
-                            <h6 class="fw-bold">Free Delivery</h6>
-                            <p class="text-muted small">On all orders over $100</p>
-                        </div>
-                    </div>
+        
+<!-- New container for the six columns -->
+<div class="container-md py-3 bg-white custom-container d-none d-md-block">
+    <div class="row text-center"> 
+        <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="d-flex align-items-start justify-content-center">
+                <i class="bi bi-truck text-gradient me-3" style="font-size: 2.5rem;"></i>
+                <div>
+                    <h6 class="fw-bold">Free Delivery</h6>
+                    <p class="text-muted small">On all orders over $100</p>
                 </div>
-                <div class="col-12 col-md-2 mb-4 vertical-bar">
-                    <div class="d-flex align-items-start justify-content-center">
-                        <i class="bi bi-credit-card text-gradient me-3" style="font-size: 2.5rem;"></i>
-                        <div>
-                            <h6 class="fw-bold">Safe Payment</h6>
-                            <p class="text-muted small">100% secure payment</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="d-flex align-items-start justify-content-center">
+                <i class="bi bi-credit-card text-gradient me-3" style="font-size: 2.5rem;"></i>
+                <div>
+                    <h6 class="fw-bold">Safe Payment</h6>
+                    <p class="text-muted small">100% secure payment</p>
                 </div>
-                <div class="col-12 col-md-2 mb-4 vertical-bar">
-                    <div class="d-flex align-items-start justify-content-center">
-                        <i class="bi bi-telephone text-gradient me-3" style="font-size: 2.5rem;"></i>
-                        <div>
-                            <h6 class="fw-bold">Help Center</h6>
-                            <p class="text-muted small">24 x 7 Support</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="d-flex align-items-start justify-content-center">
+                <i class="bi bi-telephone text-gradient me-3" style="font-size: 2.5rem;"></i>
+                <div>
+                    <h6 class="fw-bold">Help Center</h6>
+                    <p class="text-muted small">24 x 7 Support</p>
                 </div>
-                <div class="col-12 col-md-2 mb-4 vertical-bar">
-                    <div class="d-flex align-items-start justify-content-center">
-                        <i class="bi bi-arrow-return-left text-gradient me-3" style="font-size: 2.5rem;"></i>
-                        <div>
-                            <h6 class="fw-bold">Free Returns</h6>
-                            <p class="text-muted small">No Questions Asked</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="d-flex align-items-start justify-content-center">
+                <i class="bi bi-arrow-return-left text-gradient me-3" style="font-size: 2.5rem;"></i>
+                <div>
+                    <h6 class="fw-bold">Free Returns</h6>
+                    <p class="text-muted small">No Questions Asked</p>
                 </div>
-                <div class="col-12 col-md-2 mb-4 vertical-bar">
-                    <div class="d-flex align-items-start justify-content-center">
-                        <i class="bi bi-rocket text-gradient me-3" style="font-size: 2.5rem;"></i>
-                        <div>
-                            <h6 class="fw-bold">Fast Shipping</h6>
-                            <p class="text-muted small">In 2-3 days</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="d-flex align-items-start justify-content-center">
+                <i class="bi bi-rocket text-gradient me-3" style="font-size: 2.5rem;"></i>
+                <div>
+                    <h6 class="fw-bold">Fast Shipping</h6>
+                    <p class="text-muted small">In 2-3 days</p>
                 </div>
-                <div class="col-12 col-md-2 mb-4 vertical-bar">
-                    <div class="d-flex align-items-start justify-content-center">
-                        <i class="bi bi-emoji-smile text-gradient me-3" style="font-size: 2.5rem;"></i>
-                        <div>
-                            <h6 class="fw-bold">Happy Customers</h6>
-                            <p class="text-muted small">12k+ Customers</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="d-flex align-items-start justify-content-center">
+                <i class="bi bi-emoji-smile text-gradient me-3" style="font-size: 2.5rem;"></i>
+                <div>
+                    <h6 class="fw-bold">Happy Customers</h6>
+                    <p class="text-muted small">12k+ Customers</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </section>
 <!-- Discover and Shop By Category Section -->
 <section class="container py-5">
@@ -470,23 +470,26 @@
 <section class="container-fluid bg-image-section py-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <div class="text-white">
+            <!-- Image Column -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center order-1 order-md-2 mb-4 mb-md-0">
+                <img src="/tech_web/assets/smartwatch.png" alt="Smart Fitness Band" class="img-fluid rounded">
+            </div>
 
+            <!-- Text Content Column -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center order-2 order-md-1">
+                <div class="text-white">
                     <h5 class="fw-bold text-white mb-3">New Features</h5>
                     
                     <h2 class="display-4 fw-bold">Smart Fitness Band</h2>
-                    <p class="lead">The smartwatch features a 1.4-inch AMOLED display, offering vibrant clarity and up to 10 days of battery life. It includes comprehensive health monitoring with heart rate, SpO2, and sleep tracking, plus support for over 100 workout modes. With Bluetooth 5.0, GPS, and compatibility with Android and iOS, it keeps you connected with notifications and offers NFC for payments</p>
+                    <p class="lead">The smartwatch features a 1.4-inch AMOLED display, offering vibrant clarity and up to 10 days of battery life. It includes comprehensive health monitoring with heart rate, SpO2, and sleep tracking, plus support for over 100 workout modes. With Bluetooth 5.0, GPS, and compatibility with Android and iOS, it keeps you connected with notifications and offers NFC for payments.</p>
                     
                     <div class="row mt-4">
-
                         <div class="col-md-6">
                             <p><i class="bi bi-check-circle text-white"></i> 24x7 customer support</p>
                             <p><i class="bi bi-check-circle text-white"></i> Cash on delivery</p>
                             <p><i class="bi bi-check-circle text-white"></i> 30 days replacement</p>
                             <p><i class="bi bi-check-circle text-white"></i> Fast delivery</p>
                         </div>
-
                         <div class="col-md-6">
                             <p><i class="bi bi-check-circle text-white"></i> 12k+ happy customers</p>
                             <p><i class="bi bi-check-circle text-white"></i> 100% secure payment</p>
@@ -499,9 +502,6 @@
                         <a href="#" class="btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <img src="/tech_web/assets/smartwatch.png" alt="Smart Fitness Band" class="img-fluid rounded">
             </div>
         </div>
     </div>
@@ -519,20 +519,22 @@
                 <p class="text-muted">Experience the future of technology with our revolutionary device.</p>
             </div>
         </div>
-        <!-- New Row with Buttons -->
-    <div class="container py-5">
-        <div class="row justify-content-center gx-0">
-            <div class="col-auto">
-                <button class="btn btn-custom-rec mb-3 ms-2 me-2">Computers and Accessories</button>
+        <!-- New Row with Buttons --> 
+<div class="container py-5">
+    <div class="d-flex overflow-auto">
+        <div class="d-flex flex-nowrap mx-auto">
+            <div class="col-auto me-2">
+                <button class="btn btn-custom-rec mb-3">Computers and Accessories</button>
             </div>
-            <div class="col-auto">
-                <button class="btn btn-custom-rec mb-3 ms-2 me-2">Smartphones and Tablets</button>
+            <div class="col-auto me-2">
+                <button class="btn btn-custom-rec mb-3">Smartphones and Tablets</button>
             </div>
-            <div class="col-auto">
-                <button class="btn btn-custom-rec mb-3 ms-2 me-2">TV, Video, and Audio</button>
+            <div class="col-auto me-2">
+                <button class="btn btn-custom-rec mb-3">TV, Video, and Audio</button>
             </div>
         </div>
     </div>
+</div>
 <!-- New Row with four columns for products -->
 <div class="container-fluid py-5">
   <div class="row">
@@ -634,26 +636,31 @@
 <!-- On sale products section -->
 <div class="container-fluid py-4">
   <div class="row">
-
-  <div class="col-lg-6 mb-4">
-      <div class="d-flex border rounded p-3 h-100">
-        <img src="/tech_web/assets/galaxys10.png" class="img-fluid me-3" alt="Product Image" style="max-width: auto;">
-        <div>
-          <h6 class="text-muted">SMARTPHONES</h6>
-          <h5 class="fw-bold">Samsung Galaxy S10</h5>
-          <div class="d-flex align-items-center mb-2">
-            <div class="star-rating me-2">★★★★☆</div>
-            <p class="mb-0 fw-bold">320.00$</p>
-          </div>
-          <p class="text-muted">Product Description</p>
-          <p class="text-danger fw-bold">Hurry up! Limited time offer.</p>
+ 
+ <div class="col-lg-6 mb-4">
+     <div class="text-center mb-3">
+            <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
+        </div> 
+    <div class="d-flex flex-wrap border rounded p-3">
+        <img src="/tech_web/assets/galaxys10.png" class="img-fluid me-3" alt="Product Image">
+        <div class="flex-grow-1">
+            <h6 class="text-muted">SMARTPHONES</h6>
+            <h5 class="fw-bold">Samsung Galaxy S10</h5>
+            <div class="d-flex align-items-center mb-2">
+                <div class="star-rating me-2">★★★★☆</div>
+                <p class="mb-0 fw-bold">$320.00</p>
+            </div>
+            <p class="text-muted">Product Description</p>
+            <p class="text-danger fw-bold">Hurry up! Limited time offer.</p>
         </div>
-      </div>
     </div>
-    
+</div>
+
 <div class="col-lg-6">
   <div class="row justify-content-center">
-
+  <div class="text-center mb-3">
+            <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Super Deals">
+        </div> 
   <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100 text-center">
         <img src="/tech_web/assets/home_theater.png" class="card-img-top" alt="Product Image">
