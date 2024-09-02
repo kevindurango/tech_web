@@ -276,32 +276,4 @@
     color: #333;
 }
 
-.custom-overlay-text {
-    position: absolute;
-    top: 0;
-    start: 0;
-    end: 0;
-    padding: 1rem; 
-    z-index: 1; /* Ensure it appears above other content */
-    white-space: nowrap; /* Ensure text does not wrap */
-    display: flex;
-    justify-content: center; 
-    align-items: center;    
-}
-
-.custom-overlay-text .line {
-    display: inline-block;
-    width: 30rem; /* Adjust the width of the line */
-    border-bottom: 2px solid #6c757d; /* Line color, adjust as needed */
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-}
-
-.custom-line {
-    border: 2px solid #6c757d; /* Line color, adjust as needed */
-    width: 100%;
-    margin: 0;
-}
-
 
