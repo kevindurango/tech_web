@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -297,12 +298,16 @@
     </div>
 </section>
 <!-- Product Introduction Section -->
-<section class="container-fluid bg-image">
+<section class="container-fluid custom-bg-image">
     <div class="row align-items-center">
-        <div class="col-md-6 mb-4 ps-5">
-            <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4">Google Pixel 8</h2>
+        <!-- Column for the image, should be on top on smaller screens -->
+        <div class="col-md-6 order-md-2 text-center">
+            <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
+        </div>
+        <!-- Column for text content -->
+        <div class="col-md-6 order-md-1 mb-4 ps-5">
+            <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4 mt-4">Google Pixel 8</h2>
             <p class="lead text-dark">Experience the future with the Google Pixel 8, featuring a vibrant 6.2-inch OLED display, cutting-edge Tensor G3 chip, and a powerful 50MP camera system. Designed with a sleek, modern aesthetic and built to last with all-day battery life and 5G connectivity, the Pixel 8 delivers exceptional performance and seamless integration with Google Assistant. Embrace a new era of technology with a device that combines style, power, and intelligent features for an unparalleled smartphone experience.</p>
-  
             <!-- Specifications Section -->
             <div class="row text-start mt-4 g-3"> 
                 <div class="col-md-6 mb-4">
@@ -354,71 +359,67 @@
             <div class="text-center text-md-start mt-4">
                 <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
             </div>
-           </div>
-
-        <div class="col-md-6 text-center">
-            <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
         </div>
-        
-<!-- New container for the six columns -->
-<div class="container-md py-3 bg-white custom-container d-none d-md-block">
-    <div class="row text-center"> 
-        <div class="col-12 col-md-2 mb-4 vertical-bar">
-            <div class="d-flex align-items-start justify-content-center">
-                <i class="bi bi-truck text-gradient me-3" style="font-size: 2.5rem;"></i>
-                <div>
-                    <h6 class="fw-bold">Free Delivery</h6>
-                    <p class="text-muted small">On all orders over $100</p>
+    </div>
+    <!-- New container for the six columns -->
+    <div class="container-md py-3 bg-white custom-container d-none d-md-block">
+        <div class="row text-center"> 
+            <div class="col-12 col-md-2 mb-4 vertical-bar">
+                <div class="d-flex align-items-start justify-content-center">
+                    <i class="bi bi-truck text-gradient me-3" style="font-size: 2.5rem;"></i>
+                    <div>
+                        <h6 class="fw-bold">Free Delivery</h6>
+                        <p class="text-muted small">On all orders over $100</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-2 mb-4 vertical-bar">
-            <div class="d-flex align-items-start justify-content-center">
-                <i class="bi bi-credit-card text-gradient me-3" style="font-size: 2.5rem;"></i>
-                <div>
-                    <h6 class="fw-bold">Safe Payment</h6>
-                    <p class="text-muted small">100% secure payment</p>
+            <div class="col-12 col-md-2 mb-4 vertical-bar">
+                <div class="d-flex align-items-start justify-content-center">
+                    <i class="bi bi-credit-card text-gradient me-3" style="font-size: 2.5rem;"></i>
+                    <div>
+                        <h6 class="fw-bold">Safe Payment</h6>
+                        <p class="text-muted small">100% secure payment</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-2 mb-4 vertical-bar">
-            <div class="d-flex align-items-start justify-content-center">
-                <i class="bi bi-telephone text-gradient me-3" style="font-size: 2.5rem;"></i>
-                <div>
-                    <h6 class="fw-bold">Help Center</h6>
-                    <p class="text-muted small">24 x 7 Support</p>
+            <div class="col-12 col-md-2 mb-4 vertical-bar">
+                <div class="d-flex align-items-start justify-content-center">
+                    <i class="bi bi-telephone text-gradient me-3" style="font-size: 2.5rem;"></i>
+                    <div>
+                        <h6 class="fw-bold">Help Center</h6>
+                        <p class="text-muted small">24 x 7 Support</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-2 mb-4 vertical-bar">
-            <div class="d-flex align-items-start justify-content-center">
-                <i class="bi bi-arrow-return-left text-gradient me-3" style="font-size: 2.5rem;"></i>
-                <div>
-                    <h6 class="fw-bold">Free Returns</h6>
-                    <p class="text-muted small">No Questions Asked</p>
+            <div class="col-12 col-md-2 mb-4 vertical-bar">
+                <div class="d-flex align-items-start justify-content-center">
+                    <i class="bi bi-arrow-return-left text-gradient me-3" style="font-size: 2.5rem;"></i>
+                    <div>
+                        <h6 class="fw-bold">Free Returns</h6>
+                        <p class="text-muted small">No Questions Asked</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-2 mb-4 vertical-bar">
-            <div class="d-flex align-items-start justify-content-center">
-                <i class="bi bi-rocket text-gradient me-3" style="font-size: 2.5rem;"></i>
-                <div>
-                    <h6 class="fw-bold">Fast Shipping</h6>
-                    <p class="text-muted small">In 2-3 days</p>
+            <div class="col-12 col-md-2 mb-4 vertical-bar">
+                <div class="d-flex align-items-start justify-content-center">
+                    <i class="bi bi-rocket text-gradient me-3" style="font-size: 2.5rem;"></i>
+                    <div>
+                        <h6 class="fw-bold">Fast Shipping</h6>
+                        <p class="text-muted small">In 2-3 days</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-2 mb-4 vertical-bar">
-            <div class="d-flex align-items-start justify-content-center">
-                <i class="bi bi-emoji-smile text-gradient me-3" style="font-size: 2.5rem;"></i>
-                <div>
-                    <h6 class="fw-bold">Happy Customers</h6>
-                    <p class="text-muted small">12k+ Customers</p>
+            <div class="col-12 col-md-2 mb-4 vertical-bar">
+                <div class="d-flex align-items-start justify-content-center">
+                    <i class="bi bi-emoji-smile text-gradient me-3" style="font-size: 2.5rem;"></i>
+                    <div>
+                        <h6 class="fw-bold">Happy Customers</h6>
+                        <p class="text-muted small">12k+ Customers</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </section>
 <!-- Discover and Shop By Category Section -->
 <section class="container py-5">
@@ -637,13 +638,17 @@
 <div class="container-fluid py-4">
   <div class="row">
  
- <div class="col-lg-6 mb-4">
-     <div class="text-center mb-3">
-            <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
-        </div> 
+  <div class="col-lg-6 mb-4">
+    <div class="text-center mb-3">
+        <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
+    </div>
     <div class="d-flex flex-wrap border rounded p-3">
         <img src="/tech_web/assets/galaxys10.png" class="img-fluid me-3" alt="Product Image">
-        <div class="flex-grow-1">
+        <div class="flex-grow-1 position-relative">
+            <!-- Add to Cart Button -->
+            <button class="btn-add-to-cart">
+                <i class="bi bi-cart"></i>
+            </button>
             <h6 class="text-muted">SMARTPHONES</h6>
             <h5 class="fw-bold">Samsung Galaxy S10</h5>
             <div class="d-flex align-items-center mb-2">
@@ -651,7 +656,26 @@
                 <p class="mb-0 fw-bold">$320.00</p>
             </div>
             <p class="text-muted">Product Description</p>
-            <p class="text-danger fw-bold">Hurry up! Limited time offer.</p>
+            <p class="fw-bold">Hurry up! Limited time offer.</p>
+            <!-- Countdown Timer -->
+            <div class="countdown-timer d-flex justify-content-between mt-3">
+                <div class="countdown-item text-center">
+                    <div class="circle">00</div>
+                    <div class="label">Days</div>
+                </div>
+                <div class="countdown-item text-center">
+                    <div class="circle">00</div>
+                    <div class="label">Hours</div>
+                </div>
+                <div class="countdown-item text-center">
+                    <div class="circle">00</div>
+                    <div class="label">Minutes</div>
+                </div>
+                <div class="countdown-item text-center">
+                    <div class="circle">00</div>
+                    <div class="label">Seconds</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -710,6 +734,146 @@
     </div>
   </div>
 </div>
+<!-- Shop by brand -->
+<section class="container-fluid my-5">
+
+        <div class="text-center mb-3">
+            <img src="/tech_web/assets/shop_by_brand.png" class="img-fluid" alt="Super Deals">
+        </div> 
+
+    <div class="row text-center">
+        <div class="col-12 col-md-3 mb-4">
+            <img src="/tech_web/assets/canon.png" alt="Image 1" class="img-fluid rounded">
+        </div>
+        <div class="col-12 col-md-3 mb-4">
+            <img src="/tech_web/assets/micromax.png" alt="Image 2" class="img-fluid rounded">
+        </div>
+        <div class="col-12 col-md-3 mb-4">
+            <img src="/tech_web/assets/samsung.png" alt="Image 3" class="img-fluid rounded">
+        </div>
+        <div class="col-12 col-md-3 mb-4">
+            <img src="/tech_web/assets/sennheiser.png" alt="Image 4" class="img-fluid rounded">
+        </div>
+    </div>
+</section>
+<!-- Subscribe Section -->
+<section class="bg-dark text-white py-5 separator-line">
+    <div class="container">
+        <div class="row align-items-left">
+
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h2 class="fw-normal">Subscribe to our weekly newsletter</h2>
+            </div>
+
+            <div class="col-md-6">
+                <form class="d-flex">
+                    <input type="email" class="form-control me-2" placeholder="your email...." aria-label="Email">
+                    <button class="btn btn-danger" type="submit">
+                        <i class="bi bi-send-fill"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer Section -->
+<footer class="bg-dark text-white py-5 footer separator-line">
+    <div class="container">
+        <div class="row">
+
+        <div class="col-md-3 mb-4">
+    <div class="d-flex justify-content-between flex-wrap">
+
+        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-facebook" style="color: #3b5998;"></i>
+        </a>
+
+        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-twitter" style="color: #1da1f2;"></i>
+        </a>
+
+        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-linkedin" style="color: #0077b5;"></i>
+        </a>
+
+        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-instagram" style="color: #e1306c;"></i>
+        </a>
+
+        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-youtube" style="color: #ff0000;"></i>
+        </a>
+    </div>
+</div>
+   <!-- Column 2: Categories -->
+   <div class="col-md-2 mb-4">
+                <h5>Categories</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Athletic Apparel</a></li>
+                    <li><a href="#" class="text-white">Sneakers & Athletic</a></li>
+                    <li><a href="#" class="text-white">Sunglasses & Eyewear</a></li>
+                    <li><a href="#" class="text-white">Jeans</a></li>
+                    <li><a href="#" class="text-white">T-Shirts</a></li>
+                    <li><a href="#" class="text-white">Swimwear</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <h5>Account Info</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Your Account</a></li>
+                    <li><a href="#" class="text-white">Refunds & Replacements</a></li>
+                    <li><a href="#" class="text-white">Order tracking</a></li>
+                    <li><a href="#" class="text-white">Delivery info</a></li>
+                    <li><a href="#" class="text-white">Taxes & Fees</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <h5>Useful Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Blog</a></li>
+                    <li><a href="#" class="text-white">Community</a></li>
+                    <li><a href="#" class="text-white">Forums</a></li>
+                    <li><a href="#" class="text-white">Pricing and Plans</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <h5>About Us</h5>
+                <p class="text-white-50">
+                    We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
+                    Our products are designed for small to medium sized companies willing to optimize their performance.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Small Footer Section -->
+<footer class="bg-dark text-white py-3">
+    <div class="container">
+        <div class="row align-items-center">
+
+        <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex align-items-center justify-content-center justify-content-md-start">
+                <i class="bi bi-copyright" style="font-size: 1rem; color: #fff;"></i>
+                <span class="ms-2" style="font-size: 1rem;">MyCompany</span>
+            </div>
+
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end">
+                <div class="dropdown ps-4 pe-5">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="country-logo rounded-circle" style="background-image: url('https://flagcdn.com/us.svg');"></div>
+                        <span class="text-white ms-2">US</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="countryDropdown">
+
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
