@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,13 +64,22 @@
         <i class="bi bi-cart"></i>
     </button>
 </div>
-<!-- Offcanvas Menu -->
+<!-- Offcanvas Menu For Nav Links -->
+
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavigation" aria-labelledby="offcanvasNavigationLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasNavigationLabel" class="offcanvas-title">Navigation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div class="profile-container">
+            <div class="profile-icon">
+                <img src="/tech_web/assets/profile_icon.png" alt="Profile Icon">
+            </div>
+            <a href="#" class="profile-text">Login • Register</a>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" style="position: absolute; top: 10px; right: 10px;"></button>
     </div>
+
     <div class="offcanvas-body">
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3"> <i class="bi bi-grid me-1"></i> Shop by Categories</a> <!-- New Link Added -->
+
         <div class="dropdown mb-3">
             <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-grid me-1"></i> Categories
@@ -83,8 +91,9 @@
             </ul>
         </div>
 
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Home</a>
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Shop</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Home</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Shop</a>
+
         <div class="dropdown mb-3">
             <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasPopularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Popular
@@ -118,11 +127,12 @@
             </ul>
         </div>
 
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">All Brands</a>
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Contact Us</a>
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-2">Top Deals</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">All Brands</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Contact Us</a>
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Top Deals</a>
     </div>
 </div>
+
 <!-- Offcanvas Menu for Smaller Screens -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     <div class="offcanvas-header">
@@ -555,7 +565,12 @@
             <p class="card-text mb-0">$Price: 600.00</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <p class="text-muted">Color Scheme</p>
+          <!-- Color Scheme Circles -->
+          <div class="d-flex mt-2">
+            <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-danger" style="width: 20px; height: 20px;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -575,7 +590,12 @@
             <p class="card-text mb-0">$Price</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <p class="text-muted">Color Scheme</p>
+          <!-- Color Scheme Circles -->
+          <div class="d-flex mt-2">
+            <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-warning" style="width: 20px; height: 20px;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -595,7 +615,12 @@
             <p class="card-text mb-0">$Price: 600</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <p class="text-muted">Color Scheme</p>
+          <!-- Color Scheme Circles -->
+          <div class="d-flex mt-2">
+            <div class="rounded-circle bg-dark" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-light" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-info" style="width: 20px; height: 20px;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -604,7 +629,6 @@
       <div class="card h-100 position-relative">
         <div class="position-relative">
           <img src="/tech_web/assets/hp_printer.png" class="card-img-top" alt="Device Image">
-
           <button class="btn btn-danger btn-cart-custom">
             <i class="bi bi-cart-plus"></i>
           </button>
@@ -616,7 +640,12 @@
             <p class="card-text mb-0">$Price: 200</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <p class="text-muted">Color Scheme</p>
+          <!-- Color Scheme Circles -->
+          <div class="d-flex mt-2">
+            <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-danger" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle bg-success" style="width: 20px; height: 20px;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -635,7 +664,7 @@
   </div>
 </div>
 <!-- On sale products section -->
-<div class="container-fluid py-4">
+<div class="container-fluid">
   <div class="row">
  
   <div class="col-lg-6 mb-4">
