@@ -64,7 +64,6 @@
         <i class="bi bi-cart"></i>
     </button>
 </div>
-<!-- Offcanvas Menu For Nav Links -->
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavigation" aria-labelledby="offcanvasNavigationLabel">
     <div class="offcanvas-header">
@@ -149,7 +148,7 @@
         </form>
 
         <div class="d-flex flex-column">
-            <!-- My Cart -->
+
             <div class="d-flex align-items-center mb-3 text-dark">
                 <div class="icon-circle me-2">
                     <i class="bi bi-cart"></i>
@@ -159,7 +158,7 @@
                     <div class="fs-6 fw-bold">$0.00</div>
                 </div>
             </div>
-            <!-- My Wishlist -->
+
             <div class="d-flex align-items-center mb-3 text-dark">
                 <div class="icon-circle me-2">
                     <i class="bi bi-heart"></i>
@@ -169,7 +168,7 @@
                     <div class="fs-6 fw-bold">View Wishlist</div>
                 </div>
             </div>
-            <!-- Guest Account -->
+
             <div class="d-flex align-items-center text-dark">
                 <div class="icon-circle me-2">
                     <i class="bi bi-person"></i>
@@ -186,7 +185,7 @@
 <header class="bg-white py-2 border-bottom d-none d-md-block">
     <div class="container-fluid px-5">
         <div class="row align-items-center">
-            <!-- Search Form Column -->
+
             <div class="col-md-6 d-flex justify-content-end">
                 <form class="d-flex w-50">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -195,10 +194,10 @@
                     </button>
                 </form>
             </div>
-            <!-- Icons and Texts Column -->
+
             <div class="col-md-6 d-flex justify-content-end">
-                <!-- My Cart -->
-                <div class="d-flex align-items-center mx-4 text-dark">
+
+            <div class="d-flex align-items-center mx-4 text-dark">
                     <div class="icon-circle me-2">
                         <i class="bi bi-cart"></i>
                     </div>
@@ -207,7 +206,7 @@
                         <div class="fs-6 fw-bold">$0.00</div>
                     </div>
                 </div>
-                <!-- My Wishlist -->
+
                 <div class="d-flex align-items-center mx-4 text-dark">
                     <div class="icon-circle me-2">
                         <i class="bi bi-heart"></i>
@@ -217,7 +216,7 @@
                         <div class="fs-6 fw-bold">View Wishlist</div>
                     </div>
                 </div>
-                <!-- Guest Account -->
+
                 <div class="d-flex align-items-center ms-4 text-dark">
                     <div class="icon-circle me-2">
                         <i class="bi bi-person"></i>
@@ -310,15 +309,15 @@
 <!-- Product Introduction Section -->
 <section class="container-fluid custom-bg-image">
     <div class="row align-items-center">
-        <!-- Column for the image, should be on top on smaller screens -->
+
         <div class="col-md-6 order-md-2 text-center">
             <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
         </div>
-        <!-- Column for text content -->
+
         <div class="col-md-6 order-md-1 mb-4 ps-5">
             <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4 mt-4">Google Pixel 8</h2>
             <p class="lead text-dark">Experience the future with the Google Pixel 8, featuring a vibrant 6.2-inch OLED display, cutting-edge Tensor G3 chip, and a powerful 50MP camera system. Designed with a sleek, modern aesthetic and built to last with all-day battery life and 5G connectivity, the Pixel 8 delivers exceptional performance and seamless integration with Google Assistant. Embrace a new era of technology with a device that combines style, power, and intelligent features for an unparalleled smartphone experience.</p>
-            <!-- Specifications Section -->
+
             <div class="row text-start mt-4 g-3"> 
                 <div class="col-md-6 mb-4">
                     <div class="d-flex align-items-center">
@@ -481,12 +480,11 @@
 <section class="container-fluid bg-image-section py-5">
     <div class="container">
         <div class="row">
-            <!-- Image Column -->
+
             <div class="col-md-6 d-flex align-items-center justify-content-center order-1 order-md-2 mb-4 mb-md-0">
                 <img src="/tech_web/assets/smartwatch.png" alt="Smart Fitness Band" class="img-fluid rounded">
             </div>
 
-            <!-- Text Content Column -->
             <div class="col-md-6 d-flex align-items-center justify-content-center order-2 order-md-1">
                 <div class="text-white">
                     <h5 class="fw-bold text-white mb-3">New Features</h5>
@@ -530,8 +528,8 @@
                 <p class="text-muted">Experience the future of technology with our revolutionary device.</p>
             </div>
         </div>
-        <!-- New Row with Buttons --> 
-<div class="container py-5">
+
+        <div class="container py-5">
     <div class="d-flex overflow-auto">
         <div class="d-flex flex-nowrap mx-auto">
             <div class="col-auto me-2">
@@ -549,8 +547,8 @@
 <!-- New Row with four columns for products -->
 <div class="container-fluid py-5">
   <div class="row">
-    <!-- First Column -->
-    <div class="col-lg-3 col-md-6 mb-4">
+
+      <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 position-relative">
         <div class="position-relative">
           <img src="/tech_web/assets/applecore15.png" class="card-img-top" alt="Device Image">
@@ -565,7 +563,7 @@
             <p class="card-text mb-0">$Price: 600.00</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <!-- Color Scheme Circles -->
+
           <div class="d-flex mt-2">
             <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
             <div class="rounded-circle bg-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
@@ -574,7 +572,7 @@
         </div>
       </div>
     </div>
-    <!-- Second Column -->
+
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 position-relative">
         <div class="position-relative">
@@ -590,7 +588,7 @@
             <p class="card-text mb-0">$Price</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <!-- Color Scheme Circles -->
+
           <div class="d-flex mt-2">
             <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
             <div class="rounded-circle bg-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
@@ -599,7 +597,7 @@
         </div>
       </div>
     </div>
-    <!-- Third Column -->
+
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 position-relative">
         <div class="position-relative">
@@ -615,7 +613,7 @@
             <p class="card-text mb-0">$Price: 600</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <!-- Color Scheme Circles -->
+
           <div class="d-flex mt-2">
             <div class="rounded-circle bg-dark" style="width: 20px; height: 20px; margin-right: 5px;"></div>
             <div class="rounded-circle bg-light" style="width: 20px; height: 20px; margin-right: 5px;"></div>
@@ -810,26 +808,21 @@
     <div class="container">
         <div class="row">
 
-        <div class="col-md-3 mb-4">
-    <div class="d-flex justify-content-between flex-wrap">
-
-        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+<div class="col-md-3 mb-4">
+    <div class="social-links row row-cols-3 row-cols-sm-2 row-cols-md-1 g-3 mt-1">
+        <a href="#" class="icon-circle">
             <i class="bi bi-facebook" style="color: #3b5998;"></i>
         </a>
-
-        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+        <a href="#" class="icon-circle">
             <i class="bi bi-twitter" style="color: #1da1f2;"></i>
         </a>
-
-        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+        <a href="#" class="icon-circle">
             <i class="bi bi-linkedin" style="color: #0077b5;"></i>
         </a>
-
-        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+        <a href="#" class="icon-circle">
             <i class="bi bi-instagram" style="color: #e1306c;"></i>
         </a>
-
-        <a href="#" class="text-dark icon-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+        <a href="#" class="icon-circle">
             <i class="bi bi-youtube" style="color: #ff0000;"></i>
         </a>
     </div>
@@ -902,7 +895,6 @@
         </div>
     </div>
 </footer>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

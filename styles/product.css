@@ -1,76 +1,204 @@
 /* Carousel thumbnails */
 .carousel-inner img {
-    width: 100%; 
-    height: 250px;
-    object-fit: cover; 
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
 
 /* Adjust carousel image size */
 .carousel-inner img {
-    width: 100%; 
-    height: auto; 
-    object-fit: cover; 
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 /* Adjust thumbnail sizes */
 .img-thumbnail {
-    width: 60px; 
-    height: 60px; 
+  width: 60px;
+  height: 60px;
 }
 
 /* Ensure the carousel control icons are visible */
-.carousel-control-prev-icon, .carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5);
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Styling for the product details section */
 .product-details .bi {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .product-details .text-warning {
-    color: #ffc107;
+  color: #ffc107;
 }
 
 .product-details .text-danger {
-    color: #dc3545;
-}
-
-.product-details .text-success {
-    color: #28a745;
+  color: #dc3545;
 }
 
 /* Color options */
 .color-option {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
 }
 
-.bg-danger { background-color: red; }
-.bg-purple { background-color: purple; }
-.bg-dark { background-color: black; }
+.bg-danger {
+  background-color: red;
+}
+.bg-purple {
+  background-color: purple;
+}
+.bg-dark {
+  background-color: black;
+}
 
 /* Button styling */
+
 .btn-outline-secondary {
-    color: #6c757d;
-    border-color: #6c757d;
+  color: #343a40;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  border-radius: 0;
 }
 
 .btn-outline-secondary:hover {
-    color: #ffffff;
-    background-color: #6c757d;
-    border-color: #6c757d;
+  background-color: #5a6268;
+  border-color: #5a6268;
 }
 
 /* Storage options styling */
 .btn-storage {
-    background-color: red;
-    color: white;
-    border: 0;
+  background-color: red;
+  color: white;
+  border: 0;
+  border-radius: 0;
 }
 
 .btn-storage:hover {
-    background-color: darkred;
+  background-color: darkred;
+}
+
+.brand-info {
+  display: flex;
+  align-items: flex-start;
+}
+
+.brand-info img {
+  max-width: 100px;
+  height: auto;
+}
+
+.brand-info div {
+  flex: 1;
+}
+
+/* Term image container styling */
+
+.term-image-column {
+  padding: 0;
+  text-align: left;
+}
+
+.term-image {
+  width: 8rem;
+  height: auto;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-right: 1rem;
+}
+
+/* Styling for the navigation bar */
+
+.product-navigation {
+  border-top: 2px solid lightgray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-tabs .nav-link {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 10px 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.nav-tabs .nav-link i {
+  margin-right: 8px;
+  color: grey;
+}
+
+/* Red line indicator above active tab */
+.nav-tabs .nav-link.active {
+  color: red;
+}
+
+.nav-tabs .nav-link.active::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: red;
+}
+
+/* Adjust border color for inactive links */
+.nav-tabs .nav-link:not(.active) {
+  border-color: transparent;
+}
+
+/* Custom styles for the Similar Products section */
+.similar-products {
+  margin-top: 2rem;
+}
+
+.similar-products .underline {
+  height: 2px;
+  background-color: red;
+  width: 100px; /* Adjust width as needed */
+  margin-top: 0.5rem;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.text-danger {
+  color: red;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
 }
