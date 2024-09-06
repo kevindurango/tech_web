@@ -209,6 +209,20 @@
   border-radius: 1px;
 }
 
+.custom-discover {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-discover:hover {
+  background-color: #c82333;
+}
+
 /* Add to Cart Button */
 .btn-cart-custom {
   position: absolute;

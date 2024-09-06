@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enhanced Header with Search and Icons</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/tech_web/styles/styles.css">  
+    <link rel="stylesheet" href="/tech_web/styles/styles.css">
     <link rel="stylesheet" href="/tech_web/styles/product.css">
 </head>
 <body>
@@ -65,7 +65,6 @@
         <i class="bi bi-cart"></i>
     </button>
 </div>
-<!-- Offcanvas Menu For Nav Links -->
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavigation" aria-labelledby="offcanvasNavigationLabel">
     <div class="offcanvas-header">
@@ -150,7 +149,7 @@
         </form>
 
         <div class="d-flex flex-column">
-            <!-- My Cart -->
+
             <div class="d-flex align-items-center mb-3 text-dark">
                 <div class="icon-circle me-2">
                     <i class="bi bi-cart"></i>
@@ -160,7 +159,7 @@
                     <div class="fs-6 fw-bold">$0.00</div>
                 </div>
             </div>
-            <!-- My Wishlist -->
+
             <div class="d-flex align-items-center mb-3 text-dark">
                 <div class="icon-circle me-2">
                     <i class="bi bi-heart"></i>
@@ -170,7 +169,7 @@
                     <div class="fs-6 fw-bold">View Wishlist</div>
                 </div>
             </div>
-            <!-- Guest Account -->
+
             <div class="d-flex align-items-center text-dark">
                 <div class="icon-circle me-2">
                     <i class="bi bi-person"></i>
@@ -187,7 +186,7 @@
 <header class="bg-white py-2 border-bottom d-none d-md-block">
     <div class="container-fluid px-5">
         <div class="row align-items-center">
-            <!-- Search Form Column -->
+
             <div class="col-md-6 d-flex justify-content-end">
                 <form class="d-flex w-50">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -196,10 +195,10 @@
                     </button>
                 </form>
             </div>
-            <!-- Icons and Texts Column -->
+
             <div class="col-md-6 d-flex justify-content-end">
-                <!-- My Cart -->
-                <div class="d-flex align-items-center mx-4 text-dark">
+
+            <div class="d-flex align-items-center mx-4 text-dark">
                     <div class="icon-circle me-2">
                         <i class="bi bi-cart"></i>
                     </div>
@@ -208,7 +207,7 @@
                         <div class="fs-6 fw-bold">$0.00</div>
                     </div>
                 </div>
-                <!-- My Wishlist -->
+
                 <div class="d-flex align-items-center mx-4 text-dark">
                     <div class="icon-circle me-2">
                         <i class="bi bi-heart"></i>
@@ -218,7 +217,7 @@
                         <div class="fs-6 fw-bold">View Wishlist</div>
                     </div>
                 </div>
-                <!-- Guest Account -->
+
                 <div class="d-flex align-items-center ms-4 text-dark">
                     <div class="icon-circle me-2">
                         <i class="bi bi-person"></i>
@@ -308,143 +307,39 @@
         </div>
     </div>
 </section>
-<!-- Product Image Carousel Section -->
-<section class="product-section mt-4">
+
+<section class="mt-3">
     <div class="container-fluid">
         <div class="row">
-
-            <div class="col-md-6">
-                <div id="productCarousel" class="carousel slide">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="/tech_web/assets/iphone13.png" class="d-block w-100" alt="Product Image 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/tech_web/assets/iphone13-2.png" class="d-block w-100" alt="Product Image 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/tech_web/assets/iphone13-3.png" class="d-block w-100" alt="Product Image 3">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#productCarousel" role="button" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#productCarousel" role="button" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </a>
-                </div>
-
-                <div class="d-flex justify-content-center mt-2">
-                    <img src="/tech_web/assets/iphone13.png" class="img-thumbnail mx-1" alt="Thumbnail 1" data-bs-target="#productCarousel" data-bs-slide-to="0">
-                    <img src="/tech_web/assets/iphone13-2.png" class="img-thumbnail mx-1" alt="Thumbnail 2" data-bs-target="#productCarousel" data-bs-slide-to="1">
-                    <img src="/tech_web/assets/iphone13-3.png" class="img-thumbnail mx-1" alt="Thumbnail 3" data-bs-target="#productCarousel" data-bs-slide-to="2">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="bi bi-house-door-fill me-2"></i>
-                    <span class="mx-2">/</span>
-                    <span class="text-danger fw-semibold">Shop</span>
-                    <span class="mx-2">/</span>
-                    <span class="fw-semibold">Apple iPhone 13</span>
-
-                    <div class="d-flex align-items-center ms-auto">
-                        <span style="color: red; font-size: 1rem;">&lt;</span>
-                        <i class="bi bi-grid text-danger mx-2" style="font-size: 1rem;"></i>
-                        <span style="color: red; font-size: 1rem;">&gt;</span>
-                    </div>
-
-                </div>
-
-                <h3 class="mb-2">Apple iPhone 13</h3>
-
-                <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-star-fill text-warning me-2"></i>
-                    <span>4.5 (200 reviews)</span>
-                </div>
-
-                <p class="mb-3">The iPhone 13 features a stunning display, advanced camera system, and powerful A15 Bionic chip. It offers a sleek design, improved battery life, and a range of exciting colors.</p>
-
-                <div class="mb-3">
-                    <span class="text-danger fw-bold fs-5 me-2">Original Price: $999</span>
-                    <span class="text-muted text-decoration-line-through fs-5 me-2">$899</span>
-                    <span class="text-success fw-semibold" style="color: orange;">(8% off)</span>
-                </div>
-
-                <hr class="my-4">
-                <div class="mb-3">
-                    <h5>Storage</h5>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-storage">8 GB + 128 GB</button>
-                        <button class="btn btn-storage">16 GB + 256 GB</button>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <h5>Color</h5>
-                    <div class="d-flex gap-2">
-                        <div class="color-option bg-danger"></div>
-                        <div class="color-option bg-purple"></div>
-                        <div class="color-option bg-dark"></div>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center mb-3 text-start w-100">
-                    <i class="bi bi-envelope-fill text-danger me-2"></i>
-                    <span>Get notified when back in stock</span>
-                </div>
-                <button class="btn btn-outline-secondary">
-                    <i class="bi bi-clock me-1"></i> Save for later
-                </button>
-
-                <div class="mt-4">
-
-                    <hr class="my-4">
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-gift text-danger me-2"></i>
-                            <span>Special Offer: Get mi smart speaker on purchase of selected devices. <a href="#" class="text-danger">Details ></a></span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-bank text-danger me-2"></i>
-                            <span>Bank Offer: Extra 5% off on credit cards. <a href="#" class="text-danger">Details ></a></span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-person-badge text-danger me-2"></i>
-                            <span>Membership: Get prime membership for extra discount. <a href="#" class="text-danger">Details ></a></span>
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-                    <div class="mb-4">
-                        <p class="mb-1"><strong>SKU:</strong> Prime244400</p>
-                        <p class="mb-1"><strong>Tags:</strong> Gadget, Exclusive, Storage, Best, Device, Electric.</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="fw-semibold">Share:</span>
-                        <a href="#" class="text-dark mx-1"><i class="bi bi-facebook" style="color: #3b5998;"></i></a>
-                        <a href="#" class="text-dark mx-1"><i class="bi bi-twitter" style="color: #1da1f2;"></i></a>
-                        <a href="#" class="text-dark mx-1"><i class="bi bi-pinterest" style="color: #e60023;"></i></a>
-                        <a href="#" class="text-dark mx-1"><i class="bi bi-envelope" style="color: #000000;"></i></a>
-                    </div>
-
-                    <div class="mb-4">
-                        <h5>Terms and Conditions:</h5>
-                        <p>Here are the terms and conditions related to the purchase and usage of the product.</p>
-                    </div>
-
-                    <div class="container product-terms mt-4">
-                            <div class="row">
-                                <div class="col-12 term-image-column">
-                                    <img src="/tech_web/assets/term1.png" class="img-fluid term-image" alt="Term Image 1">
-                                    <img src="/tech_web/assets/term2.png" class="img-fluid term-image" alt="Term Image 2">
-                                    <img src="/tech_web/assets/term3.png" class="img-fluid term-image" alt="Term Image 3">
-                                </div>
-                            </div>
+            <div class="col-12">
+                <div class="categories-section mt-2 ps-1">
+                    <h3 class="fw-bold mb-3 ps-3 text-start fs-4">Categories</h3>
+                    <div class="categories-nav-wrapper">
+                        <div class="categories-nav">
+                            <a href="#" class="category-item">
+                                <img src="/tech_web/assets/computer_icon.png" alt="Computers" class="category-icon">
+                                Computers and Accessories
+                            </a>
+                            <a href="#" class="category-item">
+                                <img src="/tech_web/assets/smartphone_icon.png" alt="Smartphones" class="category-icon">
+                                Smartphones and Tablets
+                            </a>
+                            <a href="#" class="category-item">
+                                <img src="/tech_web/assets/tv_icon.png" alt="TV" class="category-icon">
+                                TV, Video and Audio
+                            </a>
+                            <a href="#" class="category-item">
+                                <img src="/tech_web/assets/camera_icon.png" alt="Camera" class="category-icon">
+                                Camera
+                            </a>
+                            <a href="#" class="category-item">
+                                <img src="/tech_web/assets/headphone_icon.png" alt="Headphones" class="category-icon">
+                                Headphones
+                            </a>
+                            <a href="#" class="category-item">
+                                <img src="/tech_web/assets/wearable_electronics_icon.png" alt="Wearable" class="category-icon">
+                                Wearable Electronics
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -452,77 +347,279 @@
         </div>
     </div>
 </section>
- <!-- navigation bar-->
-<section class="product-navigation mt-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <ul class="nav nav-tabs justify-content-center border-bottom border-gray">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#description" data-bs-toggle="tab">
-                            <i class="bi bi-file-text"></i> Description
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#specifications" data-bs-toggle="tab">
-                            <i class="bi bi-gear"></i> Specifications
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#documents" data-bs-toggle="tab">
-                            <i class="bi bi-file-earmark-text"></i> Documents
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reviews" data-bs-toggle="tab">
-                            <i class="bi bi-star"></i> Reviews & Rating
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#shipping" data-bs-toggle="tab">
-                            <i class="bi bi-truck"></i> Shipping & Delivery
-                        </a>
-                    </li>
-                </ul>
+
+<section class="mt-2 mb-2">
+    <div class="container-fluid">
+        <div class="row justify-content-between align-items-center">
+
+            <div class="col-md-6">
+                <h5 class="fw-normal">All products - 39 items</h5>
+            </div>
+
+            <!-- Pricelist, Sort by, and View -->
+            <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <!-- Pricelist Dropdown -->
+                <div class="me-3 d-flex align-items-center">
+                    <label for="price-list" class="me-1 mb-0">Pricelist:</label>
+                    <select id="price-list" class="form-select form-select-sm ms-1">
+                        <option>EUR</option>
+                        <option>USD</option>
+                        <option>GBP</option>
+                    </select>
+                </div>
+                <!-- Sort by Dropdown -->
+                <div class="d-flex align-items-center me-3">
+                    <label for="sort-by" class="me-2 mb-0">Sort by:</label>
+                    <select id="sort-by" class="form-select form-select-sm w-auto">
+                        <option>Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest Arrivals</option>
+                    </select>
+                </div>
+                <!-- List and Grid View Icons -->
+                <div class="view-options d-flex align-items-center">
+                    <a href="#" class="me-2 text-danger">
+                        <i class="bi bi-list" style="font-size: 1rem;"></i>
+                    </a>
+                    <a href="#" class="text-danger">
+                        <i class="bi bi-grid" style="font-size: 1rem;"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <div class="row mt-5">
-        <div class="col-12 mb-5 text-center">
+<section class="mt-2 mb-2">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- First Column: Category Filter -->
+            <div class="col-md-4">
+                <div class="list-group border rounded p-2">
+                    <h5 class="fw-bold mb-4">Categories</h5>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="all-products" checked>
+                        <span>All products</span>
+                        <span class="text-muted small ms-auto">(39)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="computers-accessories">
+                        <span>Computers and Accessories</span>
+                        <span class="text-muted small ms-auto">(15)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="smartphones-tablets">
+                        <span>Smartphones and Tablets</span>
+                        <span class="text-muted small ms-auto">(12)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="tv-video-audio">
+                        <span>TV, Video and Audio</span>
+                        <span class="text-muted small ms-auto">(8)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="camera">
+                        <span>Camera</span>
+                        <span class="text-muted small ms-auto">(5)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="headphones">
+                        <span>Headphones</span>
+                        <span class="text-muted small ms-auto">(7)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="wearable-accessories">
+                        <span>Wearable Accessories</span>
+                        <span class="text-muted small ms-auto">(6)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <label class="list-group-item d-flex align-items-center">
+                        <input type="radio" name="category" class="form-check-input me-2" value="others">
+                        <span>Others</span>
+                        <span class="text-muted small ms-auto">(3)</span>
+                        <i class="bi bi-caret-down-fill text-muted ms-2"></i>
+                    </label>
+                    <button class="btn btn-dark w-100 mt-3">Reset Filter</button>
+                    <div class="mt-3">
+                        <img src="/tech_web/assets/headphone_sale.png" alt="Advertisement" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <!-- Second Column: Products -->
+            <div class="col-md-8">
+                <section class="similar-products mt-2 mb-3">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Product Card -->
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/product-ipad-7thgen.png" class="card-img-top" alt="Product 1">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Tablet</h6>
+                                        <h5 class="card-title">Apple iPad 7th Gen</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$334</span>
+                                            <span class="text-muted text-decoration-line-through">$364</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
 
-            <a href="#" class="btn btn-danger text-white btn-sm mb-2 custom-discover">Discover</a>
-            <h2 class="fw-bold mb-2">Featured Products</h2>
-            <p class="text-muted">We add new products every day, Explore our great range of products.</p>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/apple-iphone-11.png" class="card-img-top" alt="Product 2">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Apple iPhone 11</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$349</span>
+                                            <span class="text-muted text-decoration-line-through">$449</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                                        <p class="card-text">
+                                            <span class="text-danger">$299</span>
+                                            <span class="text-muted text-decoration-line-through">$399</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
-
-    <div class="mb-4 mt-5">
-    <div class="row">
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-music-note-beamed text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Dolby Atmos</h5>
-            <p class="text-muted">Enjoy immersive sound with Dolby Atmos technology for a cinematic audio experience.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-wifi text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Wi-Fi</h5>
-            <p class="text-muted">Fast and reliable Wi-Fi connectivity for seamless internet access.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-bluetooth text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Bluetooth 5.3</h5>
-            <p class="text-muted">Latest Bluetooth technology for enhanced wireless connectivity and efficiency.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-tv text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Ultra 4K Ready</h5>
-            <p class="text-muted">Supports Ultra HD 4K resolution for crisp and vibrant display quality.</p>
-        </div>
-    </div>
-</div>
-
- <!-- Subscribe/Email Form Section -->
+</section>
+<!-- Subscribe Section -->
 <section class="bg-dark text-white py-5 separator-line">
     <div class="container">
         <div class="row align-items-left">
@@ -542,32 +639,32 @@
         </div>
     </div>
 </section>
- <!-- Footer Section -->
- <footer class="bg-dark text-white py-5 footer separator-line">
- <div class="container">
-      <div class="row">
+<!-- Footer Section -->
+<footer class="bg-dark text-white py-5 footer separator-line">
+    <div class="container">
+        <div class="row">
 
-            <div class="col-md-3 mb-4">
-                <div class="social-links row row-cols-3 row-cols-sm-2 row-cols-md-1 g-3 mt-1">
-                    <a href="#" class="icon-circle">
-                        <i class="bi bi-facebook" style="color: #3b5998;"></i>
-                    </a>
-                    <a href="#" class="icon-circle">
-                        <i class="bi bi-twitter" style="color: #1da1f2;"></i>
-                    </a>
-                    <a href="#" class="icon-circle">
-                        <i class="bi bi-linkedin" style="color: #0077b5;"></i>
-                    </a>
-                    <a href="#" class="icon-circle">
-                        <i class="bi bi-instagram" style="color: #e1306c;"></i>
-                    </a>
-                    <a href="#" class="icon-circle">
-                        <i class="bi bi-youtube" style="color: #ff0000;"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-2 mb-4">
+<div class="col-md-3 mb-4">
+    <div class="social-links row row-cols-3 row-cols-sm-2 row-cols-md-1 g-3 mt-1">
+        <a href="#" class="icon-circle">
+            <i class="bi bi-facebook" style="color: #3b5998;"></i>
+        </a>
+        <a href="#" class="icon-circle">
+            <i class="bi bi-twitter" style="color: #1da1f2;"></i>
+        </a>
+        <a href="#" class="icon-circle">
+            <i class="bi bi-linkedin" style="color: #0077b5;"></i>
+        </a>
+        <a href="#" class="icon-circle">
+            <i class="bi bi-instagram" style="color: #e1306c;"></i>
+        </a>
+        <a href="#" class="icon-circle">
+            <i class="bi bi-youtube" style="color: #ff0000;"></i>
+        </a>
+    </div>
+</div>
+   <!-- Column 2: Categories -->
+   <div class="col-md-2 mb-4">
                 <h5>Categories</h5>
                 <ul class="list-unstyled">
                     <li><a href="#" class="text-white">Athletic Apparel</a></li>
@@ -627,6 +724,7 @@
                         <span class="text-white ms-2">US</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="countryDropdown">
+
                 </ul>
                 </div>
             </div>
