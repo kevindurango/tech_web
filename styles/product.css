@@ -116,7 +116,6 @@
 .product-navigation {
   border-top: 2px solid lightgray;
   padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .nav-tabs .nav-link {
@@ -179,7 +178,9 @@
 }
 
 .card-body {
+  padding-top: 5px;
   padding: 1rem;
+  min-height: 150px;
 }
 
 .card-title {
@@ -309,4 +310,124 @@
 
 .form-check-label {
   margin-left: 1rem;
+}
+
+.fixed-card-height {
+  height: 330px;
+}
+
+/* Card container */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card-img-container {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+}
+
+/* Ensures the image fits its container */
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Star reviews  */
+
+.star-reviews {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* Star icon styling */
+.star-reviews i {
+  margin-right: 5px;
+}
+
+/* Add to Cart Button */
+
+.product-card-add-to-cart {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 70px;
+  cursor: pointer;
+  z-index: 2;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.product-card-add-to-cart i {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.product-card-add-to-cart span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Hover state for the card */
+.card:hover .product-card-add-to-cart {
+  display: block;
+}
+
+/* Icons on hover */
+.product-card-icons {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) translateX(30px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.product-card-icons i {
+  background-color: #d3d3d3;
+  color: black;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card-icons i:hover {
+  background-color: #b0b0b0;
+}
+
+/* Show icons smoothly on hover */
+.card:hover .product-card-icons {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
