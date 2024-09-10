@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> E-commerce website </title>
+    <title> product page </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/tech_web/styles/styles.css">  
     <link rel="stylesheet" href="/tech_web/styles/product.css">
@@ -204,8 +204,6 @@ include 'header.php';
         </div>
     </div>
 
-
-
     <div class="container mb-4 mt-5">
     <div class="row">
         <div class="col-lg-3 col-md-6 text-center mb-4">
@@ -227,6 +225,59 @@ include 'header.php';
             <i class="bi bi-tv text-danger" style="font-size: 2rem;"></i>
             <h5 class="mt-2">Ultra 4K Ready</h5>
             <p class="text-muted">Supports Ultra HD 4K resolution for crisp and vibrant display quality.</p>
+        </div>
+    </div>
+</div>
+
+<section class="similar-products mt-4 mb-3" >
+    <div class="container-fluid">
+        <hr class="my-4">
+        <div class="row mb-4">
+            <div class="col-12 text-start">
+                <h3 class="text-left">Similar Products</h3>
+                <div class="underline"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="/tech_web/assets/product-ipad-7thgen.png" class="card-img-top" alt="Product 1">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Tablet</h6> 
+                        <h5 class="card-title">Apple iPad 7th Gen</h5>
+                        <p class="card-text">
+                            <span class="text-danger">$334</span> 
+                            <span class="text-muted text-decoration-line-through">$364</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="/tech_web/assets/apple-iphone-11.png" class="card-img-top" alt="Product 2">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6> 
+                        <h5 class="card-title">Apple iPhone 11</h5>
+                        <p class="card-text">
+                            <span class="text-danger">$349</span> 
+                            <span class="text-muted text-decoration-line-through">$449</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="/tech_web/assets/galaxy-a16.png" class="card-img-top" alt="Product 3">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+                        <h5 class="card-title">Samsung Galaxy A16</h5>
+                        <p class="card-text">
+                            <span class="text-danger">$299</span> 
+                            <span class="text-muted text-decoration-line-through">$399</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

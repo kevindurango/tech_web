@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Header with Search and Icons</title>
+    <title>Category Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/tech_web/styles/styles.css">
     <link rel="stylesheet" href="/tech_web/styles/product.css">
@@ -63,9 +63,8 @@ include 'header.php';
                 <h5 class="fw-normal">All products - 39 items</h5>
             </div>
 
-            <!-- Pricelist, Sort by, and View -->
             <div class="col-md-6 d-flex justify-content-end align-items-center">
-                <!-- Pricelist Dropdown -->
+
                 <div class="me-3 d-flex align-items-center">
                     <label for="price-list" class="me-1 mb-0">Pricelist:</label>
                     <select id="price-list" class="form-select form-select-sm ms-1">
@@ -74,7 +73,7 @@ include 'header.php';
                         <option>GBP</option>
                     </select>
                 </div>
-                <!-- Sort by Dropdown -->
+
                 <div class="d-flex align-items-center me-3">
                     <label for="sort-by" class="me-2 mb-0">Sort by:</label>
                     <select id="sort-by" class="form-select form-select-sm w-auto">
@@ -84,7 +83,7 @@ include 'header.php';
                         <option>Newest Arrivals</option>
                     </select>
                 </div>
-                <!-- List and Grid View Icons -->
+
                 <div class="view-options d-flex align-items-center">
                     <a href="#" class="me-2 text-danger">
                         <i class="bi bi-list" style="font-size: 1rem;"></i>
@@ -101,7 +100,7 @@ include 'header.php';
 <section class="mt-2 mb-2">
     <div class="container">
         <div class="row">
-            <!-- First Column: Category Filter -->
+
             <div class="col-md-4">
                 <div class="list-group border rounded p-2">
                     <h5 class="fw-bold mb-4">Categories</h5>
@@ -159,105 +158,695 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-  <!-- Second Column: Products -->
-  <div class="col-md-8">
-                <section class="similar-products mt-2 mb-3">
-                    <div class="container">
-                        <div class="row">
 
-                        <div class="col-lg-4 col-md-6 col-12 mb-3">
-                            <div class="card">
-                                <div class="card-img-container">
-                                    <img src="/tech_web/assets/products/apple-imac-pro.png" class="card-img-top" alt="Product 1">
-                                    <div class="star-reviews">
-                                        <i class="bi bi-star-fill text-warning"></i> <span>4.2</span> 
-                                    </div>
-                                    <button class="product-card-add-to-cart">
-                                        <i class="bi bi-cart"></i> Add to Cart
-                                    </button>
-                                    <div class="product-card-icons">
-                                        <i class="bi bi-eye"></i>
-                                        <i class="bi bi-heart"></i>
-                                        <i class="bi bi-arrow-repeat"></i>
-                                        <i class="bi bi-clipboard"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">Tablet</h6>
-                                    <h5 class="card-title">Apple iPad 7th Gen</h5>
-                                    <p class="card-text">
-                                        <span class="text-danger">$334</span>
-                                        <span class="text-muted text-decoration-line-through">$364</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Second Column: Products -->
+<div class="col-md-8">
+    <div class="container">
+      <div class="row">
 
-                        <div class="col-lg-4 col-md-6 col-12 mb-3">
-                            <div class="card">
-                                <div class="card-img-container">
-                                    <img src="/tech_web/assets/products/apple-iphone-13.png" class="card-img-top" alt="Apple iPhone 13">
-                                    <div class="star-reviews">
-                                        <i class="bi bi-star-fill text-warning"></i> <span>4.5</span>
-                                    </div>
-                                    <button class="product-card-add-to-cart">
-                                        <i class="bi bi-cart"></i> Add to Cart
-                                    </button>
-                                    <div class="product-card-icons">
-                                        <i class="bi bi-eye"></i>
-                                        <i class="bi bi-heart"></i>
-                                        <i class="bi bi-arrow-repeat"></i>
-                                        <i class="bi bi-clipboard"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
-                                    <h5 class="card-title">Apple iPhone 13</h5>
-                                    <p class="card-text">
-                                        <span class="text-danger">368.00 €</span>
-                                        <span class="text-muted text-decoration-line-through">400.00 €</span>
-                                        <span class="text-success">(8% OFF)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+          <div class="card">
+            <div class="card-img-container">
+              <img src="/tech_web/assets/products/apple-imac-pro.png" class="card-img-top" alt="Product 1">
+              <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>4.2</span> 
+              </div>
+              <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+              </button>
+              <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Tablet</h6>
+              <h5 class="card-title">Apple iPad 7th Gen</h5>
+              <p class="card-text">
+                <span class="text-danger">$334</span>
+                <span class="text-muted text-decoration-line-through">$364</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-                        <div class="col-lg-4 col-md-6 col-12 mb-3">
-                            <div class="card">
-                                <div class="card-img-container">
-                                    <img src="/tech_web/assets/products/wireless-controller.png" class="card-img-top" alt="Wireless Controller">
-                                    <div class="star-reviews">
-                                        <i class="bi bi-star-fill text-warning"></i> <span>4.7</span>
-                                    </div>
-                                    <button class="product-card-add-to-cart">
-                                        <i class="bi bi-cart"></i> Add to Cart
-                                    </button>
-                                    <div class="product-card-icons">
-                                        <i class="bi bi-eye"></i>
-                                        <i class="bi bi-heart"></i>
-                                        <i class="bi bi-arrow-repeat"></i>
-                                        <i class="bi bi-clipboard"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">Gaming Accessories</h6>
-                                    <h5 class="card-title">Wireless Controller</h5>
-                                    <p class="card-text">
-                                        <span class="text-danger">189.05 €</span>
-                                        <span class="text-muted text-decoration-line-through">199.00 €</span>
-                                        <span class="text-success">(5% OFF)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+          <div class="card">
+            <div class="card-img-container">
+              <img src="/tech_web/assets/products/apple-iphone-13.png" class="card-img-top" alt="Apple iPhone 13">
+              <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>4.5</span>
+              </div>
+              <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+              </button>
+              <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
+              <h5 class="card-title">Apple iPhone 13</h5>
+              <p class="card-text">
+                <span class="text-danger">368.00 €</span>
+                <span class="text-muted text-decoration-line-through">400.00 €</span>
+                <span class="text-success text-orange">(8% OFF)</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-                      </div>
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+          <div class="card">
+            <div class="card-img-container">
+              <img src="/tech_web/assets/products/wireless-controller.png" class="card-img-top" alt="Wireless Controller">
+              <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>4.7</span>
+              </div>
+              <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+              </button>
+              <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Gaming Accessories</h6>
+              <h5 class="card-title">Wireless Controller</h5>
+              <p class="card-text">
+                <span class="text-danger">189.05 €</span>
+                <span class="text-muted text-decoration-line-through">199.00 €</span>
+                <span class="text-success text-orange">(5% OFF)</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+            <img src="/tech_web/assets/products/apple-iphone-case.png" class="card-img-top" alt="Apple iPhone Case">
+            <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>3.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+            </div>
+            </div>
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Phone Accessories</h6>
+            <h5 class="card-title">Apple iPhone Case</h5>
+            <p class="card-text">
+                <span class="text-danger">73.60 €</span>
+                <span class="text-muted text-decoration-line-through">80.00 €</span>
+                <span class="text-success text-orange">(8% OFF)</span>
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+            <img src="/tech_web/assets/products/hp-pavilion-laptop.png" class="card-img-top" alt="HP Pavilion Laptop">
+            <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>3.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+            </div>
+            </div>
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Laptops</h6>
+            <h5 class="card-title">HP Pavilion Laptop</h5>
+            <p class="card-text">
+                <span class="text-danger">700.00 €</span>
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+            <img src="/tech_web/assets/products/homepod-mini.png" class="card-img-top" alt="HomePod Mini">
+            <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>3.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+            </div>
+            </div>
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Smart Home</h6>
+            <h5 class="card-title">HomePod Mini</h5>
+            <p class="card-text">
+                <span class="text-danger">95.00 €</span>
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="/tech_web/assets/products/apple-core-i5-desktop.png" class="card-img-top" alt="Apple Core i5 Desktop">
+                    <div class="star-reviews">
+                        <i class="bi bi-star-fill text-warning"></i> <span>2.5</span>
                     </div>
-                </section>
+                    <button class="product-card-add-to-cart product-card-out-of-stock " disabled>
+                        <i class="bi bi-cart"></i> Out of Stock
+                    </button>
+                    <div class="product-card-icons">
+                        <i class="bi bi-eye"></i>
+                        <i class="bi bi-heart"></i>
+                        <i class="bi bi-arrow-repeat"></i>
+                        <i class="bi bi-clipboard"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Desktops</h6>
+                    <h5 class="card-title">Apple Core i5 Desktop</h5>
+                    <p class="card-text">
+                        <span class="text-danger">600.00 €</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+            <img src="/tech_web/assets/products/microsoft-surface-pro-core-i5.png" class="card-img-top" alt="Microsoft Surface Pro Core i5">
+            <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+            </div>
+            <div class="badge badge-danger">New Arrival</div>
+            <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+            </div>
+            </div>
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Tablets</h6>
+            <h5 class="card-title">Microsoft Surface Pro Core i5</h5>
+            <p class="card-text">
+                <span class="text-danger">432.00 €</span>
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+            <img src="/tech_web/assets/products/apple-macbook-pro-core-i5.png" class="card-img-top" alt="Apple MacBook Pro Core i5">
+            <div class="star-reviews">
+                <i class="bi bi-star-fill text-warning"></i> <span>2.5</span>
+            </div>
+            <button class="product-card-add-to-cart">
+                <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+                <i class="bi bi-eye"></i>
+                <i class="bi bi-heart"></i>
+                <i class="bi bi-arrow-repeat"></i>
+                <i class="bi bi-clipboard"></i>
+            </div>
+            </div>
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">Laptops</h6>
+            <h5 class="card-title">Apple MacBook Pro Core i5</h5>
+            <p class="card-text">
+                <span class="text-danger">467.00 €</span>
+            </p>
+            </div>
+        </div>
+        </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/asus-core-i5-10th-gen-laptop.png" class="card-img-top" alt="ASUS Core i5 10th Gen Laptop">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.5</span>
+                </div>
+                <div class="badge badge-primary">Trending</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Laptops</h6>
+                <h5 class="card-title">Asus Core i5 10th Gen</h5>
+                <p class="card-text">
+                    <span class="text-danger">367.00 €</span>
+                </p>
             </div>
         </div>
     </div>
-</section>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/sony-core-i5-8th-gen-desktop.png" class="card-img-top" alt="Sony Core i5 8th Gen Desktop">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Desktops</h6>
+                <h5 class="card-title">Sony Core i5 8th Gen Desktop</h5>
+                <p class="card-text">
+                    <span class="text-danger">359.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/samsung-galaxy-s10.png" class="card-img-top" alt="Samsung Galaxy S10">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Smartphones</h6>
+                <h5 class="card-title">Samsung Galaxy S10</h5>
+                <p class="card-text">
+                    <span class="text-danger">322.00 €</span>
+                    <span class="text-muted text-decoration-line-through">350.00 €</span>
+                    <span class="text-success text-orange">(8% OFF)</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/apple-iphone-11.png" class="card-img-top" alt="Apple iPhone 11">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>2.5</span>
+                </div>
+                <div class="badge badge-exclusive">Exclusive</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Smartphones</h6>
+                <h5 class="card-title">Apple iPhone 11</h5>
+                <p class="card-text">
+                    <span class="text-danger">367.08 €</span>
+                    <span class="text-muted text-decoration-line-through">399.00 €</span>
+                    <span class="text-success text-orange">(8% OFF)</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/samsung-galaxy-a16.png" class="card-img-top" alt="Samsung Galaxy A16">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Smartphones</h6>
+                <h5 class="card-title">Samsung Galaxy A16</h5>
+                <p class="card-text">
+                    <span class="text-danger">312.80 €</span>
+                    <span class="text-muted text-decoration-line-through">340.00 €</span>
+                    <span class="text-success text-orange">(8% OFF)</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/apple-ipad-7th-gen.png" class="card-img-top" alt="Apple iPad (7th Gen)">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.5</span>
+                </div>
+                <div class="badge badge-danger">New Arrival</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Tablets</h6>
+                <h5 class="card-title">Apple iPad (7th Gen)</h5>
+                <p class="card-text">
+                    <span class="text-danger">334.88 €</span>
+                    <span class="text-muted text-decoration-line-through">364.00 €</span>
+                    <span class="text-success text-orange">(8% OFF)</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/tab-m8-3rd-gen.png" class="card-img-top" alt="Tab M8 3rd Gen">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <div class="sale-badge">Sale</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Tablets</h6>
+                <h5 class="card-title">Tab M8 3rd Gen</h5>
+                <p class="card-text">
+                    <span class="text-danger">294.40 €</span>
+                    <span class="text-muted text-decoration-line-through">320.00 €</span>
+                    <span class="text-success text-orange">(8% OFF)</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/sony-bravia-hd-led-tv.png" class="card-img-top" alt="Sony Bravia HD LED TV">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Televisions</h6>
+                <h5 class="card-title">Sony Bravia HD LED TV</h5>
+                <p class="card-text">
+                    <span class="text-danger">378.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/samsung-ultra-hd-led-tv.png" class="card-img-top" alt="Samsung Ultra HD LED TV">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Televisions</h6>
+                <h5 class="card-title">Samsung Ultra HD LED TV</h5>
+                <p class="card-text">
+                    <span class="text-danger">400.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/samsung-ultra-hd-led-tv.png" class="card-img-top" alt="Sony Ultra 4K LED TV">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+                </div>
+                <div class="badge badge-danger">New Arrival</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Televisions</h6>
+                <h5 class="card-title">Sony Ultra 4K LED TV</h5>
+                <p class="card-text">
+                    <span class="text-danger">390.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/sony-sa-d40-80-w-speaker-system.png" class="card-img-top" alt="Sony SA-D40 80 W Speaker System">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Audio Systems</h6>
+                <h5 class="card-title">Sony SA-D40 80 W</h5>
+                <p class="card-text">
+                    <span class="text-danger">230.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/120-w-home-theater-system.png" class="card-img-top" alt="120 W Home Theater System">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Audio Systems</h6>
+                <h5 class="card-title">120 W Home Theater</h5>
+                <p class="card-text">
+                    <span class="text-danger">248.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/sony-cybershot-dsc-h300-camera.png" class="card-img-top" alt="Sony CyberShot DSC-H300 Camera">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>2.5</span>
+                </div>
+                <div class="badge badge-primary">Trending</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Cameras</h6>
+                <h5 class="card-title">Sony CyberShot DSC-H300</h5>
+                <p class="card-text">
+                    <span class="text-danger">200.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/canon-ixus-190-camera.png" class="card-img-top" alt="Canon IXUS 190 Camera">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Cameras</h6>
+                <h5 class="card-title">Canon IXUS 190</h5>
+                <p class="card-text">
+                    <span class="text-danger">205.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+            <div class="card-img-container">
+                <img src="/tech_web/assets/products/apple-airpods.png" class="card-img-top" alt="Apple AirPods">
+                <div class="star-reviews">
+                    <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+                </div>
+                <div class="badge badge-exclusive">Exclusive</div>
+                <button class="product-card-add-to-cart">
+                    <i class="bi bi-cart"></i> Add to Cart
+                </button>
+                <div class="product-card-icons">
+                    <i class="bi bi-eye"></i>
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-arrow-repeat"></i>
+                    <i class="bi bi-clipboard"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Audio Accessories</h6>
+                <h5 class="card-title">Apple AirPods</h5>
+                <p class="card-text">
+                    <span class="text-danger">230.00 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
 
 <?php include 'footer.php'; ?>
 

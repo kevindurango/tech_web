@@ -180,7 +180,6 @@
 .card-body {
   padding-top: 5px;
   padding: 1rem;
-  min-height: 150px;
 }
 
 .card-title {
@@ -327,8 +326,9 @@
 .card-img-container {
   position: relative;
   width: 100%;
-  height: 230px;
+  height: 250px;
   overflow: hidden;
+  background-color: #f0f0f0;
 }
 
 /* Ensures the image fits its container */
@@ -351,6 +351,7 @@
   align-items: center;
   font-size: 14px;
   font-weight: normal;
+  transition: opacity 0.3s ease;
 }
 
 /* Star icon styling */
@@ -359,6 +360,10 @@
 }
 
 /* Add to Cart Button */
+
+.text-orange {
+  color: orange;
+}
 
 .product-card-add-to-cart {
   display: none;
@@ -370,7 +375,7 @@
   color: white;
   border: none;
   border-radius: 25px;
-  padding: 8px 70px;
+  padding: 8px 75px;
   cursor: pointer;
   z-index: 2;
   text-align: center;
@@ -393,14 +398,16 @@
 /* Hover state for the card */
 .card:hover .product-card-add-to-cart {
   display: block;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Icons on hover */
+
 .product-card-icons {
   position: absolute;
   top: 50%;
   right: 10px;
-  transform: translateY(-50%) translateX(30px);
+  transform: translateY(-50%) translateX(-10px);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -409,7 +416,7 @@
 }
 
 .product-card-icons i {
-  background-color: #d3d3d3;
+  background-color: #ffffff;
   color: black;
   border-radius: 50%;
   width: 30px;
@@ -423,11 +430,113 @@
 }
 
 .product-card-icons i:hover {
-  background-color: #b0b0b0;
+  background-color: #fbfafa;
 }
 
-/* Show icons smoothly on hover */
-.card:hover .product-card-icons {
+/* Hide star-reviews on icon hover */
+.card-img-container:hover .star-reviews {
+  opacity: 0;
+}
+
+/* Move product card icons slightly above on hover */
+.card-img-container:hover .product-card-icons {
   opacity: 1;
-  transform: translateY(-50%) translateX(0);
+  transform: translateY(-72%) translateX(-10px);
+}
+
+/* Ensures that the card title has a minimum height of 43px */
+h5.card-title {
+  min-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+p.card-text {
+  min-height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+/* Custom CSS for 'Out of Stock' button */
+
+.product-card-out-of-stock {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  background-color: #ff4c4c;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  cursor: not-allowed;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.product-card-out-of-stock:disabled {
+  opacity: 0.8;
+  background-color: #d9534f;
+}
+
+.card .product-card-out-of-stock {
+  margin-top: 10px;
+}
+
+.card-img-container {
+  position: relative;
+}
+
+.badge-danger {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #4dc45f;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.badge-primary {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 165, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.badge-exclusive {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 153, 255, 0.7);
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.sale-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ff5733;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  line-height: 50px;
 }
