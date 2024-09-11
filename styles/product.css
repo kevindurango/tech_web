@@ -291,6 +291,7 @@
 }
 
 .list-group-item:not(:last-child) {
+  border: none;
   border-bottom: none;
 }
 

@@ -15,73 +15,74 @@ include 'header.php';
 ?>
 
 <!-- Product Introduction Section -->
-<section class="container-fluid custom-bg-image">
-    <div class="row align-items-center">
-
-        <div class="col-md-6 order-md-2 text-center">
-            <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
-        </div>
-
-        <div class="col-md-6 order-md-1 mb-4 ps-5">
-            <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4 mt-4">Google Pixel 8</h2>
-            <p class="lead text-dark">Experience the future with the Google Pixel 8, featuring a vibrant 6.2-inch OLED display, cutting-edge Tensor G3 chip, and a powerful 50MP camera system. Designed with a sleek, modern aesthetic and built to last with all-day battery life and 5G connectivity, the Pixel 8 delivers exceptional performance and seamless integration with Google Assistant. Embrace a new era of technology with a device that combines style, power, and intelligent features for an unparalleled smartphone experience.</p>
-
-            <div class="row text-start mt-4 g-3"> 
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3">
-                            <i class="bi bi-battery-charging text-gradient" style="font-size: 2.5rem;"></i> 
-                        </div>
-                        <div>
-                            <h5 class="fw-bold">All-Day Battery</h5>
-                            <p class="text-muted">Up to 24 hours of usage on a single charge.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3">
-                            <i class="bi bi-cpu text-gradient" style="font-size: 2.5rem;"></i> 
-                        </div>
-                        <div>
-                            <h5 class="fw-bold">Tensor G3 Chip</h5>
-                            <p class="text-muted">High-performance processor for seamless multitasking.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3">
-                            <i class="bi bi-motherboard text-gradient" style="font-size: 2.5rem;"></i> 
-                        </div>
-                        <div>
-                            <h5 class="fw-bold">Sleek Design</h5>
-                            <p class="text-muted">Modern, ergonomic design with premium materials.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3">
-                            <i class="bi bi-camera text-gradient" style="font-size: 2.5rem;"></i> 
-                        </div>
-                        <div>
-                            <h5 class="fw-bold">50MP Camera</h5>
-                            <p class="text-muted">Capture stunning photos with high-resolution clarity.</p>
-                        </div>
-                    </div>
-                </div>
+<section class="container-fluid custom-bg-image py-5">
+    <div class="container">
+        <!-- Two Columns: Image and Product Details -->
+        <div class="row align-items-center mb-5">
+            <!-- Product Image Column -->
+            <div class="col-md-6 order-md-2 text-center">
+                <img src="/tech_web/assets/pixel-8.png" alt="Google Pixel 8" class="img-fluid rounded custom-image">
             </div>
 
-            <div class="text-center text-md-start mt-4">
-                <a href="#" class="btn btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+            <!-- Product Details Column -->
+            <div class="col-md-6 order-md-1 ps-md-5">
+                <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4 mt-4">Google Pixel 8</h2>
+                <p class="lead text-dark">
+                    Experience the future with the Google Pixel 8, featuring a vibrant 6.2-inch OLED display, cutting-edge Tensor G3 chip, and a powerful 50MP camera system.
+                    Designed with a sleek, modern aesthetic and built to last with all-day battery life and 5G connectivity, the Pixel 8 delivers exceptional performance and seamless integration with Google Assistant.
+                    Embrace a new era of technology with a device that combines style, power, and intelligent features for an unparalleled smartphone experience.
+                </p>
+
+                <!-- Product Features Section -->
+                <div class="row text-start mt-4 g-3"> 
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-battery-charging text-gradient me-3" style="font-size: 2.5rem;"></i>
+                            <div>
+                                <h5 class="fw-bold">All-Day Battery</h5>
+                                <p class="text-muted">Up to 24 hours of usage on a single charge.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-cpu text-gradient me-3" style="font-size: 2.5rem;"></i>
+                            <div>
+                                <h5 class="fw-bold">Tensor G3 Chip</h5>
+                                <p class="text-muted">High-performance processor for seamless multitasking.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-motherboard text-gradient me-3" style="font-size: 2.5rem;"></i>
+                            <div>
+                                <h5 class="fw-bold">Sleek Design</h5>
+                                <p class="text-muted">Modern, ergonomic design with premium materials.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-camera text-gradient me-3" style="font-size: 2.5rem;"></i>
+                            <div>
+                                <h5 class="fw-bold">50MP Camera</h5>
+                                <p class="text-muted">Capture stunning photos with high-resolution clarity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shop Now Button -->
+                <div class="text-center text-md-start mt-4">
+                    <a href="#" class="btn btn-red text-white px-4 py-2 fw-normal">Shop Now</a>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- New container for the six columns -->
-    <div class="container-md py-3 bg-white custom-container d-none d-md-block">
-        <div class="row text-center"> 
-            <div class="col-12 col-md-2 mb-4 vertical-bar">
+
+        <!-- Six Columns: Additional Features -->
+        <div class="row text-center py-3 bg-white d-none d-lg-flex">
+            <div class="col-md-2">
                 <div class="d-flex align-items-start justify-content-center">
                     <i class="bi bi-truck text-gradient me-3" style="font-size: 2.5rem;"></i>
                     <div>
@@ -90,7 +91,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="col-md-2 border-left">
                 <div class="d-flex align-items-start justify-content-center">
                     <i class="bi bi-credit-card text-gradient me-3" style="font-size: 2.5rem;"></i>
                     <div>
@@ -99,7 +100,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="col-md-2 border-left">
                 <div class="d-flex align-items-start justify-content-center">
                     <i class="bi bi-telephone text-gradient me-3" style="font-size: 2.5rem;"></i>
                     <div>
@@ -108,7 +109,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="col-md-2 border-left">
                 <div class="d-flex align-items-start justify-content-center">
                     <i class="bi bi-arrow-return-left text-gradient me-3" style="font-size: 2.5rem;"></i>
                     <div>
@@ -117,7 +118,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="col-md-2 border-left">
                 <div class="d-flex align-items-start justify-content-center">
                     <i class="bi bi-rocket text-gradient me-3" style="font-size: 2.5rem;"></i>
                     <div>
@@ -126,7 +127,7 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-2 mb-4 vertical-bar">
+            <div class="col-md-2 border-left">
                 <div class="d-flex align-items-start justify-content-center">
                     <i class="bi bi-emoji-smile text-gradient me-3" style="font-size: 2.5rem;"></i>
                     <div>
@@ -138,6 +139,7 @@ include 'header.php';
         </div>
     </div>
 </section>
+
 <!-- Discover and Shop By Category Section -->
 <section class="container py-5">
     <div class="row mb-4">
@@ -216,7 +218,7 @@ include 'header.php';
                     </div>
                     
                     <div class="text-center text-md-start mt-4">
-                        <a href="#" class="btn-pink text-white px-4 py-2 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+                        <a href="#" class="btn-red text-white px-4 py-2 fw-normal" >Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -229,7 +231,7 @@ include 'header.php';
     <div class="container">
         <div class="row mb-4">
             <div class="col-12 mb-5 text-center">
-                <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; border-radius: 50%; background-color: #e91e63;">
+                <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; border-radius: 50%; background-color: #ff4d4d;">
                     <i class="bi bi-people-fill" style="font-size: 2rem; color: #ffffff;"></i>
                 </div>
                 <h2 class="fw-bold mb-2 mt-3">Shop at <span class="custom-red">Best Price</span></h2>
@@ -365,135 +367,147 @@ include 'header.php';
       <p class="h5 mb-2">Hurry up!</p>
       <h1 class="display-4 fw-bold">HUGE SALE!</h1>
       <p class="h5 mb-4 fw-bold">Up to 20% off on all products.</p>
-      <a href="#" class="btn btn-pink text-white px-4 py-2 mt-4 fw-bold" style="background-color: #e91e63;">Shop Now</a>
+      <a href="#" class="btn btn-red text-white px-4 py-2 mt-4 fw-normal" >Shop Now</a>
     </div>
   </div>
 </div>
-<!-- On sale products section -->
-<div class="container-fluid">
-  <div class="row">
- 
-  <div class="col-lg-6 mb-4">
-    <div class="text-center mb-3">
-        <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
-    </div>
-    <div class="d-flex flex-wrap border rounded p-3">
-        <img src="/tech_web/assets/galaxys10.png" class="img-fluid me-3" alt="Product Image">
-        <div class="flex-grow-1 position-relative">
-            <!-- Add to Cart Button -->
-            <button class="btn-add-to-cart">
-                <i class="bi bi-cart"></i>
-            </button>
-            <h6 class="text-muted">SMARTPHONES</h6>
-            <h5 class="fw-bold">Samsung Galaxy S10</h5>
-            <div class="d-flex align-items-center mb-2">
-                <div class="star-rating me-2">★★★★☆</div>
-                <p class="mb-0 fw-bold">$320.00</p>
-            </div>
-            <p class="text-muted">Product Description</p>
-            <p class="fw-bold">Hurry up! Limited time offer.</p>
-            <!-- Countdown Timer -->
-            <div class="countdown-timer d-flex justify-content-between mt-3">
-                <div class="countdown-item text-center">
-                    <div class="circle">00</div>
-                    <div class="label">Days</div>
-                </div>
-                <div class="countdown-item text-center">
-                    <div class="circle">00</div>
-                    <div class="label">Hours</div>
-                </div>
-                <div class="countdown-item text-center">
-                    <div class="circle">00</div>
-                    <div class="label">Minutes</div>
-                </div>
-                <div class="countdown-item text-center">
-                    <div class="circle">00</div>
-                    <div class="label">Seconds</div>
-                </div>
-            </div>
+
+<!-- On Sale Products Section -->
+        <div class="container">
+          <div class="row">
+         <!-- Super Deals Section -->
+<div class="col-lg-6 mb-4">
+  <div class="text-center mb-3">
+    <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
+  </div>
+  <div class="border rounded p-3">
+    <div class="d-flex flex-column flex-md-row">
+      <!-- Image Container -->
+      <div class="col-md-5 mb-3 me-2 mb-md-0">
+        <img src="/tech_web/assets/galaxys10.png" class="img-fluid fixed-size-img" alt="Product Image">
+      </div>
+      <!-- Text Content -->
+      <div class="col-md-7 position-relative">
+        <button class="btn-add-to-cart btn btn-primary position-absolute top-0 end-0">
+          <i class="bi bi-cart"></i>
+        </button>
+        <h6 class="text-muted">SMARTPHONES</h6>
+        <h5 class="fw-bold">Samsung Galaxy S10</h5>
+        <div class="d-flex align-items-center mb-2">
+          <div class="star-rating me-2">★★★★☆</div>
+          <p class="mb-0 fw-bold">$320.00</p>
         </div>
+        <p class="text-muted">
+          The Samsung Galaxy S10 offers a stunning 6.1-inch QHD+ AMOLED display and a powerful Exynos 9820 processor. With a triple-camera system and an all-day battery, it’s designed to deliver top-notch performance and an exceptional user experience. Ideal for capturing high-quality photos and enjoying immersive multimedia content.
+        </p>
+        <p class="fw-bold">Hurry up! Limited time offer.</p>
+        <!-- Countdown Timer -->
+        <div class="countdown-timer d-flex justify-content-between mt-3 mb-3">
+          <div class="countdown-item text-center">
+            <div class="circle">00</div>
+            <div class="label">Days</div>
+          </div>
+          <div class="countdown-item text-center">
+            <div class="circle">00</div>
+            <div class="label">Hours</div>
+          </div>
+          <div class="countdown-item text-center">
+            <div class="circle">00</div>
+            <div class="label">Minutes</div>
+          </div>
+          <div class="countdown-item text-center">
+            <div class="circle">00</div>
+            <div class="label">Seconds</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="col-lg-6">
-  <div class="row justify-content-center">
-  <div class="text-center mb-3">
-            <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Super Deals">
-        </div> 
-  <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card h-100 text-center">
-        <img src="/tech_web/assets/home_theater.png" class="card-img-top" alt="Product Image">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <div>
-            <p class="text-muted">HOME THEATERS</p>
-            <h5 class="fw-bold">120 W Home Theater</h5>
-            <p class="text-danger">248.00$</p>
+            <!-- Featured Products Section -->
+            <div class="col-lg-6">
+              <div class="text-center mb-3">
+                <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Featured Products">
+              </div>
+              <div class="row">
+              <!-- Product Card 1 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 text-center">
+            <img src="/tech_web/assets/home_theater.png" class="card-img-top fixed-size-img" alt="Product Image">
+            <div class="card-body d-flex flex-column justify-content-between">
+            <div class="fixed-height-div">
+                <p class="text-muted fixed-height-text">HOME THEATERS</p>
+                <h5 class="fw-bold">120 W Home Theater</h5>
+                <p class="text-danger">$248.00</p>
+              </div>
+              <button class="btn btn-red mt-1">
+                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+              </button>
+            </div>
           </div>
-          <button class="btn btn-pink mt-3">
-            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-          </button>
         </div>
-      </div>
-    </div>
 
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card h-100 text-center">
-        <img src="/tech_web/assets/galaxy_fit.png" class="card-img-top" alt="Product Image">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <div>
-            <p class="text-muted">FITNESS TRACKERS</p>
-            <h5 class="fw-bold">Galaxy Fit e Smart Band</h5>
-            <p class="text-danger">140.65$</p>
+        <!-- Product Card 2 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 text-center">
+            <img src="/tech_web/assets/galaxy_fit.png" class="card-img-top fixed-size-img img-fluid" alt="Product Image">
+            <div class="card-body d-flex flex-column justify-content-between">
+            <div class="fixed-height-div">
+                <p class="text-muted">FITNESS TRACKERS</p>
+                <h5 class="fw-bold">Galaxy Fit e Smart Band</h5>
+                <p class="text-danger">$140.65</p>
+              </div>
+              <button class="btn btn-red mt-1">
+                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+              </button>
+            </div>
           </div>
-          <button class="btn btn-pink mt-3">
-            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-          </button>
         </div>
-      </div>
-    </div>
 
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card h-100 text-center">
-        <img src="/tech_web/assets/ipad_7th_gen.png" class="card-img-top" alt="Product Image">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <div>
-            <p class="text-muted">TABLET</p>
-            <h5 class="fw-bold">Apple Ipad (7th Gen)</h5>
-            <p class="text-danger">334.88$</p>
+        <!-- Product Card 3 -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 text-center">
+            <img src="/tech_web/assets/ipad_7th_gen.png" class="card-img-top fixed-size-img" alt="Product Image">
+            <div class="card-body d-flex flex-column justify-content-between">
+            <div class="fixed-height-div">
+              <p class="text-muted">TABLETS</p>
+              <h5 class="fw-bold">Apple iPad 7th Gen</h5>
+              <p class="text-danger">$334.88</p>
+            </div>
+              <button class="btn btn-red mt-1">
+                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+              </button>
+            </div>
           </div>
-          <button class="btn btn-pink mt-3">
-            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
 <!-- Shop by brand -->
-<section class="container-fluid my-5">
-
-        <div class="text-center mb-3">
-            <img src="/tech_web/assets/shop_by_brand.png" class="img-fluid" alt="Super Deals">
-        </div> 
+<section class="container my-5">
+    <div class="text-center mb-3">
+        <img src="/tech_web/assets/shop_by_brand.png" class="img-fluid" alt="Shop by Brand">
+    </div> 
 
     <div class="row text-center">
-        <div class="col-12 col-md-3 mb-4">
-            <img src="/tech_web/assets/canon.png" alt="Image 1" class="img-fluid rounded">
+        <div class="col-6 col-md-3 mb-4">
+            <img src="/tech_web/assets/canon.png" alt="Canon" class="img-fluid rounded">
         </div>
-        <div class="col-12 col-md-3 mb-4">
-            <img src="/tech_web/assets/micromax.png" alt="Image 2" class="img-fluid rounded">
+        <div class="col-6 col-md-3 mb-4">
+            <img src="/tech_web/assets/micromax.png" alt="Micromax" class="img-fluid rounded">
         </div>
-        <div class="col-12 col-md-3 mb-4">
-            <img src="/tech_web/assets/samsung.png" alt="Image 3" class="img-fluid rounded">
+        <div class="col-6 col-md-3 mb-4">
+            <img src="/tech_web/assets/samsung.png" alt="Samsung" class="img-fluid rounded">
         </div>
-        <div class="col-12 col-md-3 mb-4">
-            <img src="/tech_web/assets/sennheiser.png" alt="Image 4" class="img-fluid rounded">
+        <div class="col-6 col-md-3 mb-4">
+            <img src="/tech_web/assets/sennheiser.png" alt="Sennheiser" class="img-fluid rounded">
         </div>
     </div>
 </section>
 
 <?php include 'footer.php'; ?>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

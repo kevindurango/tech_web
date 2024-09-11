@@ -185,53 +185,55 @@
     </div>
 </div>
 <!-- Second Header Section: Search Bar and Icons -->
-<header class="bg-white py-2 border-bottom d-none d-md-block">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Search Form Column -->
-            <div class="col-md-6 d-flex justify-content-end">
-                <form class="d-flex w-50">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-light d-flex align-items-center border-0" type="submit">
-                        <i class="bi bi-search text-gray"></i>
-                    </button>
-                </form>
-            </div>
-            <!-- Icons and Texts Column -->
-            <div class="col-md-6 d-flex justify-content-end">
-                <!-- My Cart -->
-                <div class="d-flex align-items-center mx-4 text-dark">
-                    <div class="icon-circle me-2">
-                        <i class="bi bi-cart"></i>
-                    </div>
-                    <div class="text-start">
-                        <div class="fs-7 fw-light">My Cart</div>
-                        <div class="fs-6 fw-bold">$0.00</div>
-                    </div>
-                </div>
-                <!-- My Wishlist -->
-                <div class="d-flex align-items-center mx-4 text-dark">
-                    <div class="icon-circle me-2">
-                        <i class="bi bi-heart"></i>
-                    </div>
-                    <div class="text-start">
-                        <div class="fs-7 fw-light">My Wishlist</div>
-                        <div class="fs-6 fw-bold">View Wishlist</div>
-                    </div>
-                </div>
-                <!-- Guest Account -->
-                <div class="d-flex align-items-center ms-4 text-dark">
-                    <div class="icon-circle me-2">
-                        <i class="bi bi-person"></i>
-                    </div>
-                    <div class="text-start">
-                        <div class="fs-7 fw-light">Guest</div>
-                        <div class="fs-6 fw-bold">My Account</div>
-                    </div>
-                </div>
-            </div>
+<header class="custom-header bg-white py-2 border-bottom d-none d-md-block">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Search Form Column -->
+      <div class="col-md-6">
+        <form class="custom-search-form">
+          <div class="input-group">
+            <input type="text" class="form-control custom-search-input" placeholder="Search" aria-label="Search">
+            <span class="input-group-text custom-search-btn">
+              <i class="bi bi-search"></i>
+            </span>
+          </div>
+        </form>
+      </div>
+      <!-- Icons and Texts Column -->
+      <div class="col-md-6 d-flex justify-content-end">
+        <!-- My Cart -->
+        <div class="custom-header-item d-flex align-items-center mx-3 text-dark">
+          <div class="custom-icon-circle me-2">
+            <i class="bi bi-cart"></i>
+          </div>
+          <div class="text-start">
+            <div class="fs-7 fw-light">My Cart</div>
+            <div class="fs-6 fw-bold">$0.00</div>
+          </div>
         </div>
+        <!-- My Wishlist -->
+        <div class="custom-header-item d-flex align-items-center mx-3 text-dark">
+          <div class="custom-icon-circle me-2">
+            <i class="bi bi-heart"></i>
+          </div>
+          <div class="text-start">
+            <div class="fs-7 fw-light">My Wishlist</div>
+            <div class="fs-6 fw-bold">View Wishlist</div>
+          </div>
+        </div>
+        <!-- Guest Account -->
+        <div class="custom-header-item d-flex align-items-center mx-3 text-dark">
+          <div class="custom-icon-circle me-2">
+            <i class="bi bi-person"></i>
+          </div>
+          <div class="text-start">
+            <div class="fs-7 fw-light">Guest</div>
+            <div class="fs-6 fw-bold">My Account</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </header>
 <!-- Navigation Section -->
 <section class="container py-3 bg-white border-bottom d-none d-md-block">
