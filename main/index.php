@@ -384,7 +384,7 @@ include 'header.php';
     <div class="d-flex flex-column flex-md-row">
       <!-- Image Container -->
       <div class="col-md-5 mb-3 me-2 mb-md-0">
-        <img src="/tech_web/assets/galaxys10.png" class="img-fluid fixed-size-img" alt="Product Image">
+        <img src="/tech_web/assets/galaxys10.png" class="img-fluid fixed-size-sam" alt="Product Image">
       </div>
       <!-- Text Content -->
       <div class="col-md-7 position-relative">
@@ -393,30 +393,33 @@ include 'header.php';
         </button>
         <h6 class="text-muted">SMARTPHONES</h6>
         <h5 class="fw-bold">Samsung Galaxy S10</h5>
-        <div class="d-flex align-items-center mb-2">
-          <div class="star-rating me-2">★★★★☆</div>
-          <p class="mb-0 fw-bold">$320.00</p>
+        <div class="d-flex flex-column align-items-start mb-2">
+        <div class="star-rating">★★★★☆</div>
+        <div class="d-flex align-items-center">
+          <p class="text-danger fw-bold mb-0 me-2">$320.00</p>
+          <p class="text-muted text-decoration-line-through mb-0">$350.00</p>
         </div>
+      </div>
         <p class="text-muted">
-          The Samsung Galaxy S10 offers a stunning 6.1-inch QHD+ AMOLED display and a powerful Exynos 9820 processor. With a triple-camera system and an all-day battery, it’s designed to deliver top-notch performance and an exceptional user experience. Ideal for capturing high-quality photos and enjoying immersive multimedia content.
+          The Samsung Galaxy S10 offers a stunning 6.1-inch QHD+ AMOLED display and a powerful Exynos 9820 processor. With a triple-camera system and an all-day battery, it’s designed to deliver top-notch performance and an exceptional user experience.
         </p>
         <p class="fw-bold">Hurry up! Limited time offer.</p>
         <!-- Countdown Timer -->
         <div class="countdown-timer d-flex justify-content-between mt-3 mb-3">
           <div class="countdown-item text-center">
-            <div class="circle">00</div>
+            <div class="circle">152</div>
             <div class="label">Days</div>
           </div>
           <div class="countdown-item text-center">
-            <div class="circle">00</div>
+            <div class="circle">04</div>
             <div class="label">Hours</div>
           </div>
           <div class="countdown-item text-center">
-            <div class="circle">00</div>
+            <div class="circle">01</div>
             <div class="label">Minutes</div>
           </div>
           <div class="countdown-item text-center">
-            <div class="circle">00</div>
+            <div class="circle">27</div>
             <div class="label">Seconds</div>
           </div>
         </div>

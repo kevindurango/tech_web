@@ -182,8 +182,7 @@ include 'header.php';
               </div>
             </div>
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Tablet</h6>
-              <h5 class="card-title">Apple iPad 7th Gen</h5>
+              <h5 class="card-title">Apple iMac</h5>
               <p class="card-text">
                 <span class="text-danger">$334</span>
                 <span class="text-muted text-decoration-line-through">$364</span>
@@ -210,7 +209,6 @@ include 'header.php';
               </div>
             </div>
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Smartphone</h6>
               <h5 class="card-title">Apple iPhone 13</h5>
               <p class="card-text">
                 <span class="text-danger">368.00 €</span>
@@ -239,7 +237,6 @@ include 'header.php';
               </div>
             </div>
             <div class="card-body">
-              <h6 class="card-subtitle mb-2 text-muted">Gaming Accessories</h6>
               <h5 class="card-title">Wireless Controller</h5>
               <p class="card-text">
                 <span class="text-danger">189.05 €</span>
@@ -268,7 +265,6 @@ include 'header.php';
             </div>
             </div>
             <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Phone Accessories</h6>
             <h5 class="card-title">Apple iPhone Case</h5>
             <p class="card-text">
                 <span class="text-danger">73.60 €</span>
@@ -297,7 +293,6 @@ include 'header.php';
             </div>
             </div>
             <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Laptops</h6>
             <h5 class="card-title">HP Pavilion Laptop</h5>
             <p class="card-text">
                 <span class="text-danger">700.00 €</span>
@@ -324,7 +319,6 @@ include 'header.php';
             </div>
             </div>
             <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Smart Home</h6>
             <h5 class="card-title">HomePod Mini</h5>
             <p class="card-text">
                 <span class="text-danger">95.00 €</span>
@@ -351,7 +345,6 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Desktops</h6>
                     <h5 class="card-title">Apple Core i5 Desktop</h5>
                     <p class="card-text">
                         <span class="text-danger">600.00 €</span>
@@ -379,7 +372,6 @@ include 'header.php';
             </div>
             </div>
             <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Tablets</h6>
             <h5 class="card-title">Microsoft Surface Pro Core i5</h5>
             <p class="card-text">
                 <span class="text-danger">432.00 €</span>
@@ -406,7 +398,6 @@ include 'header.php';
             </div>
             </div>
             <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Laptops</h6>
             <h5 class="card-title">Apple MacBook Pro Core i5</h5>
             <p class="card-text">
                 <span class="text-danger">467.00 €</span>
@@ -434,7 +425,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Laptops</h6>
                 <h5 class="card-title">Asus Core i5 10th Gen</h5>
                 <p class="card-text">
                     <span class="text-danger">367.00 €</span>
@@ -461,7 +451,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Desktops</h6>
                 <h5 class="card-title">Sony Core i5 8th Gen Desktop</h5>
                 <p class="card-text">
                     <span class="text-danger">359.00 €</span>
@@ -488,7 +477,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Smartphones</h6>
                 <h5 class="card-title">Samsung Galaxy S10</h5>
                 <p class="card-text">
                     <span class="text-danger">322.00 €</span>
@@ -520,7 +508,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Smartphones</h6>
                 <h5 class="card-title">Apple iPhone 11</h5>
                 <p class="card-text">
                     <span class="text-danger">367.08 €</span>
@@ -549,7 +536,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Smartphones</h6>
                 <h5 class="card-title">Samsung Galaxy A16</h5>
                 <p class="card-text">
                     <span class="text-danger">312.80 €</span>
@@ -579,7 +565,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Tablets</h6>
                 <h5 class="card-title">Apple iPad (7th Gen)</h5>
                 <p class="card-text">
                     <span class="text-danger">334.88 €</span>
@@ -609,7 +594,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Tablets</h6>
                 <h5 class="card-title">Tab M8 3rd Gen</h5>
                 <p class="card-text">
                     <span class="text-danger">294.40 €</span>
@@ -638,7 +622,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Televisions</h6>
                 <h5 class="card-title">Sony Bravia HD LED TV</h5>
                 <p class="card-text">
                     <span class="text-danger">378.00 €</span>
@@ -665,7 +648,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Televisions</h6>
                 <h5 class="card-title">Samsung Ultra HD LED TV</h5>
                 <p class="card-text">
                     <span class="text-danger">400.00 €</span>
@@ -693,7 +675,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Televisions</h6>
                 <h5 class="card-title">Sony Ultra 4K LED TV</h5>
                 <p class="card-text">
                     <span class="text-danger">390.00 €</span>
@@ -720,7 +701,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Audio Systems</h6>
                 <h5 class="card-title">Sony SA-D40 80 W</h5>
                 <p class="card-text">
                     <span class="text-danger">230.00 €</span>
@@ -747,7 +727,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Audio Systems</h6>
                 <h5 class="card-title">120 W Home Theater</h5>
                 <p class="card-text">
                     <span class="text-danger">248.00 €</span>
@@ -775,7 +754,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Cameras</h6>
                 <h5 class="card-title">Sony CyberShot DSC-H300</h5>
                 <p class="card-text">
                     <span class="text-danger">200.00 €</span>
@@ -802,7 +780,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Cameras</h6>
                 <h5 class="card-title">Canon IXUS 190</h5>
                 <p class="card-text">
                     <span class="text-danger">205.00 €</span>
@@ -830,7 +807,6 @@ include 'header.php';
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Audio Accessories</h6>
                 <h5 class="card-title">Apple AirPods</h5>
                 <p class="card-text">
                     <span class="text-danger">230.00 €</span>
@@ -838,7 +814,255 @@ include 'header.php';
             </div>
         </div>
     </div>
-</div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/sennheiser-hd-headset.jpg" class="card-img-top" alt="Sennheiser HD Headset">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Sennheiser HD Headset</h5>
+            <p class="card-text">
+              <span class="text-danger">167.00 €</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/apple-watch-series-5.jpg" class="card-img-top" alt="Apple Watch Series 5">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>3.0</span>
+            </div>
+            <div class="sale-badge">Sale</div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Apple Watch Series 5</h5>
+            <p class="card-text">
+              <span class="text-danger">417.10 €</span>
+              <span class="text-muted">430.00 € (3% OFF)</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/galaxy-fit-e-smart-band.jpg" class="card-img-top" alt="Galaxy Fit e Smart Band">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Galaxy Fit e Smart Band</h5>
+            <p class="card-text">
+              <span class="text-danger">140.65 €</span>
+              <span class="text-muted">145.00 € (3% OFF)</span>
+            </p>
+            <div class="color-options">
+                <div class="color-dot yellow"></div>
+                <div class="color-dot green"></div>
+                <div class="color-dot blue"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/screen-guards.jpg" class="card-img-top" alt="Screen Guards">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>2.5</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Screen Guards</h5>
+            <p class="card-text">
+              <span class="text-danger">7.36 €</span>
+              <span class="text-muted">8.00 € (8% OFF)</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/sony-ht-s40r-600-w-soundbar.png" class="card-img-top" alt="SONY HT-S40R 600 W Soundbar">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">SONY HT-S40R 600 W Soundbar</h5>
+            <p class="card-text">
+              <span class="text-danger">250.00 €</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/sennheiser-bluetooth-speakers.png" class="card-img-top" alt="Sennheiser Bluetooth Speakers">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>4.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Sennheiser Bluetooth Speakers</h5>
+            <p class="card-text">
+              <span class="text-danger">176.00 €</span>
+            </p>
+            <div class="color-options">
+                <div class="color-dot white"></div>
+                <div class="color-dot yellow"></div>
+                <div class="color-dot black"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/canon-compact-cameras.png" class="card-img-top" alt="Canon Compact Cameras">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>2.0</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Canon Compact Cameras</h5>
+            <p class="card-text">
+              <span class="text-danger">205.00 €</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/sony-sel200600g-lens.png" class="card-img-top" alt="SONY SEL200600G Lens">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>4.5</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">SONY SEL200600G Lens</h5>
+            <p class="card-text">
+              <span class="text-danger">678.00 €</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12 mb-3">
+        <div class="card">
+          <div class="card-img-container">
+            <img src="/tech_web/assets/products/sennheiser-bluetooth-headsets.png" class="card-img-top" alt="Sennheiser Bluetooth Headsets">
+            <div class="star-reviews">
+              <i class="bi bi-star-fill text-warning"></i> <span>3.5</span>
+            </div>
+            <button class="product-card-add-to-cart">
+              <i class="bi bi-cart"></i> Add to Cart
+            </button>
+            <div class="product-card-icons">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-heart"></i>
+              <i class="bi bi-arrow-repeat"></i>
+              <i class="bi bi-clipboard"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Sennheiser Bluetooth Headsets</h5>
+            <p class="card-text">
+              <span class="text-danger">98.00 €</span>
+            </p>
+          </div>
+        </div>
+      </div>
 
             </div>
         </div>

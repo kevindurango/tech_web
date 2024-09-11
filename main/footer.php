@@ -14,7 +14,7 @@
         <div class="row align-items-left">
 
             <div class="col-md-6 mb-4 mb-md-0">
-                <h2 class="fw-normal">Subscribe to our weekly newsletter</h2>
+                <h2 class="fw-normal">Subscribe to our Weekly Newsletter</h2>
             </div>
 
             <div class="col-md-6">

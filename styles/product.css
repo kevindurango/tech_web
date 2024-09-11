@@ -197,6 +197,7 @@
 
 .text-muted {
   color: #6c757d;
+  margin: 0%;
 }
 
 .text-decoration-line-through {
@@ -295,15 +296,18 @@
   border-bottom: none;
 }
 
+/* Style the radio button when checked */
 .form-check-input:checked {
   background-color: red;
   border-color: red;
 }
 
+/* Style the radio button focus state */
 .form-check-input:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
 }
 
+/* Style the label text when radio button is checked */
 .form-check-input:checked + .form-check-label {
   color: red;
 }
@@ -461,6 +465,7 @@ p.card-text {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   white-space: normal;
+  margin: 0;
 }
 
 /* Custom CSS for 'Out of Stock' button */
@@ -540,4 +545,63 @@ p.card-text {
   font-weight: bold;
   text-align: center;
   line-height: 50px;
+}
+
+.btn-dark {
+  border: none;
+  border-radius: 0%;
+}
+
+/* Card container */
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Color options */
+.color-options {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.color-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Specific color dots */
+.color-dot.yellow {
+  background-color: #f8f58e;
+  border: 1px solid #ccc;
+}
+
+.color-dot.green {
+  background-color: #a8e6a1;
+  border: 1px solid #ccc;
+}
+
+.color-dot.blue {
+  background-color: #87cefa;
+  border: 1px solid #ccc;
+}
+
+.color-dot.white {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.color-dot.black {
+  background-color: black;
+  border: 1px solid #ccc;
+}
+/* Show color dots on hover */
+.card:hover .color-options {
+  opacity: 1;
 }
