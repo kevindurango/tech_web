@@ -229,8 +229,8 @@ include 'header.php';
     </div>
 </div>
 
-<section class="similar-products mt-4 mb-3" >
-    <div class="container-fluid">
+<section class="similar-products mt-4" >
+    <div class="container">
         <hr class="my-4">
         <div class="row mb-4">
             <div class="col-12 text-start">

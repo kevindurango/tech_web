@@ -83,10 +83,10 @@
 
 /* Icon Circles */
 .custom-icon-circle {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: #f8f9fa;
+  background-color: #e9e8e9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,7 +160,7 @@
 
 /* Text Styling */
 .text-gradient {
-  background: linear-gradient(to right, #ed8183, #f7303e);
+  background: linear-gradient(to right, #ed8183, #e04c44);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -168,7 +168,7 @@
 }
 
 .custom-red {
-  color: #ff4d4d;
+  color: #e04c44;
 }
 
 .nav-link {
@@ -178,7 +178,7 @@
 .nav-link:hover,
 .nav-link:focus,
 .nav-link.active {
-  color: #ff69b4;
+  color: #e04c44;
 }
 
 /* Image Styling */
@@ -193,7 +193,7 @@
 }
 
 .nav-column-spacing:first-child {
-  margin-left: 3rem;
+  margin-left: 0%;
 }
 
 .nav-column-spacing:last-child {
@@ -257,25 +257,25 @@
 .btn-custom-rec:active,
 .btn-custom-rec:focus,
 .btn-custom-rec:hover {
-  background-color: #ff4d4d;
+  background-color: #e04c44;
   color: #fff;
   border-color: #ccc;
 }
 
 .btn-red {
-  background-color: #ff4d4d;
+  background-color: #e04c44;
   color: white;
   text-decoration: none;
   border-radius: 0%;
 }
 
 .custom-border {
-  border: 2px solid #d81b60;
+  border: 2px solid #e04c44;
   border-radius: 1px;
 }
 
 .custom-discover {
-  background-color: #dc3545;
+  background-color: #e04c44;
   color: white;
   border: none;
   padding: 3px 10px;
@@ -285,7 +285,7 @@
 }
 
 .custom-discover:hover {
-  background-color: #c82333;
+  background-color: #e04c44;
 }
 
 /* Add to Cart Button */
@@ -338,7 +338,7 @@
   width: 75px;
   height: 75px;
   border-radius: 50%;
-  background-color: #e91e63;
+  background-color: #e04c44;
   color: #ffffff;
   font-size: 1.6rem;
 }
@@ -403,7 +403,7 @@
   left: 0;
   bottom: 0;
   width: 50%;
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid #e04c44;
 }
 
 .country-logo {
@@ -439,7 +439,7 @@
 .offcanvas-header {
   height: 8rem;
   position: relative;
-  background-color: #8b0000;
+  background-color: #e04c44;
 }
 
 .offcanvas-header .profile-container {
@@ -537,6 +537,7 @@
   max-width: 600px;
 }
 
+/* countdown timer */
 .countdown-timer {
   display: flex;
   align-items: center;
@@ -555,7 +556,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #eaeaea;
+  background-color: #f9fafe;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -563,11 +564,13 @@
   font-weight: 700;
   opacity: 90%;
   margin-bottom: 0.5rem;
+  border: 1px solid #596785;
 }
 
 .label {
-  font-size: 0.875rem;
-  color: #6c757d;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #596785;
 }
 
 .fixed-height-div {
@@ -585,7 +588,7 @@
 
 .fixed-size-sam {
   width: 100%;
-  height: 95%;
+  height: 100%;
 }
 
 @media (max-width: 767.98px) {
@@ -635,4 +638,196 @@
 
 .me-2 {
   margin-right: 0.5rem;
+}
+
+/* navigation bar */
+#categoriesDropdown {
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  height: auto;
+  width: auto;
+  min-height: 50px;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#categoriesDropdown i {
+  color: white;
+}
+
+#categoriesDropdown:hover {
+  background-color: #ff6666;
+  color: white;
+  transition: none;
+}
+
+#categoriesDropdown {
+  border-radius: 0;
+}
+
+#categoriesDropdown .dropdown-item {
+  color: black;
+}
+
+/* Styles for all navigation links */
+
+.nav-link:hover {
+  color: red !important;
+  transition: color 0.3s ease;
+}
+
+/* Basic styles for the color options */
+.color-option {
+  border: 1px solid #6c757d;
+}
+
+/* Color classes for specific colors */
+.bg-white {
+  background-color: #ffffff;
+}
+.bg-pink {
+  background-color: pink;
+}
+.bg-black {
+  background-color: #000000;
+}
+.bg-grey {
+  background-color: #6c757d;
+}
+.bg-blue {
+  background-color: #007bff;
+}
+.bg-dark-yellow {
+  background-color: #ffcc00;
+}
+.bg-dark-green {
+  background-color: #004d00;
+}
+.bg-dark-blue {
+  background-color: #003366;
+}
+
+/* Card text price color */
+.card-text.text-danger {
+  color: #e04c44;
+}
+
+.badge {
+  font-size: 0.6rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0;
+  position: absolute;
+  top: -20px;
+  left: 55%;
+  transform: translateX(-50%);
+  z-index: 100;
+  white-space: nowrap;
+}
+
+/* Arrow for Speech Bubble */
+.badge::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #68b42c;
+  z-index: -1;
+}
+
+/* Tag Colors */
+.badge.bg-hot-green {
+  background-color: #68b42c;
+}
+
+.badge.bg-hot-green::after {
+  border-top: 6px solid #68b42c;
+}
+
+/* New Yellow Badge */
+.badge.bg-new-yellow {
+  background-color: #ffa46c;
+}
+
+.badge.bg-new-yellow::after {
+  border-top: 6px solid #ffa46c;
+}
+
+/* Best Blue Badge */
+.badge.bg-best-blue {
+  background-color: #08a4bc;
+}
+
+.badge.bg-best-blue::after {
+  border-top: 6px solid #08a4bc;
+}
+
+/* Black Badge */
+.badge.bg-black {
+  background-color: #000;
+}
+
+.badge.bg-black::after {
+  border-top: 6px solid #000;
+}
+
+/* Container for Icon and Badge */
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Notification Badge */
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Notification Badge */
+.icon-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 0.65rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  z-index: 10;
+}
+
+/* Specific Badge Styles for Cart and Wishlist */
+.badge-cart {
+  background-color: #dc3545;
+}
+
+.badge-wishlist {
+  background-color: #dc3545;
+}
+
+.brand-img {
+  width: 290px;
+  height: 100px;
+  object-fit: contain;
+  border: 1px solid #eaeaea;
+  padding: 5px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.brand-img:hover {
+  border-color: grey;
+  transform: scale(1.05);
 }

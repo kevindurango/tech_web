@@ -25,7 +25,7 @@ include 'header.php';
             </div>
 
             <!-- Product Details Column -->
-            <div class="col-md-6 order-md-1 ps-md-5">
+            <div class="col-md-6 order-md-1 md-5">
                 <h2 class="display-3 fw-bolder fs-8 text-gradient mb-4 mt-4">Google Pixel 8</h2>
                 <p class="lead text-dark">
                     Experience the future with the Google Pixel 8, featuring a vibrant 6.2-inch OLED display, cutting-edge Tensor G3 chip, and a powerful 50MP camera system.
@@ -258,26 +258,26 @@ include 'header.php';
 <div class="container-fluid py-5">
   <div class="row">
 
-      <div class="col-lg-3 col-md-6 mb-4">
+  <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 position-relative">
         <div class="position-relative">
           <img src="/tech_web/assets/applecore15.png" class="card-img-top" alt="Device Image">
           <button class="btn btn-danger btn-cart-custom">
             <i class="bi bi-cart-plus"></i>
           </button>
+          <span class="badge bg-out-of-stock">Out of Stock</span>
         </div>
         <div class="card-body">
           <h6 class="text-muted">Desktop PC's</h6>
           <h5 class="card-title">Apple Core 15</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0">$Price: 600.00</p>
+            <p class="card-text mb-0 text-danger">$600.00</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-
           <div class="d-flex mt-2">
-            <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-danger" style="width: 20px; height: 20px;"></div>
+            <div class="rounded-circle color-option bg-white border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-pink border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-black border border-secondary" style="width: 20px; height: 20px;"></div>
           </div>
         </div>
       </div>
@@ -295,14 +295,13 @@ include 'header.php';
           <h6 class="text-muted">Laptops</h6>
           <h5 class="card-title">Apple Macbook Pro Core i5</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0">$Price</p>
+            <p class="card-text mb-0 text-danger">$Price</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-
           <div class="d-flex mt-2">
-            <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-warning" style="width: 20px; height: 20px;"></div>
+            <div class="rounded-circle color-option bg-grey border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-blue border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-black border border-secondary" style="width: 20px; height: 20px;"></div>
           </div>
         </div>
       </div>
@@ -317,21 +316,21 @@ include 'header.php';
           </button>
         </div>
         <div class="card-body">
-          <h6 class="text-muted">Desktop Pc'</h6>
+          <h6 class="text-muted">Desktop PC's</h6>
           <h5 class="card-title">Apple iMac Pro</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0">$Price: 600</p>
+            <p class="card-text mb-0 text-danger">$600.00</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-
           <div class="d-flex mt-2">
-            <div class="rounded-circle bg-dark" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-light" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-info" style="width: 20px; height: 20px;"></div>
+            <div class="rounded-circle color-option bg-dark-yellow border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-dark-green border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-dark-blue border border-secondary" style="width: 20px; height: 20px;"></div>
           </div>
         </div>
       </div>
     </div>
+
     <!-- Fourth Column -->
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="card h-100 position-relative">
@@ -345,14 +344,14 @@ include 'header.php';
           <h6 class="text-muted">Printers</h6>
           <h5 class="card-title">Hp Multi-Function Printer</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0">$Price: 200</p>
+            <p class="card-text mb-0 text-danger">$200.00</p>
             <div class="star-rating">★★★★☆</div>
           </div>
-          <!-- Color Scheme Circles -->
+
           <div class="d-flex mt-2">
-            <div class="rounded-circle bg-primary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-danger" style="width: 20px; height: 20px; margin-right: 5px;"></div>
-            <div class="rounded-circle bg-success" style="width: 20px; height: 20px;"></div>
+            <div class="rounded-circle color-option bg-white border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-dark-blue border border-secondary" style="width: 20px; height: 20px; margin-right: 5px;"></div>
+            <div class="rounded-circle color-option bg-black border border-secondary" style="width: 20px; height: 20px;"></div>
           </div>
         </div>
       </div>
@@ -380,10 +379,10 @@ include 'header.php';
   <div class="text-center mb-3">
     <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
   </div>
-  <div class="border rounded p-3">
+  <div class="border">
     <div class="d-flex flex-column flex-md-row">
       <!-- Image Container -->
-      <div class="col-md-5 mb-3 me-2 mb-md-0">
+      <div class="col-md-5 me-2 mb-md-0">
         <img src="/tech_web/assets/galaxys10.png" class="img-fluid fixed-size-sam" alt="Product Image">
       </div>
       <!-- Text Content -->
@@ -405,7 +404,7 @@ include 'header.php';
         </p>
         <p class="fw-bold">Hurry up! Limited time offer.</p>
         <!-- Countdown Timer -->
-        <div class="countdown-timer d-flex justify-content-between mt-3 mb-3">
+        <div class="countdown-timer d-flex justify-content-left mt-3 mb-3">
           <div class="countdown-item text-center">
             <div class="circle">152</div>
             <div class="label">Days</div>
@@ -428,15 +427,15 @@ include 'header.php';
   </div>
 </div>
 
-            <!-- Featured Products Section -->
-            <div class="col-lg-6">
-              <div class="text-center mb-3">
-                <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Featured Products">
-              </div>
-              <div class="row">
-              <!-- Product Card 1 -->
+<!-- Featured Products Section -->
+<div class="col-lg-6">
+  <div class="text-center mb-3">
+    <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Featured Products">
+  </div>
+  <div class="row">
+         <!-- Product Card 1 -->
         <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 text-center">
+          <div class="card text-center">
             <img src="/tech_web/assets/home_theater.png" class="card-img-top fixed-size-img" alt="Product Image">
             <div class="card-body d-flex flex-column justify-content-between">
             <div class="fixed-height-div">
@@ -488,24 +487,25 @@ include 'header.php';
     </div>
   </div>
 </div>
+
 <!-- Shop by brand -->
 <section class="container my-5">
+
     <div class="text-center mb-3">
         <img src="/tech_web/assets/shop_by_brand.png" class="img-fluid" alt="Shop by Brand">
     </div> 
-
     <div class="row text-center">
         <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/canon.png" alt="Canon" class="img-fluid rounded">
+            <img src="/tech_web/assets/canon.png" alt="Canon" class="img-fluid brand-img">
         </div>
         <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/micromax.png" alt="Micromax" class="img-fluid rounded">
+            <img src="/tech_web/assets/micromax.png" alt="Micromax" class="img-fluid brand-img">
         </div>
         <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/samsung.png" alt="Samsung" class="img-fluid rounded">
+            <img src="/tech_web/assets/samsung.png" alt="Samsung" class="img-fluid brand-img">
         </div>
         <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/sennheiser.png" alt="Sennheiser" class="img-fluid rounded">
+            <img src="/tech_web/assets/sennheiser.png" alt="Sennheiser" class="img-fluid brand-img">
         </div>
     </div>
 </section>

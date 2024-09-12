@@ -80,7 +80,7 @@
     </div>
 
     <div class="offcanvas-body">
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3"> <i class="bi bi-grid me-1"></i> Shop by Categories</a> <!-- New Link Added -->
+        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3"> <i class="bi bi-grid me-1"></i> Shop by Categories</a> 
 
         <div class="dropdown mb-3">
             <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -184,50 +184,66 @@
         </div>
     </div>
 </div>
+
 <!-- Second Header Section: Search Bar and Icons -->
 <header class="custom-header bg-white py-2 border-bottom d-none d-md-block">
   <div class="container">
     <div class="row align-items-center">
-      <!-- Search Form Column -->
-      <div class="col-md-6">
-        <form class="custom-search-form">
-          <div class="input-group">
-            <input type="text" class="form-control custom-search-input" placeholder="Search" aria-label="Search">
-            <span class="input-group-text custom-search-btn">
-              <i class="bi bi-search"></i>
-            </span>
-          </div>
-        </form>
-      </div>
+     
+        <div class="col-md-6 d-flex justify-content-between align-items-center">
+            <!-- Image Container Column -->
+            <div class="image-container me-3"> <!-- Add some margin to the right for spacing -->
+                <img src="/tech_web/assets/tech-logo.png" alt="Your Image" class="img-fluid" style="max-width: 100px;"> <!-- Adjust width as needed -->
+            </div>
+
+            <!-- Search Form Column -->
+            <form class="custom-search-form w-75"> <!-- Adjusted width to 75% -->
+                <div class="input-group">
+                <input type="text" class="form-control custom-search-input" placeholder="Search" aria-label="Search">
+                <span class="input-group-text custom-search-btn">
+                    <i class="bi bi-search"></i>
+                </span>
+                </div>
+            </form>
+            </div>
+
       <!-- Icons and Texts Column -->
       <div class="col-md-6 d-flex justify-content-end">
         <!-- My Cart -->
-        <div class="custom-header-item d-flex align-items-center mx-3 text-dark">
-          <div class="custom-icon-circle me-2">
-            <i class="bi bi-cart"></i>
+        <div class="custom-header-item d-flex align-items-center mx-2 text-dark">
+          <div class="icon-container me-2">
+            <div class="custom-icon-circle">
+              <i class="bi bi-cart"></i>
+            </div>
+            <span class="icon-badge badge-cart fw-bold">0</span> 
           </div>
           <div class="text-start">
-            <div class="fs-7 fw-light">My Cart</div>
+            <div class="fs-7 fw-normal">My Cart</div>
             <div class="fs-6 fw-bold">$0.00</div>
           </div>
         </div>
         <!-- My Wishlist -->
-        <div class="custom-header-item d-flex align-items-center mx-3 text-dark">
-          <div class="custom-icon-circle me-2">
-            <i class="bi bi-heart"></i>
+        <div class="custom-header-item d-flex align-items-center mx-2 text-dark">
+          <div class="icon-container me-2">
+            <div class="custom-icon-circle">
+              <i class="bi bi-heart"></i>
+            </div>
+            <span class="icon-badge badge-wishlist fw-bold">0</span>
           </div>
           <div class="text-start">
-            <div class="fs-7 fw-light">My Wishlist</div>
+            <div class="fs-7 fw-normal">My Wishlist</div>
             <div class="fs-6 fw-bold">View Wishlist</div>
           </div>
         </div>
         <!-- Guest Account -->
-        <div class="custom-header-item d-flex align-items-center mx-3 text-dark">
-          <div class="custom-icon-circle me-2">
-            <i class="bi bi-person"></i>
+        <div class="custom-header-item d-flex align-items-center mx-2 text-dark">
+          <div class="icon-container me-2">
+            <div class="custom-icon-circle">
+              <i class="bi bi-person"></i>
+            </div>
           </div>
           <div class="text-start">
-            <div class="fs-7 fw-light">Guest</div>
+            <div class="fs-7 fw-normal">Guest</div>
             <div class="fs-6 fw-bold">My Account</div>
           </div>
         </div>
@@ -235,12 +251,13 @@
     </div>
   </div>
 </header>
+
 <!-- Navigation Section -->
-<section class="container py-3 bg-white border-bottom d-none d-md-block">
+<section class="container bg-white border-bottom d-none d-md-block">
     <div class="row text-center align-items-center">
         <div class="col nav-column-spacing">
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle fw-semibold nav-item-wrapper" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-grid me-1"></i> Categories
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
@@ -251,17 +268,19 @@
             </div>
         </div>
 
-        <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold">Home</a>
+        <div class="col nav-column-spacing position-relative">
+            <span class="badge bg-hot-green position-absolute">HOT</span>
+            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Shop</a>
         </div>
 
         <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold">Shop</a>
+            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Home</a>
         </div>
 
-        <div class="col nav-column-spacing">
+        <div class="col nav-column-spacing position-relative">
+            <span class="badge bg-new-yellow position-absolute">NEW</span>
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="popularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold nav-item-wrapper" href="#" id="popularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Popular
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="popularDropdown">
@@ -272,22 +291,10 @@
             </div>
         </div>
 
-        <div class="col nav-column-spacing">
+        <div class="col nav-column-spacing position-relative">
+            <span class="badge bg-best-blue position-absolute">BEST</span>
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="trendingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Trending
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="trendingDropdown">
-                    <li><a class="dropdown-item" href="#">Trending Item 1</a></li>
-                    <li><a class="dropdown-item" href="#">Trending Item 2</a></li>
-                    <li><a class="dropdown-item" href="#">Trending Item 3</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col nav-column-spacing">
-            <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="collectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold nav-item-wrapper" href="#" id="collectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Collection
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="collectionDropdown">
@@ -299,15 +306,16 @@
         </div>
 
         <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold">All Brands</a>
+            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">All Brands</a>
         </div>
 
         <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold">Contact Us</a>
+            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Contact Us</a>
         </div>
 
-        <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold">Top Deals</a>
+        <div class="col nav-column-spacing position-relative">
+            <span class="badge bg-black position-absolute">5% OFF</span>
+            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Top Deals</a>
         </div>
     </div>
 </section>
