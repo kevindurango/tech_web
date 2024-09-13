@@ -97,10 +97,9 @@ include 'header.php';
     </div>
 </section>
 
-<section class="mt-2 mb-2">
+<section class="mt-2">
     <div class="container">
         <div class="row">
-
             <div class="col-md-4">
                 <div class="list-group border rounded p-2">
                     <h5 class="fw-bold mb-4">Categories</h5>
@@ -158,7 +157,6 @@ include 'header.php';
                     </div>
                 </div>
             </div>
-
             <!-- Second Column: Products -->
 <div class="col-md-8">
     <div class="container">

@@ -80,10 +80,12 @@
     </div>
 
     <div class="offcanvas-body">
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3"> <i class="bi bi-grid me-1"></i> Shop by Categories</a> 
+        <a href="#" class="nav-link-red-offcanvas fw-semibold d-block py-3 ps-3"> 
+            <i class="bi bi-grid me-1"></i> Shop by Categories
+        </a>
 
-        <div class="dropdown mb-3">
-            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown">
+            <a class="nav-link text-white fw-semibold d-block py-3" href="#" id="offcanvasCategoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-grid me-1"></i> Categories
             </a>
             <ul class="dropdown-menu" aria-labelledby="offcanvasCategoriesDropdown">
@@ -93,45 +95,54 @@
             </ul>
         </div>
 
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Home</a>
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Shop</a>
+        <a href="#" class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3">Home</a>
+        <a href="#" class="nav-link-red-offcanvas text-dark fw-semibold d-block py-2">
+            Shop
+            <span class="offcanvas-badge bg-hot-green">HOT</span>
+        </a>
 
-        <div class="dropdown mb-3">
-            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasPopularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Popular
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="offcanvasPopularDropdown">
-                <li><a class="dropdown-item" href="#">Popular Item 1</a></li>
-                <li><a class="dropdown-item" href="#">Popular Item 2</a></li>
-                <li><a class="dropdown-item" href="#">Popular Item 3</a></li>
-            </ul>
-        </div>
+        <a class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3" href="#" id="offcanvasPopularDropdown">
+            Popular
+            <span class="offcanvas-badge bg-new-yellow">NEW</span>
+        </a>
 
-        <div class="dropdown mb-3">
-            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasTrendingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Trending
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="offcanvasTrendingDropdown">
-                <li><a class="dropdown-item" href="#">Trending Item 1</a></li>
-                <li><a class="dropdown-item" href="#">Trending Item 2</a></li>
-                <li><a class="dropdown-item" href="#">Trending Item 3</a></li>
-            </ul>
-        </div>
+        <a class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3" href="#" id="offcanvasTrendingDropdown">
+            Trending
+        </a>
 
-        <div class="dropdown mb-3">
-            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="offcanvasCollectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Collection
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="offcanvasCollectionDropdown">
-                <li><a class="dropdown-item" href="#">Collection Item 1</a></li>
-                <li><a class="dropdown-item" href="#">Collection Item 2</a></li>
-                <li><a class="dropdown-item" href="#">Collection Item 3</a></li>
-            </ul>
-        </div>
+        <a class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3" href="#" id="offcanvasCollectionDropdown">
+            Collection
+            <span class="offcanvas-badge bg-best-blue">BEST</span>
+        </a>
 
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">All Brands</a>
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Contact Us</a>
-        <a href="#" class="nav-link text-dark fw-semibold d-block mb-3">Top Deals</a>
+        <a href="#" class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3">
+            Top Deals
+            <span class="offcanvas-badge bg-black">5% OFF</span>
+        </a>
+
+        <div class="offcanvas-separator"></div>
+
+        <a href="#" class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3">
+            <i class="bi bi-cart me-1"></i> My Cart (0)
+        </a>
+        <a href="#" class="nav-link-red-offcanvas text-dark fw-semibold d-block py-3">
+            <i class="bi bi-heart me-1"></i> My Wishlist (0)
+        </a>
+
+        <div class="offcanvas-separator"></div>
+
+        <div class="dropdown d-flex justify-content-center ps-4 pe-5">
+        <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+            <div class="country-logo rounded-circle" style="background-image: url('https://flagcdn.com/us.svg'); width: 20px; height: 20px; background-size: cover;"></div>
+            <span class="text-black ms-2">EUR</span>
+            <span class="caret" style="color: black;"></span> <!-- Caret is set to black -->
+        </button>
+        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="countryDropdown">
+            <li><a class="dropdown-item text-black" href="#">Country 1</a></li>
+            <li><a class="dropdown-item text-black" href="#">Country 2</a></li>
+            <li><a class="dropdown-item text-black" href="#">Country 3</a></li>
+        </ul>
+    </div>
     </div>
 </div>
 
@@ -142,14 +153,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-
         <form class="d-flex mb-3">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-light d-flex align-items-center border-0" type="submit">
                 <i class="bi bi-search text-gray"></i>
             </button>
         </form>
-
         <div class="d-flex flex-column">
             <!-- My Cart -->
             <div class="d-flex align-items-center mb-3 text-dark">
@@ -270,17 +279,17 @@
 
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-hot-green position-absolute">HOT</span>
-            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Shop</a>
+            <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Shop</a>
         </div>
 
         <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Home</a>
+            <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Home</a>
         </div>
 
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-new-yellow position-absolute">NEW</span>
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold nav-item-wrapper" href="#" id="popularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link-red dropdown-toggle text-dark fw-semibold nav-item-wrapper" href="#" id="popularDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Popular
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="popularDropdown">
@@ -294,7 +303,7 @@
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-best-blue position-absolute">BEST</span>
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-semibold nav-item-wrapper" href="#" id="collectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link-red dropdown-toggle text-dark fw-semibold nav-item-wrapper" href="#" id="collectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Collection
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="collectionDropdown">
@@ -306,16 +315,16 @@
         </div>
 
         <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">All Brands</a>
+            <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">All Brands</a>
         </div>
 
         <div class="col nav-column-spacing">
-            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Contact Us</a>
+            <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Contact Us</a>
         </div>
 
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-black position-absolute">5% OFF</span>
-            <a href="#" class="nav-link text-dark fw-semibold nav-item-wrapper">Top Deals</a>
+            <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Top Deals</a>
         </div>
     </div>
 </section>

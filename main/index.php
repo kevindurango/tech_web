@@ -144,48 +144,47 @@ include 'header.php';
 <section class="container py-5">
     <div class="row mb-4">
         <div class="col-12 mb-5 text-center">
-
             <a href="#" class="btn btn-danger text-white btn-sm mb-2 custom-discover">Discover</a>
             <h2 class="fw-bold mb-2">SHOP BY CATEGORY</h2>
             <p class="text-muted">We add new products every day, Explore our great range of products.</p>
         </div>
     </div>
     <div class="row mt-4">
-
         <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm">
+            <div class="card shadow-sm">
                 <img src="/tech_web/assets/com_acc.png" class="card-img-top" alt="Category 1">
                 <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">Computers and Accessories</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Subtitle 1</h6>
+                    <h5 class="card-title fw-bold mb-2">Computers and Accessories</h5>
+                    <h6 class="card-subtitle mb-3 text-muted">Starting from 200.00€</h6>
                     <a href="#" class="btn btn-custom-outline">View Products</a>                
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm">
+            <div class="card shadow-sm">
                 <img src="/tech_web/assets/sma_tab.png" class="card-img-top" alt="Category 2">
                 <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">Smartphones and Tablets</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Subtitle 2</h6>
+                    <h5 class="card-title fw-bold mb-2">Smartphones and Tablets</h5>
+                    <h6 class="card-subtitle mb-3 text-muted">Starting from 7.36€</h6>
                     <a href="#" class="btn btn-custom-outline">View Products</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm">
+            <div class="card shadow-sm">
                 <img src="/tech_web/assets/tv_audio.png" class="card-img-top" alt="Category 3">
                 <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">TV, Video & Audio</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Subtitle 3</h6>
+                    <h5 class="card-title fw-bold mb-2">TV, Video & Audio</h5>
+                    <h6 class="card-subtitle mb-3 text-muted">Starting from 176.00€</h6>
                     <a href="#" class="btn btn-custom-outline">View Products</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <!-- New Section with Product Image -->
 <section class="container-fluid bg-image-section py-5">
     <div class="container">
@@ -239,11 +238,11 @@ include 'header.php';
             </div>
         </div>
 
-        <div class="container py-5">
+        <div class="container py-3">
     <div class="d-flex overflow-auto">
         <div class="d-flex flex-nowrap mx-auto">
             <div class="col-auto me-2">
-                <button class="btn btn-custom-rec mb-3">Computers and Accessories</button>
+                <button class="btn btn-custom-tem mb-3">Computers and Accessories</button>
             </div>
             <div class="col-auto me-2">
                 <button class="btn btn-custom-rec mb-3">Smartphones and Tablets</button>
@@ -265,7 +264,7 @@ include 'header.php';
           <button class="btn btn-danger btn-cart-custom">
             <i class="bi bi-cart-plus"></i>
           </button>
-          <span class="badge bg-out-of-stock">Out of Stock</span>
+          <span class="out-of-stock-badge">Out of Stock</span>
         </div>
         <div class="card-body">
           <h6 class="text-muted">Desktop PC's</h6>
@@ -372,27 +371,27 @@ include 'header.php';
 </div>
 
 <!-- On Sale Products Section -->
-        <div class="container">
-          <div class="row">
+<div class="container">
+ <div class="row">
          <!-- Super Deals Section -->
-<div class="col-lg-6 mb-4">
+<div class="col-lg-6">
   <div class="text-center mb-3">
     <img src="/tech_web/assets/superdeal.png" class="img-fluid" alt="Super Deals">
   </div>
   <div class="border">
-    <div class="d-flex flex-column flex-md-row">
+    <div class="d-flex flex-column flex-md-row pe-3">
       <!-- Image Container -->
       <div class="col-md-5 me-2 mb-md-0">
         <img src="/tech_web/assets/galaxys10.png" class="img-fluid fixed-size-sam" alt="Product Image">
       </div>
       <!-- Text Content -->
       <div class="col-md-7 position-relative">
-        <button class="btn-add-to-cart btn btn-primary position-absolute top-0 end-0">
+        <button class="btn-add-to-cart btn btn-primary position-absolute">
           <i class="bi bi-cart"></i>
         </button>
-        <h6 class="text-muted">SMARTPHONES</h6>
+        <h6 class="text-muted mb-1 mt-2">SMARTPHONES</h6>
         <h5 class="fw-bold">Samsung Galaxy S10</h5>
-        <div class="d-flex flex-column align-items-start mb-2">
+        <div class="d-flex flex-column align-items-start mb-1">
         <div class="star-rating">★★★★☆</div>
         <div class="d-flex align-items-center">
           <p class="text-danger fw-bold mb-0 me-2">$320.00</p>
@@ -400,7 +399,7 @@ include 'header.php';
         </div>
       </div>
         <p class="text-muted">
-          The Samsung Galaxy S10 offers a stunning 6.1-inch QHD+ AMOLED display and a powerful Exynos 9820 processor. With a triple-camera system and an all-day battery, it’s designed to deliver top-notch performance and an exceptional user experience.
+          The Samsung Galaxy S10 offers a stunning 6.1-inch QHD+ AMOLED display and a powerful Exynos 9820 processor. With a triple-camera system and an all-day battery.
         </p>
         <p class="fw-bold">Hurry up! Limited time offer.</p>
         <!-- Countdown Timer -->
@@ -429,63 +428,73 @@ include 'header.php';
 
 <!-- Featured Products Section -->
 <div class="col-lg-6">
-  <div class="text-center mb-3">
+  <div class="text-center mb-2">
     <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Featured Products">
   </div>
-  <div class="row">
-         <!-- Product Card 1 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card text-center">
-            <img src="/tech_web/assets/home_theater.png" class="card-img-top fixed-size-img" alt="Product Image">
-            <div class="card-body d-flex flex-column justify-content-between">
-            <div class="fixed-height-div">
-                <p class="text-muted fixed-height-text">HOME THEATERS</p>
-                <h5 class="fw-bold">120 W Home Theater</h5>
-                <p class="text-danger">$248.00</p>
-              </div>
-              <button class="btn btn-red mt-1">
-                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-              </button>
-            </div>
+  <div class="row">     
+    <!-- Product Card 1 -->
+    <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0">
+      <div class="card h-100 text-center">
+        <img src="/tech_web/assets/home_theater.png" class="card-img-top fixed-size-img" alt="Product Image">
+        <div class="custom-card-body d-flex flex-column justify-content-between">
+          <div class="fixed-height-div">
+            <p class="text-muted fixed-height-text text-truncate discount">HOME THEATERS</p>
+            <h5 class="card-title-fe">120 W Home Theater</h5>
+            <p class="text-danger font-weight-bold">248.00 €</p>
           </div>
+          <button class="btn btn-red mt-1">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
         </div>
+      </div>
+    </div>
 
-        <!-- Product Card 2 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 text-center">
-            <img src="/tech_web/assets/galaxy_fit.png" class="card-img-top fixed-size-img img-fluid" alt="Product Image">
-            <div class="card-body d-flex flex-column justify-content-between">
-            <div class="fixed-height-div">
-                <p class="text-muted">FITNESS TRACKERS</p>
-                <h5 class="fw-bold">Galaxy Fit e Smart Band</h5>
-                <p class="text-danger">$140.65</p>
-              </div>
-              <button class="btn btn-red mt-1">
-                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-              </button>
-            </div>
+    <!-- Product Card 2 -->
+    <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0">
+      <div class="card h-100 text-center">
+        <img src="/tech_web/assets/galaxy_fit.png" class="card-img-top fixed-size-img img-fluid" alt="Product Image">
+        <div class="custom-card-body d-flex flex-column justify-content-between">
+          <div class="fixed-height-div">
+            <p class="text-muted text-truncate">FITNESS TRACKERS</p>
+            <h5 class="card-title-fe">Galaxy Fit e Smart Band</h5>
+            <p class="text-danger font-weight-bold">
+              140.65 €
+              <span class="text-muted text-decoration-line-through">145.00 €</span>
+            </p>
           </div>
+          <button class="btn btn-red mt-1">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
         </div>
+      </div>
+    </div>
 
-        <!-- Product Card 3 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 text-center">
-            <img src="/tech_web/assets/ipad_7th_gen.png" class="card-img-top fixed-size-img" alt="Product Image">
-            <div class="card-body d-flex flex-column justify-content-between">
-            <div class="fixed-height-div">
-              <p class="text-muted">TABLETS</p>
-              <h5 class="fw-bold">Apple iPad 7th Gen</h5>
-              <p class="text-danger">$334.88</p>
-            </div>
-              <button class="btn btn-red mt-1">
-                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-              </button>
-            </div>
+    <!-- Product Card 3 -->
+    <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0 d-none d-md-none d-lg-block">
+      <div class="card h-100 text-center">
+        <img src="/tech_web/assets/ipad_7th_gen.png" class="card-img-top fixed-size-img" alt="Product Image">
+        <div class="custom-card-body d-flex flex-column justify-content-between">
+          <div class="fixed-height-div">
+            <p class="text-muted text-truncate">TABLETS</p>
+            <h5 class="card-title-fe">Apple iPad (7th Gen)</h5>
+            <p class="text-danger font-weight-bold">
+              334.88 €
+              <span class="text-muted text-decoration-line-through discount">364.00 €</span>
+            </p>
           </div>
+          <button class="btn btn-red mt-1">
+            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+    
+  </div>
+</div>
+</div>
 </div>
 
 <!-- Shop by brand -->

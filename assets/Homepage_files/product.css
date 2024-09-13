@@ -37,6 +37,14 @@
   color: #dc3545;
 }
 
+/* Color options */
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
 .bg-danger {
   background-color: red;
 }
@@ -45,6 +53,20 @@
 }
 .bg-dark {
   background-color: black;
+}
+
+/* Button styling */
+
+.btn-outline-secondary {
+  color: #343a40;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  border-radius: 0;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
 }
 
 /* Storage options styling */
@@ -82,7 +104,7 @@
 
 .term-image {
   width: 8rem;
-  height: 8rem;
+  height: auto;
   border: 2px solid lightgray;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -93,6 +115,37 @@
 
 .product-navigation {
   border-top: 2px solid lightgray;
+  padding-top: 10px;
+}
+
+.nav-tabs .nav-link {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 10px 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.nav-tabs .nav-link i {
+  margin-right: 8px;
+  color: grey;
+}
+
+/* Red line indicator above active tab */
+.nav-tabs .nav-link.active {
+  color: red;
+}
+
+.nav-tabs .nav-link.active::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: red;
 }
 
 /* Adjust border color for inactive links */
@@ -551,251 +604,4 @@ p.card-text {
 /* Show color dots on hover */
 .card:hover .color-options {
   opacity: 1;
-}
-
-.product-info {
-  display: flex;
-  align-items: flex-start;
-}
-
-.apple-logo {
-  max-width: 100%;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-}
-
-.product-info .apple-logo {
-  max-width: 90px;
-  height: auto;
-}
-
-.product-info .container {
-  padding: 0;
-}
-
-.product-info .row {
-  margin: 0;
-}
-
-.product-info .col-4,
-.product-info .col-md-2 {
-  padding: 0;
-}
-
-/* General styling for storage buttons */
-.btn-storage {
-  color: #343a40;
-  background-color: transparent;
-  border: 2px solid #343a40;
-  border-radius: 0;
-  padding: 8px 16px;
-  transition: all 0.3s ease;
-}
-
-/* Styling for active or clicked state */
-.btn-storage.active,
-.btn-storage:focus,
-.btn-storage:active {
-  color: #fff;
-  background-color: #e84d48;
-  border-color: #e84d48;
-}
-
-/* Ensure visible border for non-active state */
-.btn-storage:not(.active) {
-  border-color: #343a40;
-}
-
-.mb-3 .btn-storage {
-  border-radius: 0;
-}
-
-/* Remove default focus outline for better custom styling */
-.btn-storage:focus {
-  outline: none;
-}
-
-/* Make the first button active by default */
-.mb-3 .btn-storage:first-of-type {
-  color: #fff;
-  background-color: #e84d48;
-  border-color: #e84d48;
-}
-
-.save-for-later-button {
-  background-color: #cfd4d8;
-  color: #383b40;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  border-radius: 0px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.save-for-later-button .bi-clock {
-  margin-right: 5px;
-}
-
-.color-option {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-.color-option.bg-danger {
-  background-color: #ff4d4d;
-}
-
-.color-option.bg-purple {
-  background-color: #d3b1f7;
-}
-
-.color-option.bg-dark {
-  background-color: #000;
-}
-
-.color-option.custom-color {
-  background-color: #000;
-}
-
-.custom-nav-tabs {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-  list-style-type: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.custom-nav-tabs .custom-nav-link {
-  position: relative;
-  border: 1px solid transparent;
-  border-radius: 0;
-  padding: 10px 20px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  transition: color 0.3s;
-  font-weight: 600;
-}
-
-.custom-nav-tabs .custom-nav-link i {
-  margin-right: 8px;
-  color: grey;
-}
-
-.custom-nav-tabs .custom-nav-link:focus,
-.custom-nav-tabs .custom-nav-link:active,
-.custom-nav-tabs .custom-nav-link.active {
-  color: #ff4d4d;
-}
-
-.custom-nav-tabs .custom-nav-link:focus::before,
-.custom-nav-tabs .custom-nav-link:active::before,
-.custom-nav-tabs .custom-nav-link.active::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #ff4d4d;
-}
-
-.custom-nav-tabs .custom-nav-link:hover {
-  color: #ff4d4d;
-}
-
-@media (max-width: 991px) {
-  .custom-nav-tabs {
-    flex-direction: column;
-    padding-bottom: 0;
-  }
-
-  .custom-nav-tabs .custom-nav-link {
-    width: 100%;
-    text-align: left;
-    padding: 10px;
-  }
-
-  .custom-nav-tabs .custom-nav-link:hover {
-    background-color: #ff4d4d;
-    color: white;
-  }
-}
-
-/* Hide red line on small and medium screens */
-.custom-nav-tabs .custom-nav-link:focus::before,
-.custom-nav-tabs .custom-nav-link:active::before,
-.custom-nav-tabs .custom-nav-link.active::before {
-  display: none;
-}
-
-/* Hide the default radio button */
-.form-check-input {
-  opacity: 0;
-  position: absolute;
-  width: 0;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  border: none;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  overflow: hidden;
-}
-
-/* Adjust padding for text */
-.list-group-item span {
-  padding-left: 10px;
-}
-
-/* Custom radio button styling */
-.list-group-item {
-  position: relative;
-  padding-left: 2.9rem;
-}
-
-.list-group-item .form-check-input + span::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  border: 2px solid #ff4d4d;
-  background-color: #fff;
-  transition: background-color 0.3s, border-color 0.3s;
-  z-index: 1;
-}
-
-.list-group-item .form-check-input:checked + span::before {
-  background-color: #ff4d4d;
-  border-color: #ff4d4d;
-}
-
-.list-group-item .form-check-input:checked + span::before::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background-color: #fff;
-  z-index: 2;
-}
-
-.list-group-item:hover .form-check-input + span::before {
-  border-color: #ff4d4d;
-  background-color: #ff4d4d;
 }

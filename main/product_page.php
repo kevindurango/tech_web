@@ -33,11 +33,11 @@ include 'header.php';
                             <img src="/tech_web/assets/iphone13-3.png" class="d-block w-100" alt="Product Image 3">
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#productCarousel" role="button" data-bs-slide="prev">
+                    <a class="carousel-control-prev carousel-control-prev-circle" href="#productCarousel" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#productCarousel" role="button" data-bs-slide="next">
+                    <a class="carousel-control-next carousel-control-next-circle" href="#productCarousel" role="button" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </a>
@@ -50,6 +50,7 @@ include 'header.php';
                 </div>
             </div>
 
+            <!-- Product details -->
             <div class="col-md-6">
                 <div class="d-flex align-items-center mb-3">
                     <i class="bi bi-house-door-fill me-2"></i>
@@ -57,7 +58,6 @@ include 'header.php';
                     <span class="text-danger fw-semibold">Shop</span>
                     <span class="mx-2">/</span>
                     <span class="fw-semibold">Apple iPhone 13</span>
-
                     <div class="d-flex align-items-center ms-auto">
                         <span style="color: red; font-size: 1rem;">&lt;</span>
                         <i class="bi bi-grid text-danger mx-2" style="font-size: 1rem;"></i>
@@ -70,6 +70,10 @@ include 'header.php';
 
                 <div class="d-flex align-items-center mb-2">
                     <i class="bi bi-star-fill text-warning me-2"></i>
+                    <i class="bi bi-star-fill text-warning me-2"></i>
+                    <i class="bi bi-star-fill text-warning me-2"></i>
+                    <i class="bi bi-star-fill text-warning me-2"></i>
+                    <i class="bi bi-star-half text-warning me-2"></i>
                     <span>4.5 (200 reviews)</span>
                 </div>
 
@@ -101,29 +105,54 @@ include 'header.php';
 
                 <div class="d-flex align-items-center mb-3 text-start w-100">
                     <i class="bi bi-envelope-fill text-danger me-2"></i>
-                    <span>Get notified when back in stock</span>
-                </div>
-                <button class="btn btn-outline-secondary">
-                    <i class="bi bi-clock me-1"></i> Save for later
+                    <span class="text-danger">Get notified when back in stock</span>
+                    </div>
+
+                <button class="save-for-later-button">
+                <i class="bi bi-clock me-1"></i> Save for later
                 </button>
 
-                <div class="mt-4">
+                <hr class="my-4">
 
-                    <hr class="my-4">
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-gift text-danger me-2"></i>
-                            <span>Special Offer: Get mi smart speaker on purchase of selected devices. <a href="#" class="text-danger">Details ></a></span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-bank text-danger me-2"></i>
-                            <span>Bank Offer: Extra 5% off on credit cards. <a href="#" class="text-danger">Details ></a></span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-person-badge text-danger me-2"></i>
-                            <span>Membership: Get prime membership for extra discount. <a href="#" class="text-danger">Details ></a></span>
+                <div class="product-info mt-2">
+                    <div class="container">
+                        <div class="row align-items-start">
+                            <div class="col-4 col-md-2 text-center pe-3">
+                                <img src="/tech_web/assets/apple-logo.png" alt="Apple Logo" class="apple-logo">
+                            </div>
+                            <div class="col-8 col-md-10 ps-4">
+                                <p class="mb-1 mt-2"><strong>Apple</strong></p>
+                                <p class="fw-normal">This is a genuine product of Brand. The product comes with a standard brand warranty of 1 year.</p>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <hr class="my-4">
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-gift" style="color: #e00; margin-right: 0.5rem;"></i>
+                        <span>
+                            <span style="color: #ff4d4d;">Special Offer:</span> Get mi smart speaker on purchase of selected devices. 
+                            <a href="#" style="color: #e00; text-decoration: none;">Details ></a>
+                        </span>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-bank" style="color: #e00; margin-right: 0.5rem;"></i>
+                        <span>
+                            <span style="color: #ff4d4d;">Bank Offer:</span> Extra 5% off on credit cards. 
+                            <a href="#" style="color: #e00; text-decoration: none;">Details ></a>
+                        </span>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-person-badge" style="color: #e00; margin-right: 0.5rem;"></i>
+                        <span>
+                            <span style="color: #ff4d4d;">Membership:</span> Get prime membership for extra discount. 
+                            <a href="#" style="color: #e00; text-decoration: none;">Details ></a>
+                        </span>
+                    </div>
+                </div>
+
 
                     <hr class="my-4">
                     <div class="mb-4">
@@ -160,37 +189,38 @@ include 'header.php';
     </div>
 </section>
  <!-- navigation bar-->
-<section class="product-navigation mt-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <ul class="nav nav-tabs justify-content-center border-bottom border-gray">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#description" data-bs-toggle="tab">
-                            <i class="bi bi-file-text"></i> Description
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#specifications" data-bs-toggle="tab">
-                            <i class="bi bi-gear"></i> Specifications
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#documents" data-bs-toggle="tab">
-                            <i class="bi bi-file-earmark-text"></i> Documents
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reviews" data-bs-toggle="tab">
-                            <i class="bi bi-star"></i> Reviews & Rating
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#shipping" data-bs-toggle="tab">
-                            <i class="bi bi-truck"></i> Shipping & Delivery
-                        </a>
-                    </li>
-                </ul>
+ <section class="product-navigation mt-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+ 
+            <ul class="custom-nav-tabs">
+        <li class="nav-item">
+            <a class="custom-nav-link" href="#description">
+            <i class="bi bi-file-text"></i> Description
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="custom-nav-link" href="#specifications">
+            <i class="bi bi-gear"></i> Specifications
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="custom-nav-link" href="#documents">
+            <i class="bi bi-file-earmark-text"></i> Documents
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="custom-nav-link" href="#reviews">
+            <i class="bi bi-star"></i> Reviews & Rating
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="custom-nav-link" href="#shipping">
+            <i class="bi bi-truck"></i> Shipping & Delivery
+            </a>
+        </li>
+        </ul>
 
                 <div class="row mt-5">
                     <div class="col-12 mb-5 text-center">
