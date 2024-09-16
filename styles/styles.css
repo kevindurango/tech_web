@@ -755,9 +755,9 @@ a {
 /* Basic styles for the color options */
 .color-option {
   border: 1px solid #6c757d;
+  padding: 1px;
 }
 
-/* Color classes for specific colors */
 .bg-white {
   background-color: #ffffff;
 }
@@ -765,13 +765,13 @@ a {
   background-color: pink;
 }
 .bg-black {
-  background-color: #000000;
+  background-color: #1e1e1e;
 }
 .bg-grey {
   background-color: #6c757d;
 }
 .bg-blue {
-  background-color: #007bff;
+  background-color: #bbc9eb;
 }
 .bg-dark-yellow {
   background-color: #ffcc00;
@@ -780,7 +780,7 @@ a {
   background-color: #004d00;
 }
 .bg-dark-blue {
-  background-color: #003366;
+  background-color: #0101af;
 }
 
 .out-of-stock-badge {
@@ -957,7 +957,7 @@ a {
 
 @media (max-width: 767px) {
   .text-danger.font-weight-bold {
-    min-height: auto; /* Remove the min-height constraint */
+    min-height: auto;
   }
 }
 
@@ -975,7 +975,7 @@ a {
 
 @media (max-width: 479px) {
   .card-title-fe {
-    min-height: auto; /* Remove the min-height constraint */
+    min-height: auto;
   }
 }
 

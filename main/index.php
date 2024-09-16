@@ -294,7 +294,7 @@ include 'header.php';
           <h6 class="text-muted">Laptops</h6>
           <h5 class="card-title">Apple Macbook Pro Core i5</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0 text-danger">$Price</p>
+            <p class="card-text mb-0 text-danger">467.00€</p>
             <div class="star-rating">★★★★☆</div>
           </div>
           <div class="d-flex mt-2">
@@ -318,7 +318,7 @@ include 'header.php';
           <h6 class="text-muted">Desktop PC's</h6>
           <h5 class="card-title">Apple iMac Pro</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0 text-danger">$600.00</p>
+            <p class="card-text mb-0 text-danger">600.00€</p>
             <div class="star-rating">★★★★☆</div>
           </div>
           <div class="d-flex mt-2">
@@ -343,7 +343,7 @@ include 'header.php';
           <h6 class="text-muted">Printers</h6>
           <h5 class="card-title">Hp Multi-Function Printer</h5>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="card-text mb-0 text-danger">$200.00</p>
+            <p class="card-text mb-0 text-danger">200.00€</p>
             <div class="star-rating">★★★★☆</div>
           </div>
 

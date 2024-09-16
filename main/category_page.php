@@ -101,7 +101,7 @@ include 'header.php';
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="list-group border rounded p-2">
+            <div class="list-group border p-2" style="border-radius: 0;">
                     <h5 class="fw-bold mb-4">Categories</h5>
                     <label class="list-group-item d-flex align-items-center">
                         <input type="radio" name="category" class="form-check-input me-2" value="all-products" checked>
@@ -151,7 +151,7 @@ include 'header.php';
                         <span class="text-muted small ms-auto">(3)</span>
                         <i class="bi bi-caret-down-fill text-muted ms-2"></i>
                     </label>
-                    <button class="btn btn-dark w-100 mt-3">Reset Filter</button>
+                    <button class="btn btn-dark w-100 mt-3" style="border-radius: 0;">Reset Filter</button>
                     <div class="mt-3">
                         <img src="/tech_web/assets/headphone_sale.png" alt="Advertisement" class="img-fluid">
                     </div>

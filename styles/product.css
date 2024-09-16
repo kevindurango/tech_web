@@ -233,7 +233,6 @@
 /* Style the radio button and label container */
 
 .list-group-item {
-  border-radius: 0.375rem;
   padding: 0.75rem 1rem;
   border: 1px solid transparent;
 }
@@ -327,7 +326,7 @@
   color: white;
   border: none;
   border-radius: 25px;
-  padding: 8px 75px;
+  padding: 8px 85px;
   cursor: pointer;
   z-index: 2;
   text-align: center;
@@ -358,8 +357,8 @@
 .product-card-icons {
   position: absolute;
   top: 50%;
-  right: 10px;
-  transform: translateY(-50%) translateX(-10px);
+  right: -5px;
+  transform: translateY(-50%) translateX(8px);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -661,7 +660,6 @@ p.card-text {
 .color-option.custom-color {
   background-color: #000;
 }
-
 .custom-nav-tabs {
   display: flex;
   justify-content: center;
@@ -690,28 +688,37 @@ p.card-text {
   color: grey;
 }
 
+/* Active link styling */
 .custom-nav-tabs .custom-nav-link:focus,
 .custom-nav-tabs .custom-nav-link:active,
 .custom-nav-tabs .custom-nav-link.active {
   color: #ff4d4d;
 }
 
-.custom-nav-tabs .custom-nav-link:focus::before,
-.custom-nav-tabs .custom-nav-link:active::before,
-.custom-nav-tabs .custom-nav-link.active::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #ff4d4d;
+/* Red line above for active or focused link on large screens */
+@media (min-width: 992px) {
+  .custom-nav-tabs .custom-nav-link:focus::before,
+  .custom-nav-tabs .custom-nav-link:active::before,
+  .custom-nav-tabs .custom-nav-link.active::before {
+    content: "";
+    position: absolute;
+    top: -2px; /* Adjust this value if needed */
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ff4d4d; /* Red line color */
+    z-index: 10; /* Ensure it's on top */
+  }
 }
 
-.custom-nav-tabs .custom-nav-link:hover {
-  color: #ff4d4d;
+/* Hover effect for large screens */
+@media (min-width: 992px) {
+  .custom-nav-tabs .custom-nav-link:hover {
+    color: #ff4d4d;
+  }
 }
 
+/* Adjustments for small and medium screens */
 @media (max-width: 991px) {
   .custom-nav-tabs {
     flex-direction: column;
@@ -728,13 +735,13 @@ p.card-text {
     background-color: #ff4d4d;
     color: white;
   }
-}
 
-/* Hide red line on small and medium screens */
-.custom-nav-tabs .custom-nav-link:focus::before,
-.custom-nav-tabs .custom-nav-link:active::before,
-.custom-nav-tabs .custom-nav-link.active::before {
-  display: none;
+  /* Hide red line on small and medium screens */
+  .custom-nav-tabs .custom-nav-link:focus::before,
+  .custom-nav-tabs .custom-nav-link:active::before,
+  .custom-nav-tabs .custom-nav-link.active::before {
+    display: none;
+  }
 }
 
 /* Hide the default radio button */
