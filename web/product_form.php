@@ -1,10 +1,55 @@
-<!-- HTML Form -->
+<?php
+
+include 'db_connect.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $sku = $_POST['sku'];
+    $short_description = $_POST['short_description'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $featured = isset($_POST['featured']) ? 1 : 0;
+    $category_id = $_POST['category_id'];  
+
+    $stmt_product = $conn->prepare("INSERT INTO products (name, SKU, short_description, price, featured, description, category_id) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)");
+    
+    $stmt_product->bind_param("sssdiss", $name, $sku, $short_description, $price, $featured, $description, $category_id);
+    
+    if ($stmt_product->execute()) {
+        $product_id = $stmt_product->insert_id; 
+
+        $image_url = '';
+        if (!empty($_FILES['image']['name'])) {
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES['image']['name']);
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+                $image_url = $target_file;
+
+                $stmt_image = $conn->prepare("INSERT INTO images (product_id, image_url) VALUES (?, ?)");
+                $stmt_image->bind_param("is", $product_id, $image_url);
+                $stmt_image->execute();
+                $stmt_image->close();
+            } else {
+                echo "Error uploading the image.";
+            }
+        }
+
+        echo "Product added successfully!";
+    } else {
+        echo "Error: " . $stmt_product->error;
+    }
+
+    $stmt_product->close();
+    $conn->close();
+}
+
+?>
+
 <form action="create_product.php" method="post" enctype="multipart/form-data">
     <label for="name">Product Name:</label>
     <input type="text" name="name" required><br>
-
-    <label for="category">Category:</label>
-    <input type="text" name="category" required placeholder="e.g. Electronics, Home Appliances"><br>
 
     <label for="sku">SKU:</label>
     <input type="text" name="sku" required><br>
@@ -15,41 +60,26 @@
     <label for="price">Price:</label>
     <input type="text" name="price" required><br>
 
-    <label for="discounted_price">Discounted Price:</label>
-    <input type="text" name="discounted_price" required><br>
+    <label for="category">Category:</label>
+    <select name="category_id">
+        <?php
+        $sql = "SELECT * FROM categories";
+        $result = $conn->query($sql);
 
-    <label for="original_price">Original Price:</label>
-    <input type="text" name="original_price" required><br>
-
-    <label for="discount">Discount (%):</label>
-    <input type="number" name="discount" min="0" max="100" required><br>
-
-    <label for="rating">Average Rating:</label>
-    <input type="number" name="rating" min="0" max="5" step="0.1" required><br>
-
-    <label for="review_count">Number of Reviews:</label>
-    <input type="number" name="review_count" min="0" required><br>
-
-    <label for="storage_options">Storage Options (comma separated):</label>
-    <input type="text" name="storage_options" placeholder="e.g. 128 GB, 256 GB" required><br>
-
-    <label for="color_options">Color Options (comma separated):</label>
-    <input type="text" name="color_options" placeholder="e.g. Red, Blue, Green" required><br>
-
-    <label for="special_offer">Special Offer:</label>
-    <textarea name="special_offer" placeholder="e.g. Get a free accessory with purchase"></textarea><br>
-
-    <label for="bank_offer">Bank Offer:</label>
-    <textarea name="bank_offer" placeholder="e.g. 5% cashback on credit card"></textarea><br>
-
-    <label for="membership_offer">Membership Offer:</label>
-    <textarea name="membership_offer" placeholder="e.g. Prime members get extra 10% off"></textarea><br>
+        while ($category = $result->fetch_assoc()) {
+            echo "<option value='" . $category['id'] . "'>" . htmlspecialchars($category['category_name']) . "</option>";
+        }
+        ?>
+    </select><br>
 
     <label for="featured">Feature Product:</label>
     <input type="checkbox" name="featured"><br>
 
     <label for="image">Product Image:</label>
     <input type="file" name="image" accept="image/*"><br>
+
+    <label for="description">Product Description (HTML allowed):</label>
+    <textarea name="description"></textarea><br>
 
     <input type="submit" value="Add Product">
 </form>
