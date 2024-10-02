@@ -1,20 +1,25 @@
 <?php
-include 'db_connect.php';
+include 'Database.php';  
+include 'Category.php'; 
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$category = new Category($conn);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $category_name = $_POST['category_name'];
-    $category_description = $_POST['category_description'];
 
-    $sql = "INSERT INTO categories (category_name, category_description) VALUES ('$category_name', '$category_description')";
+    $category->category_name = $_POST['category_name'];
+    $category->category_description = $_POST['category_description'];
 
-    if ($conn->query($sql) === TRUE) {
+
+    if ($category->addCategory()) {
         echo "Category added successfully!";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error adding category.";
     }
-
-    $conn->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Add Category</title>
 </head>
 <body>
+    <h2>Add New Category</h2>
     <form action="category_form.php" method="post">
         <label for="category_name">Category Name:</label>
         <input type="text" name="category_name" required><br>
