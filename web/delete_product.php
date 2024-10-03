@@ -7,15 +7,15 @@ $conn = $db->getConnection();
 $product = new Product($conn);
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $productId = $_GET['id'];
 
-    if ($product->deleteProduct($id)) {
+    if ($product->deleteProduct($productId)) {
         header("Location: product_list.php?msg=Product deleted successfully");
         exit();
     } else {
         echo "Error deleting product.";
     }
 } else {
-    echo "Invalid product ID.";
+    echo "No product ID provided.";
 }
 ?>

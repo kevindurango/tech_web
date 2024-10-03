@@ -13,6 +13,8 @@ $sql = "SELECT p.*, i.image_url
 
 $products = $conn->query($sql);
 
+echo '<a href="add_product.php" class="btn btn-success">Add New Product</a>'; // Button to add new product
+
 if ($products && $products->num_rows > 0) {
     echo '<table class="table table-striped">';
     echo '
