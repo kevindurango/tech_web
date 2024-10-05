@@ -1,35 +1,46 @@
 <?php
-include 'Database.php';
-include 'Category.php';
-
-$db = new Database();
-$category = new Category($db->getConnection());
-
-if (isset($_POST['submit'])) {
-    $id = $_POST['id'];
-    $category_name = $_POST['category_name'];
-    $category_description = $_POST['category_description'];
-
-    if ($category->updateCategory($id, $category_name, $category_description)) {
-        header('Location: categories.php');
-        exit();
-    } else {
-        echo "Error updating category.";
-    }
-}
+include 'db_connection.php'; 
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $cat = $category->getCategoryById($id);
+    $id = intval($_GET['id']);
+    $stmt = $conn->prepare("SELECT id, category_name, description FROM Categories WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $category = $result->fetch_assoc();
+
+    if (!$category) {
+        die("Category not found.");
+    }
+} else {
+    die("Invalid request.");
 }
 ?>
 
-<h2>Edit Category</h2>
-<form method="POST" action="">
-    <input type="hidden" name="id" value="<?php echo $cat['id']; ?>">
-    <label for="category_name">Category Name:</label>
-    <input type="text" name="category_name" value="<?php echo htmlspecialchars($cat['category_name']); ?>" required><br>
-    <label for="category_description">Description:</label>
-    <textarea name="category_description" required><?php echo htmlspecialchars($cat['category_description']); ?></textarea><br>
-    <input type="submit" name="submit" value="Update">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+</head>
+<body>
+    <h2>Edit Category</h2>
+    <form action="update_category.php" method="POST">
+        <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
+        
+        <label for="category_name">Category Name:</label>
+        <input type="text" id="category_name" name="category_name" value="<?php echo htmlspecialchars($category['category_name']); ?>" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required><?php echo htmlspecialchars($category['description']); ?></textarea><br><br>
+
+        <input type="submit" value="Update Category">
+    </form>
+</body>
+</html>
+
+<?php
+$stmt->close();
+$conn->close();
+?>

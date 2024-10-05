@@ -1,18 +1,24 @@
 <?php
-include 'Database.php';
-include 'Category.php';
-
-$db = new Database();
-$category = new Category($db->getConnection());
+include 'db_connection.php'; 
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = intval($_GET['id']);
 
-    if ($category->deleteCategory($id)) {
-        header('Location: categories.php');
-        exit();
+    // Prepare and execute the delete statement
+    $stmt = $conn->prepare("DELETE FROM Categories WHERE id = ?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        echo "Category deleted successfully 🎉<br>";
+        echo "<a href='category_list.php'>View Category List</a>";
     } else {
-        echo "Error deleting category.";
+        echo "Error: " . $stmt->error;
     }
+
+    $stmt->close();
+} else {
+    echo "Invalid request.";
 }
+
+$conn->close();
 ?>

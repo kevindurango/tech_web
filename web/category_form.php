@@ -1,40 +1,18 @@
-<?php
-include 'Database.php';  
-include 'Category.php'; 
-
-$db = new Database();
-$conn = $db->getConnection();
-
-$category = new Category($conn);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $category->category_name = $_POST['category_name'];
-    $category->category_description = $_POST['category_description'];
-
-
-    if ($category->addCategory()) {
-        echo "Category added successfully!";
-    } else {
-        echo "Error adding category.";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Category</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Category</title>
 </head>
 <body>
     <h2>Add New Category</h2>
-    <form action="category_form.php" method="post">
+    <form action="submit_category.php" method="POST">
         <label for="category_name">Category Name:</label>
-        <input type="text" name="category_name" required><br>
+        <input type="text" id="category_name" name="category_name" required><br><br>
 
-        <label for="category_description">Category Description:</label>
-        <textarea name="category_description"></textarea><br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br><br>
 
         <input type="submit" value="Add Category">
     </form>

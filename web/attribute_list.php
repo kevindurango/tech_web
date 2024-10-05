@@ -1,14 +1,8 @@
 <?php
-include 'Database.php';
-include 'Product_Attribute.php';
-include 'Product_Attribute_Value.php';
+include 'db_connection.php'; // Include the database connection file
 
-$db = new Database();
-$conn = $db->getConnection();
-
-$attribute = new ProductAttribute($conn);
-
-$attributesResult = $attribute->getAllAttributes();
+$sql = "SELECT id, attribute_name FROM Attributes";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -17,35 +11,34 @@ $attributesResult = $attribute->getAllAttributes();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attribute List</title>
+    <script>
+        function confirmDelete(attributeName) {
+            return confirm("Are you sure you want to delete the attribute '" + attributeName + "'?");
+        }
+    </script>
 </head>
 <body>
-    <h1>Attribute List</h1>
-    <a href="add_attribute.php">Add New Attribute</a>
-
-    <?php if (isset($_GET['msg'])): ?>
-        <p style="color: green;"><?php echo htmlspecialchars($_GET['msg']); ?></p>
-    <?php endif; ?>
-
-    <table border="1">
+    <h2>Attribute Names</h2>
+    <table border="1" cellpadding="10">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Attribute Name</th>
-                <th>Attribute Value</th>
-                <th>Actions</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <?php if ($attributesResult->num_rows > 0): ?>
-                <?php while ($attributeRow = $attributesResult->fetch_assoc()): ?>
+            <?php if ($result->num_rows > 0): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($attributeRow['attribute_name']); ?></td>
-                        <td><?php echo htmlspecialchars($attributeRow['value']); ?></td>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo htmlspecialchars($row['attribute_name']); ?></td>
                         <td>
-                            <a href="edit_attribute_value.php?id=<?php echo $attributeRow['value_id']; ?>">Edit</a>
-                            <a href="delete_attribute_value.php?id=<?php echo $attributeRow['value_id']; ?>" 
-                               onclick="return confirm('Are you sure you want to delete this attribute value?');">Delete Value</a>
-                            <a href="delete_attribute.php?id=<?php echo $attributeRow['attribute_id']; ?>" 
-                               onclick="return confirm('Are you sure you want to delete this attribute and its values?');">Delete Name and Value</a>
+                            <a href="attribute_values.php?id=<?php echo $row['id']; ?>">View Values</a> |
+                            <a href="delete_attribute.php?id=<?php echo $row['id']; ?>" 
+                               onclick="return confirmDelete('<?php echo htmlspecialchars($row['attribute_name']); ?>');">
+                               Delete
+                            </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
@@ -56,5 +49,11 @@ $attributesResult = $attribute->getAllAttributes();
             <?php endif; ?>
         </tbody>
     </table>
+    <br>
+    <a href="add_attribute.php">Add New Attribute</a>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>

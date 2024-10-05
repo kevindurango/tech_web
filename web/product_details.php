@@ -1,45 +1,34 @@
 <?php
-include 'Database.php';
+include 'db_connection.php'; 
 
-$db = new Database();
-$conn = $db->getConnection();
-
-$productId = isset($_GET['id']) ? $_GET['id'] : null;
-
-if ($productId) {
-    $productQuery = "SELECT * FROM products WHERE id = ?";
-    $stmt = $conn->prepare($productQuery);
-    $stmt->bind_param('i', $productId);
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']); 
+    $stmt = $conn->prepare("SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url 
+                             FROM Products p WHERE p.id = ?");
+    $stmt->bind_param("i", $id);
     $stmt->execute();
-    $productResult = $stmt->get_result();
-    $product = $productResult->fetch_assoc();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
 
     if (!$product) {
-        echo "Product not found.";
-        exit();
+        die("Product not found.");
     }
 
-    $imageQuery = "SELECT image_url FROM images WHERE product_id = ?";
-    $imageStmt = $conn->prepare($imageQuery);
-    $imageStmt->bind_param('i', $productId);
-    $imageStmt->execute();
-    $imageResult = $imageStmt->get_result();
-    $image = $imageResult->fetch_assoc();
+    $stmt_attributes = $conn->prepare("SELECT av.value, a.attribute_name 
+                                        FROM Product_Attributes pa 
+                                        JOIN Attribute_Values av ON pa.attribute_value_id = av.id 
+                                        JOIN Attributes a ON av.attribute_id = a.id 
+                                        WHERE pa.product_id = ?");
+    $stmt_attributes->bind_param("i", $id);
+    $stmt_attributes->execute();
+    $result_attributes = $stmt_attributes->get_result();
 
-    $attributesQuery = "
-        SELECT pa.id as product_attribute_id, a.attribute_name, av.value
-        FROM product_attributes pa
-        JOIN attributes a ON pa.attribute_id = a.id
-        JOIN attribute_values av ON pa.value_id = av.id
-        WHERE pa.product_id = ?
-    ";
-    $attributesStmt = $conn->prepare($attributesQuery);
-    $attributesStmt->bind_param('i', $productId);
-    $attributesStmt->execute();
-    $attributesResult = $attributesStmt->get_result();
+    $attributes = [];
+    while ($row = $result_attributes->fetch_assoc()) {
+        $attributes[$row['attribute_name']][] = $row['value'];
+    }
 } else {
-    echo "Invalid product ID.";
-    exit();
+    die("Invalid request.");
 }
 ?>
 
@@ -48,34 +37,34 @@ if ($productId) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($product['name']); ?> - Product Details</title>
+    <title><?php echo htmlspecialchars($product['name']); ?></title>
 </head>
 <body>
-    <h1><?php echo htmlspecialchars($product['name']); ?></h1>
-
-    <!-- Display Product Image -->
-    <?php if (!empty($image['image_url'])): ?>
-        <img src="/tech_web/assets/products/<?php echo htmlspecialchars($image['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 300px;">
-    <?php else: ?>
-        <p>No image available for this product.</p>
-    <?php endif; ?>
-
-    <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['sku']); ?></p>
-    <p><strong>Description:</strong> <?php echo htmlspecialchars($product['description']); ?></p>
-    <p><strong>Price:</strong> $<?php echo number_format($product['price'], 2); ?></p>
-    <p><strong>Featured:</strong> <?php echo $product['featured'] ? 'Yes' : 'No'; ?></p>
-
-    <h2>Attributes</h2>
-    <?php if ($attributesResult->num_rows > 0): ?>
+    <div class="product-details">
+        <h2><?php echo htmlspecialchars($product['name']); ?></h2>
+        <img src="<?php echo '/tech_web/assets/products/' . htmlspecialchars($product['main_image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 150px; max-height: 150px;">
+        <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['SKU']); ?></p>
+        <p><strong>Short Description:</strong> <?php echo htmlspecialchars($product['short_description']); ?></p>
+        <p><strong>Price:</strong> $<?php echo number_format($product['price'], 2); ?></p>
+        <p><strong>Product Description:</strong><br><?php echo nl2br(htmlspecialchars($product['product_description'])); ?></p>
+        <p><strong>Featured Product:</strong> <?php echo $product['feature_product'] ? 'Yes' : 'No'; ?></p>
+        
+        <p><strong>Attributes:</strong></p>
         <ul>
-            <?php while ($attribute = $attributesResult->fetch_assoc()): ?>
-                <li><strong><?php echo htmlspecialchars($attribute['attribute_name']); ?>:</strong> <?php echo htmlspecialchars($attribute['value']); ?></li>
-            <?php endwhile; ?>
+            <?php
+            foreach ($attributes as $attribute_name => $values) {
+                echo "<li><strong>" . htmlspecialchars($attribute_name) . ":</strong> " . htmlspecialchars(implode(', ', $values)) . "</li>";
+            }
+            ?>
         </ul>
-    <?php else: ?>
-        <p>No attributes found for this product.</p>
-    <?php endif; ?>
-    
-    <a href="product_list.php">Back to Product List</a>
+
+        <a href="product_list.php">Back to Product List</a>
+    </div>
 </body>
 </html>
+
+<?php
+$stmt->close();
+$stmt_attributes->close();
+$conn->close();
+?>

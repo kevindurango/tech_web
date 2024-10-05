@@ -1,65 +1,82 @@
 <?php
-include 'Database.php';
-include 'Product.php';
+include 'db_connection.php'; 
 
-$db = new Database();
-$conn = $db->getConnection();
+$sql = "SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url 
+        FROM Products p";
+$result = $conn->query($sql);
+?>
 
-$product = new Product($conn);
-
-$sql = "SELECT p.*, i.image_url 
-        FROM products p 
-        LEFT JOIN images i ON p.id = i.product_id"; 
-
-$products = $conn->query($sql);
-
-echo '<a href="add_product.php" class="btn btn-success">Add New Product</a>'; // Button to add new product
-
-if ($products && $products->num_rows > 0) {
-    echo '<table class="table table-striped">';
-    echo '
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Product List</h2>
+    <table>
         <thead>
             <tr>
-                <th>Image</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>SKU</th>
                 <th>Short Description</th>
                 <th>Price</th>
-                <th>Featured</th>
-                <th>Action</th>
+                <th>Image</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-    ';
+            <?php if ($result->num_rows > 0): ?>
+                <?php while($product = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo $product['id']; ?></td>
+                        <td><?php echo htmlspecialchars($product['name']); ?></td>
+                        <td><?php echo htmlspecialchars($product['SKU']); ?></td>
+                        <td><?php echo htmlspecialchars($product['short_description']); ?></td>
+                        <td><?php echo htmlspecialchars($product['price']); ?></td>
+                        <td>
+                            <?php if (!empty($product['main_image_url'])): ?>
+                                <img src="<?php echo '/tech_web/assets/products/' . basename($product['main_image_url']); ?>" alt="Product Image">
+                            <?php else: ?>
+                                No image available.
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="edit_product.php?id=<?php echo $product['id']; ?>">Edit</a>
+                            <a href="product_details.php?id=<?php echo $product['id']; ?>">View Details</a>
+                            <a href="delete_product.php?id=<?php echo $product['id']; ?>" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7">No products found.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    <br>
+    <a href="product_form.php">Add New Product</a>
+</body>
+</html>
 
-    while ($row = $products->fetch_assoc()) {
-        $name = htmlspecialchars($row['name']);
-        $sku = htmlspecialchars($row['sku']);
-        $short_description = htmlspecialchars($row['short_description']);
-        $price = number_format($row['price'], 2);
-        $featured = $row['featured'] ? 'Yes' : 'No';
-        
-        $image_url = isset($row['image_url']) ? htmlspecialchars($row['image_url']) : 'no_image.png';
-
-        echo '
-            <tr>
-                <td><img src="/tech_web/assets/products/' . $image_url . '" alt="' . $name . '" class="product-image" style="width: 100px; height: auto;"></td>
-                <td>' . $name . '</td>
-                <td>' . $sku . '</td>
-                <td>' . $short_description . '</td>
-                <td class="text-danger">$' . $price . '</td>
-                <td>' . $featured . '</td>
-                <td>
-                    <a href="/tech_web/web/product_details.php?id=' . $row['id'] . '" class="btn btn-primary">View Details</a>
-                    <a href="/tech_web/web/edit_product.php?id=' . $row['id'] . '" class="btn btn-warning">Edit</a>
-                    <a href="/tech_web/web/delete_product.php?id=' . $row['id'] . '" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this product?\')">Delete</a>
-                </td>
-            </tr>
-        ';
-    }
-
-    echo '</tbody></table>';
-} else {
-    echo 'No products found.';
-}
+<?php
+$conn->close();
 ?>
