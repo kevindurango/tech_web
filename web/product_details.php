@@ -14,6 +14,7 @@ if (isset($_GET['id'])) {
         die("Product not found.");
     }
 
+    // Fetch product attributes
     $stmt_attributes = $conn->prepare("SELECT av.value, a.attribute_name 
                                         FROM Product_Attributes pa 
                                         JOIN Attribute_Values av ON pa.attribute_value_id = av.id 
@@ -26,6 +27,20 @@ if (isset($_GET['id'])) {
     $attributes = [];
     while ($row = $result_attributes->fetch_assoc()) {
         $attributes[$row['attribute_name']][] = $row['value'];
+    }
+
+    // Fetch product categories
+    $stmt_categories = $conn->prepare("SELECT c.category_name 
+                                        FROM Product_Categories pc 
+                                        JOIN Categories c ON pc.category_id = c.id 
+                                        WHERE pc.product_id = ?");
+    $stmt_categories->bind_param("i", $id);
+    $stmt_categories->execute();
+    $result_categories = $stmt_categories->get_result();
+
+    $categories = [];
+    while ($row = $result_categories->fetch_assoc()) {
+        $categories[] = $row['category_name'];
     }
 } else {
     die("Invalid request.");
@@ -42,13 +57,15 @@ if (isset($_GET['id'])) {
 <body>
     <div class="product-details">
         <h2><?php echo htmlspecialchars($product['name']); ?></h2>
-        <img src="<?php echo '/tech_web/assets/products/' . htmlspecialchars($product['main_image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 150px; max-height: 150px;">
+        <img src="<?php echo '' . htmlspecialchars($product['main_image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 150px; max-height: 150px;">
         <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['SKU']); ?></p>
         <p><strong>Short Description:</strong> <?php echo htmlspecialchars($product['short_description']); ?></p>
         <p><strong>Price:</strong> $<?php echo number_format($product['price'], 2); ?></p>
         <p><strong>Product Description:</strong><br><?php echo nl2br(htmlspecialchars($product['product_description'])); ?></p>
         <p><strong>Featured Product:</strong> <?php echo $product['feature_product'] ? 'Yes' : 'No'; ?></p>
         
+        <p><strong>Category:</strong> <?php echo htmlspecialchars(implode(', ', $categories)); ?></p> <!-- Display the categories -->
+
         <p><strong>Attributes:</strong></p>
         <ul>
             <?php
@@ -66,5 +83,6 @@ if (isset($_GET['id'])) {
 <?php
 $stmt->close();
 $stmt_attributes->close();
+$stmt_categories->close();
 $conn->close();
 ?>

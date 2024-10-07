@@ -28,7 +28,8 @@ $result = $conn->query("SELECT * FROM Categories");
             <td><?php echo htmlspecialchars($row['description']); ?></td>
             <td>
                 <a href="edit_category.php?id=<?php echo $row['id']; ?>">Edit</a> |
-                <a href="delete_category.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
+                <a href="delete_category.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a> |
+                <a href="category_values.php?category_id=<?php echo $row['id']; ?>">View Products</a>
             </td>
         </tr>
         <?php } ?>
