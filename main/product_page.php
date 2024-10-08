@@ -11,10 +11,95 @@
 <body>
 
 <?php
-$pageTitle = 'product_page'; 
-include 'header.php'; 
-include '../web/fetch_product.php';
+include 'header.php';
+include '../web/db_connection.php'; 
+
+// Get the product ID from the URL
+$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; // Default to 1 if not set
+
+// Fetch product details
+$product_query = "SELECT * FROM products WHERE id = ?";
+$product_stmt = $conn->prepare($product_query);
+$product_stmt->bind_param("i", $product_id);
+$product_stmt->execute();
+$product_result = $product_stmt->get_result();
+$product = $product_result->fetch_assoc();
+
+if (!$product) {
+    die("Product not found.");
+}
+
+// Fetch product images
+$images_query = "SELECT * FROM images WHERE product_id = ?";
+$images_stmt = $conn->prepare($images_query);
+$images_stmt->bind_param("i", $product_id);
+$images_stmt->execute();
+$images_result = $images_stmt->get_result();
+
+// Fetch major attributes including storage and color options
+$major_features = ['Dolby Atmos', 'Wi-Fi', 'Bluetooth 5.3', 'Ultra 4K Ready', 'Storage', 'Color'];
+$major_features_placeholders = implode("','", array_map(function($feature) use ($conn) {
+    return mysqli_real_escape_string($conn, $feature);
+}, $major_features));
+
+$attributes_query = "SELECT a.attribute_name, av.value 
+                     FROM product_attributes pa 
+                     JOIN attribute_values av ON pa.attribute_value_id = av.id 
+                     JOIN attributes a ON av.attribute_id = a.id 
+                     WHERE pa.product_id = ? 
+                     AND a.attribute_name IN ('$major_features_placeholders')";
+$attributes_stmt = $conn->prepare($attributes_query);
+$attributes_stmt->bind_param("i", $product_id);
+$attributes_stmt->execute();
+$attributes_result = $attributes_stmt->get_result();
+
+$attributes = [];
+while ($attribute = $attributes_result->fetch_assoc()) {
+    $attributes[] = $attribute;
+}
+
+// Fetch categories for the current product
+$categories_query = "SELECT c.id, c.category_name 
+                     FROM product_categories pc 
+                     JOIN categories c ON pc.category_id = c.id 
+                     WHERE pc.product_id = ?";
+$categories_stmt = $conn->prepare($categories_query);
+$categories_stmt->bind_param("i", $product_id);
+$categories_stmt->execute();
+$categories_result = $categories_stmt->get_result();
+
+// Fetch tags from the attributes if applicable
+$tags = [];
+foreach ($attributes as $attribute) {
+    if ($attribute['attribute_name'] === 'tags') {
+        $tags[] = htmlspecialchars($attribute['value']);
+    }
+}
+
+// Fetch similar products
+$similar_products_query = "
+    SELECT p.id, p.name, p.price, p.original_price, c.category_name, i.image_path 
+    FROM products p 
+    JOIN product_categories pc ON p.id = pc.product_id 
+    JOIN categories c ON pc.category_id = c.id 
+    JOIN images i ON p.id = i.product_id 
+    WHERE pc.category_id IN (
+        SELECT category_id 
+        FROM product_categories 
+        WHERE product_id = ?)
+    AND p.id != ? 
+    GROUP BY p.id
+    LIMIT 3";
+
+$similar_products_stmt = $conn->prepare($similar_products_query);
+$similar_products_stmt->bind_param("ii", $product_id, $product_id);
+$similar_products_stmt->execute();
+$similar_products_result = $similar_products_stmt->get_result();
+
+// Close the database connection
+$conn->close();
 ?>
+
 <!-- Product Image Carousel Section -->
 <section class="product-section mt-4">
     <div class="container">
@@ -246,29 +331,37 @@ include '../web/fetch_product.php';
 
     <div class="container mb-4 mt-5">
     <div class="row">
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-music-note-beamed text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Dolby Atmos</h5>
-            <p class="text-muted">Enjoy immersive sound with Dolby Atmos technology for a cinematic audio experience.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-wifi text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Wi-Fi</h5>
-            <p class="text-muted">Fast and reliable Wi-Fi connectivity for seamless internet access.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-bluetooth text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Bluetooth 5.3</h5>
-            <p class="text-muted">Latest Bluetooth technology for enhanced wireless connectivity and efficiency.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center mb-4">
-            <i class="bi bi-tv text-danger" style="font-size: 2rem;"></i>
-            <h5 class="mt-2">Ultra 4K Ready</h5>
-            <p class="text-muted">Supports Ultra HD 4K resolution for crisp and vibrant display quality.</p>
-        </div>
+        <?php
+        // Assume $attributes contains the major features from the database
+        $major_features = [
+            "Dolby Atmos" => [
+                "icon" => "bi-music-note-beamed",
+                "description" => "Enjoy immersive sound with Dolby Atmos technology for a cinematic audio experience."
+            ],
+            "Wi-Fi" => [
+                "icon" => "bi-wifi",
+                "description" => "Fast and reliable Wi-Fi connectivity for seamless internet access."
+            ],
+            "Bluetooth 5.3" => [
+                "icon" => "bi-bluetooth",
+                "description" => "Latest Bluetooth technology for enhanced wireless connectivity and efficiency."
+            ],
+            "Ultra 4K Ready" => [
+                "icon" => "bi-tv",
+                "description" => "Supports Ultra HD 4K resolution for crisp and vibrant display quality."
+            ]
+        ];
+
+        foreach ($major_features as $feature => $details) {
+            echo '<div class="col-lg-3 col-md-6 text-center mb-4">';
+            echo '<i class="bi ' . $details['icon'] . ' text-danger" style="font-size: 2rem;"></i>';
+            echo '<h5 class="mt-2">' . htmlspecialchars($feature) . '</h5>';
+            echo '<p class="text-muted">' . htmlspecialchars($details['description']) . '</p>';
+            echo '</div>';
+        }
+        ?>
     </div>
 </div>
-
 
 <section class="similar-products mt-4">
     <div class="container">
@@ -281,16 +374,19 @@ include '../web/fetch_product.php';
         </div>
         <div class="row">
             <?php if ($similar_products_result->num_rows > 0): ?>
-                <?php while ($similar_product = $similar_products_result->fetch_assoc()): ?>
+                <?php while ($product = $similar_products_result->fetch_assoc()): ?>
                     <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="<?php echo htmlspecialchars($similar_product['image_path']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($similar_product['name']); ?>">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($similar_product['category_name']); ?></h6>
-                                <h5 class="card-title"><?php echo htmlspecialchars($similar_product['name']); ?></h5>
-                                <p class="card-text">
-                                    <span class="text-danger">$<?php echo number_format($similar_product['price'], 2); ?></span>
-                                    <span class="text-muted text-decoration-line-through">$<?php echo number_format($similar_product['original_price'], 2); ?></span>
+                        <div class="card"> <!-- Added h-100 to make cards equal height -->
+                            <img src="<?php echo htmlspecialchars($product['image_path']); ?>" 
+                                 class="card-img-top" 
+                                 alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                                 style="object-fit: cover; height: 200px;"> <!-- Set image height -->
+                            <div class="card-body d-flex flex-column"> <!-- Use flex column to manage space -->
+                                <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($product['category_name']); ?></h6> 
+                                <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
+                                <p class="card-text mt-auto"> <!-- Use mt-auto to push pricing to the bottom -->
+                                    <span class="text-danger">$<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></span> 
+                                    <span class="text-muted text-decoration-line-through">$<?php echo htmlspecialchars(number_format($product['original_price'], 2)); ?></span>
                                 </p>
                             </div>
                         </div>
@@ -298,7 +394,7 @@ include '../web/fetch_product.php';
                 <?php endwhile; ?>
             <?php else: ?>
                 <div class="col-12">
-                    <p>No similar products found.</p>
+                    <p class="text-muted">No similar products found.</p>
                 </div>
             <?php endif; ?>
         </div>

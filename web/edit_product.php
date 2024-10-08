@@ -1,11 +1,12 @@
 <?php
-include 'db_connection.php'; // Include the database connection file
+include 'db_connection.php'; 
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']); // Sanitize input
 
+    // Fetch product details
     $stmt = $conn->prepare("SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url 
-                             FROM Products p WHERE p.id = ?");
+                             FROM products p WHERE p.id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -16,7 +17,7 @@ if (isset($_GET['id'])) {
     }
 
     // Fetch current product attributes
-    $stmt_attributes = $conn->prepare("SELECT attribute_value_id FROM Product_Attributes WHERE product_id = ?");
+    $stmt_attributes = $conn->prepare("SELECT attribute_value_id FROM product_attributes WHERE product_id = ?");
     $stmt_attributes->bind_param("i", $id);
     $stmt_attributes->execute();
     $result_attributes = $stmt_attributes->get_result();
@@ -25,9 +26,23 @@ if (isset($_GET['id'])) {
     while ($row = $result_attributes->fetch_assoc()) {
         $current_attributes[] = $row['attribute_value_id'];
     }
+
+    // Fetch current product categories
+    $stmt_categories = $conn->prepare("SELECT category_id FROM product_categories WHERE product_id = ?");
+    $stmt_categories->bind_param("i", $id);
+    $stmt_categories->execute();
+    $result_categories = $stmt_categories->get_result();
+
+    $current_categories = [];
+    while ($row = $result_categories->fetch_assoc()) {
+        $current_categories[] = $row['category_id'];
+    }
 } else {
     die("Invalid request.");
 }
+
+// Check if the update was successful (for displaying the success message)
+$success = isset($_GET['update']) && $_GET['update'] == 'success';
 ?>
 
 <!DOCTYPE html>
@@ -38,12 +53,18 @@ if (isset($_GET['id'])) {
     <title>Edit Product</title>
   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
 <body>
     <h2>Edit Product</h2>
+
+    <!-- Display success message if the product was updated successfully -->
+    <?php if ($success): ?>
+        <p style="color: green;">Product updated successfully!</p>
+        <p><a href="product_list.php">Go back to Product List</a></p>
+    <?php endif; ?>
+
     <form action="update_product.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
         
@@ -78,18 +99,31 @@ if (isset($_GET['id'])) {
         <label for="image">Upload New Image (optional):</label>
         <input type="file" id="image" name="image" accept="image/*"><br><br>
 
+        <!-- Attributes selection -->
         <label for="attributes">Select Attributes:</label>
         <select id="attributes" name="attributes[]" multiple>
             <?php
-            $attr_result = $conn->query("SELECT id, attribute_name FROM Attributes");
+            $attr_result = $conn->query("SELECT id, attribute_name FROM attributes");
             while ($attr_row = $attr_result->fetch_assoc()) {
-                $value_result = $conn->query("SELECT id, value FROM Attribute_Values WHERE attribute_id = " . $attr_row['id']);
+                $value_result = $conn->query("SELECT id, value FROM attribute_values WHERE attribute_id = " . $attr_row['id']);
                 echo "<optgroup label='" . htmlspecialchars($attr_row['attribute_name']) . "'>";
                 while ($value_row = $value_result->fetch_assoc()) {
                     $selected = in_array($value_row['id'], $current_attributes) ? 'selected' : '';
                     echo "<option value='" . $value_row['id'] . "' $selected>" . htmlspecialchars($value_row['value']) . "</option>";
                 }
                 echo "</optgroup>";
+            }
+            ?>
+        </select><br><br>
+
+        <!-- Category selection -->
+        <label for="categories">Select Categories:</label>
+        <select id="categories" name="categories[]" multiple>
+            <?php
+            $category_result = $conn->query("SELECT id, category_name FROM categories");
+            while ($category_row = $category_result->fetch_assoc()) {
+                $selected = in_array($category_row['id'], $current_categories) ? 'selected' : '';
+                echo "<option value='" . $category_row['id'] . "' $selected>" . htmlspecialchars($category_row['category_name']) . "</option>";
             }
             ?>
         </select><br><br>
@@ -103,6 +137,11 @@ if (isset($_GET['id'])) {
                 placeholder: 'Select Attributes',
                 allowClear: true
             });
+            
+            $('#categories').select2({
+                placeholder: 'Select Categories',
+                allowClear: true
+            });
         });
     </script>
 </body>
@@ -111,5 +150,6 @@ if (isset($_GET['id'])) {
 <?php
 $stmt->close();
 $stmt_attributes->close();
+$stmt_categories->close();
 $conn->close();
 ?>

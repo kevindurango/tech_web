@@ -35,6 +35,7 @@ include 'db_connection.php';
         <label for="feature_product">Feature Product:</label>
         <input type="checkbox" id="feature_product" name="feature_product"><br><br>
 
+        <!-- Categories selection -->
         <label for="categories">Select Categories:</label>
         <select id="categories" name="categories[]" multiple required>
             <?php
@@ -48,12 +49,12 @@ include 'db_connection.php';
         <label for="image">Product Image:</label>
         <input type="file" id="image" name="image" accept="image/*" required><br><br>
 
+        <!-- Attributes selection -->
         <label for="attributes">Select Attributes:</label>
         <select id="attributes" name="attributes[]" multiple>
             <?php
             $attr_result = $conn->query("SELECT id, attribute_name FROM Attributes");
             while ($attr_row = $attr_result->fetch_assoc()) {
-                
                 $value_result = $conn->query("SELECT id, value FROM Attribute_Values WHERE attribute_id = " . $attr_row['id']);
                 echo "<optgroup label='" . htmlspecialchars($attr_row['attribute_name']) . "'>";
                 while ($value_row = $value_result->fetch_assoc()) {
@@ -71,6 +72,10 @@ include 'db_connection.php';
         $(document).ready(function() {
             $('#attributes').select2({
                 placeholder: 'Select Attributes',
+                allowClear: true
+            });
+            $('#categories').select2({
+                placeholder: 'Select Categories',
                 allowClear: true
             });
         });

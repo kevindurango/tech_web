@@ -47,7 +47,11 @@ $result = $conn->query($sql);
                 <?php while($product = $result->fetch_assoc()): ?>
                     <tr>
                         <td><?php echo $product['id']; ?></td>
-                        <td><?php echo htmlspecialchars($product['name']); ?></td>
+                        <td>
+                            <a href="http://localhost/tech_web/main/product_page.php?id=<?php echo $product['id']; ?>">
+                                <?php echo htmlspecialchars($product['name']); ?>
+                            </a>
+                        </td>
                         <td><?php echo htmlspecialchars($product['SKU']); ?></td>
                         <td><?php echo htmlspecialchars($product['short_description']); ?></td>
                         <td><?php echo htmlspecialchars($product['price']); ?></td>

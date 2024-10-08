@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("sssdsii", $name, $sku, $short_description, $price, $product_description, $feature_product, $id);
     
     if ($stmt->execute()) {
+        // Handle image upload
         if (!empty($_FILES['image']['name'])) {
             $target_dir = "assets/products/";
             $target_file = $target_dir . basename($_FILES['image']['name']);
@@ -27,19 +28,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt_update_image->execute();
                     $stmt_update_image->close();
                 } else {
-                    echo "There was an error uploading the file.";
+                    // Redirect with image upload error
+                    header("Location: edit_product.php?id=$id&update=error&message=upload_failed");
+                    exit();
                 }
             } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
+                // Redirect with image format error
+                header("Location: edit_product.php?id=$id&update=error&message=invalid_image");
+                exit();
             }
         }
 
+        // Delete old product attributes
         $stmt_delete_attributes = $conn->prepare("DELETE FROM Product_Attributes WHERE product_id = ?");
         $stmt_delete_attributes->bind_param("i", $id);
         $stmt_delete_attributes->execute();
         $stmt_delete_attributes->close();
 
+        // Insert new product attributes
         if (isset($_POST['attributes']) && !empty($_POST['attributes'])) {
             $attributes = $_POST['attributes'];
             $stmt_insert_attributes = $conn->prepare("INSERT INTO Product_Attributes (product_id, attribute_value_id) VALUES (?, ?)");
@@ -51,9 +57,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt_insert_attributes->close();
         }
 
-        echo "Product updated successfully.";
+        // Delete old product categories
+        $stmt_delete_categories = $conn->prepare("DELETE FROM Product_Categories WHERE product_id = ?");
+        $stmt_delete_categories->bind_param("i", $id);
+        $stmt_delete_categories->execute();
+        $stmt_delete_categories->close();
+
+        // Insert new product categories
+        if (isset($_POST['categories']) && !empty($_POST['categories'])) {
+            $categories = $_POST['categories'];
+            $stmt_insert_categories = $conn->prepare("INSERT INTO Product_Categories (product_id, category_id) VALUES (?, ?)");
+            
+            foreach ($categories as $category_id) {
+                $stmt_insert_categories->bind_param("ii", $id, $category_id);
+                $stmt_insert_categories->execute();
+            }
+            $stmt_insert_categories->close();
+        }
+
+        // Redirect with success message
+        header("Location: edit_product.php?id=$id&update=success");
+        exit();
     } else {
-        echo "Error updating product: " . $stmt->error;
+        // Redirect with error message
+        header("Location: edit_product.php?id=$id&update=error&message=update_failed");
+        exit();
     }
 
     $stmt->close();
