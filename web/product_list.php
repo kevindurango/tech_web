@@ -57,7 +57,7 @@ $result = $conn->query($sql);
                         <td><?php echo htmlspecialchars($product['price']); ?></td>
                         <td>
                             <?php if (!empty($product['main_image_url'])): ?>
-                                <img src="<?php echo '/tech_web/assets/products/' . basename($product['main_image_url']); ?>" alt="Product Image">
+                                <img src="<?php echo '/tech_web/uploads/' . $product['id'] . '/' . basename($product['main_image_url']); ?>" alt="Product Image">
                             <?php else: ?>
                                 No image available.
                             <?php endif; ?>

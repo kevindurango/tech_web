@@ -15,10 +15,14 @@ include 'header.php';
 include '../web/db_connection.php'; 
 
 // Get the product ID from the URL
-$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; // Default to 1 if not set
+$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; 
 
-// Fetch product details
-$product_query = "SELECT * FROM products WHERE id = ?";
+// Fetch product details along with brand information
+$product_query = "
+    SELECT p.*, b.logo_url, b.brand_name, b.description AS brand_description 
+    FROM products p
+    JOIN brands b ON p.brand_id = b.id
+    WHERE p.id = ?";
 $product_stmt = $conn->prepare($product_query);
 $product_stmt->bind_param("i", $product_id);
 $product_stmt->execute();
@@ -58,6 +62,23 @@ while ($attribute = $attributes_result->fetch_assoc()) {
     $attributes[] = $attribute;
 }
 
+// Fetch tags from the attributes if applicable
+$tags_query = "SELECT av.value 
+               FROM product_attributes pa 
+               JOIN attribute_values av ON pa.attribute_value_id = av.id 
+               JOIN attributes a ON av.attribute_id = a.id 
+               WHERE pa.product_id = ? 
+               AND a.attribute_name = 'tags'";
+$tags_stmt = $conn->prepare($tags_query);
+$tags_stmt->bind_param("i", $product_id);
+$tags_stmt->execute();
+$tags_result = $tags_stmt->get_result();
+
+$tags = [];
+while ($tag = $tags_result->fetch_assoc()) {
+    $tags[] = htmlspecialchars($tag['value']);
+}
+
 // Fetch categories for the current product
 $categories_query = "SELECT c.id, c.category_name 
                      FROM product_categories pc 
@@ -68,37 +89,37 @@ $categories_stmt->bind_param("i", $product_id);
 $categories_stmt->execute();
 $categories_result = $categories_stmt->get_result();
 
-// Fetch tags from the attributes if applicable
-$tags = [];
-foreach ($attributes as $attribute) {
-    if ($attribute['attribute_name'] === 'tags') {
-        $tags[] = htmlspecialchars($attribute['value']);
-    }
+// Get category IDs
+$category_ids = [];
+while ($category = $categories_result->fetch_assoc()) {
+    $category_ids[] = $category['id'];
 }
 
-// Fetch similar products
-$similar_products_query = "
-    SELECT p.id, p.name, p.price, p.original_price, c.category_name, i.image_path 
-    FROM products p 
-    JOIN product_categories pc ON p.id = pc.product_id 
-    JOIN categories c ON pc.category_id = c.id 
-    JOIN images i ON p.id = i.product_id 
-    WHERE pc.category_id IN (
-        SELECT category_id 
-        FROM product_categories 
-        WHERE product_id = ?)
-    AND p.id != ? 
-    GROUP BY p.id
-    LIMIT 3";
+// Fetch similar products based on category
+if (!empty($category_ids)) {
+    $similar_products_query = "
+        SELECT p.id, p.name, p.price, p.original_price, c.category_name, i.image_path 
+        FROM products p 
+        JOIN product_categories pc ON p.id = pc.product_id 
+        JOIN categories c ON pc.category_id = c.id 
+        JOIN images i ON p.id = i.product_id 
+        WHERE pc.category_id IN (" . implode(',', $category_ids) . ")
+        AND p.id != ? 
+        GROUP BY p.id
+        LIMIT 3";
 
-$similar_products_stmt = $conn->prepare($similar_products_query);
-$similar_products_stmt->bind_param("ii", $product_id, $product_id);
-$similar_products_stmt->execute();
-$similar_products_result = $similar_products_stmt->get_result();
+    $similar_products_stmt = $conn->prepare($similar_products_query);
+    $similar_products_stmt->bind_param("i", $product_id);
+    $similar_products_stmt->execute();
+    $similar_products_result = $similar_products_stmt->get_result();
+} else {
+    $similar_products_result = null; // No categories found, no similar products
+}
 
 // Close the database connection
 $conn->close();
 ?>
+
 
 <!-- Product Image Carousel Section -->
 <section class="product-section mt-4">
@@ -213,15 +234,18 @@ $conn->close();
 
                 <hr class="my-4">
 
+
+                <!-- Product Display Section -->
                 <div class="product-info mt-2">
                     <div class="container">
                         <div class="row align-items-start">
                             <div class="col-4 col-md-2 text-center pe-3">
-                                <img src="/tech_web/assets/apple-logo.png" alt="Apple Logo" class="apple-logo">
+                                <img src="/tech_web/web/<?php echo htmlspecialchars($product['logo_url']); ?>" 
+                                    alt="<?php echo htmlspecialchars($product['brand_name']); ?> Logo" style="max-height: 50px; width: auto;">
                             </div>
                             <div class="col-8 col-md-10 ps-4">
-                                <p class="mb-1 mt-2"><strong>Apple</strong></p>
-                                <p class="fw-normal">This is a genuine product of Brand. The product comes with a standard brand warranty of 1 year.</p>
+                                <p class="mb-1 mt-2"><strong><?php echo htmlspecialchars($product['brand_name']); ?></strong></p>
+                                <p class="fw-normal"><?php echo htmlspecialchars($product['brand_description']); ?></p>
                             </div>
                         </div>
                     </div>
@@ -373,34 +397,34 @@ $conn->close();
             </div>
         </div>
         <div class="row">
-            <?php if ($similar_products_result->num_rows > 0): ?>
-                <?php while ($product = $similar_products_result->fetch_assoc()): ?>
+            <?php
+            // Check if any similar products were found
+            if ($similar_products_result && $similar_products_result->num_rows > 0) {
+                // Loop through similar products
+                while ($similar_product = $similar_products_result->fetch_assoc()) {
+                    ?>
                     <div class="col-md-4 mb-3">
-                        <div class="card"> <!-- Added h-100 to make cards equal height -->
-                            <img src="<?php echo htmlspecialchars($product['image_path']); ?>" 
-                                 class="card-img-top" 
-                                 alt="<?php echo htmlspecialchars($product['name']); ?>" 
-                                 style="object-fit: cover; height: 200px;"> <!-- Set image height -->
-                            <div class="card-body d-flex flex-column"> <!-- Use flex column to manage space -->
-                                <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($product['category_name']); ?></h6> 
-                                <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
-                                <p class="card-text mt-auto"> <!-- Use mt-auto to push pricing to the bottom -->
-                                    <span class="text-danger">$<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></span> 
-                                    <span class="text-muted text-decoration-line-through">$<?php echo htmlspecialchars(number_format($product['original_price'], 2)); ?></span>
+                        <div class="card">
+                            <img src="<?php echo htmlspecialchars($similar_product['image_path']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($similar_product['name']); ?>">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($similar_product['category_name']); ?></h6> 
+                                <h5 class="card-title"><?php echo htmlspecialchars($similar_product['name']); ?></h5>
+                                <p class="card-text">
+                                    <span class="text-danger">$<?php echo number_format($similar_product['price'], 2); ?></span> 
+                                    <span class="text-muted text-decoration-line-through">$<?php echo number_format($similar_product['original_price'], 2); ?></span>
                                 </p>
                             </div>
                         </div>
                     </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <div class="col-12">
-                    <p class="text-muted">No similar products found.</p>
-                </div>
-            <?php endif; ?>
+                    <?php
+                }
+            } else {
+                echo "<p>No similar products found.</p>";
+            }
+            ?>
         </div>
     </div>
 </section>
-
 
 <?php include 'footer.php'; ?>
 

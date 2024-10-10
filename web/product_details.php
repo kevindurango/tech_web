@@ -3,8 +3,11 @@ include 'db_connection.php';
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']); 
-    $stmt = $conn->prepare("SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url 
-                             FROM Products p WHERE p.id = ?");
+    // Modify the query to include the brand
+    $stmt = $conn->prepare("SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url, b.brand_name 
+                             FROM Products p 
+                             LEFT JOIN Brands b ON p.brand_id = b.id
+                             WHERE p.id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -42,6 +45,10 @@ if (isset($_GET['id'])) {
     while ($row = $result_categories->fetch_assoc()) {
         $categories[] = $row['category_name'];
     }
+
+    // Define the image path based on your folder structure
+    $image_path = "/tech_web/uploads/" . $id . "/" . basename($product['main_image_url']);
+
 } else {
     die("Invalid request.");
 }
@@ -57,12 +64,16 @@ if (isset($_GET['id'])) {
 <body>
     <div class="product-details">
         <h2><?php echo htmlspecialchars($product['name']); ?></h2>
-        <img src="<?php echo '' . htmlspecialchars($product['main_image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 150px; max-height: 150px;">
+        <!-- Use the dynamically generated image path -->
+        <img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 150px; max-height: 150px;">
         <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['SKU']); ?></p>
         <p><strong>Short Description:</strong> <?php echo htmlspecialchars($product['short_description']); ?></p>
         <p><strong>Price:</strong> $<?php echo number_format($product['price'], 2); ?></p>
         <p><strong>Product Description:</strong><br><?php echo nl2br(htmlspecialchars($product['product_description'])); ?></p>
         <p><strong>Featured Product:</strong> <?php echo $product['feature_product'] ? 'Yes' : 'No'; ?></p>
+        
+        <!-- Display the brand -->
+        <p><strong>Brand:</strong> <?php echo htmlspecialchars($product['brand_name']); ?></p>
         
         <p><strong>Category:</strong> <?php echo htmlspecialchars(implode(', ', $categories)); ?></p> <!-- Display the categories -->
 
