@@ -68,7 +68,7 @@ if (isset($_GET['id'])) {
         <img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="max-width: 150px; max-height: 150px;">
         <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['SKU']); ?></p>
         <p><strong>Short Description:</strong> <?php echo htmlspecialchars($product['short_description']); ?></p>
-        <p><strong>Price:</strong> $<?php echo number_format($product['price'], 2); ?></p>
+        <p><strong>Price:</strong> €<?php echo number_format($product['price'], 2); ?></p>
         <p><strong>Product Description:</strong><br><?php echo nl2br(htmlspecialchars($product['product_description'])); ?></p>
         <p><strong>Featured Product:</strong> <?php echo $product['feature_product'] ? 'Yes' : 'No'; ?></p>
         

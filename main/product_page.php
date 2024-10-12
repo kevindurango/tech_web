@@ -15,7 +15,7 @@ include 'header.php';
 include '../web/db_connection.php'; 
 
 // Get the product ID from the URL
-$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; 
+$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0; 
 
 // Fetch product details along with brand information
 $product_query = "
@@ -95,25 +95,22 @@ while ($category = $categories_result->fetch_assoc()) {
     $category_ids[] = $category['id'];
 }
 
-// Fetch similar products based on category
 if (!empty($category_ids)) {
     $similar_products_query = "
-        SELECT p.id, p.name, p.price, p.original_price, c.category_name, i.image_path 
+        SELECT p.id, p.name, p.price, p.original_price, c.category_name, MIN(i.image_path) AS image_path 
         FROM products p 
         JOIN product_categories pc ON p.id = pc.product_id 
         JOIN categories c ON pc.category_id = c.id 
-        JOIN images i ON p.id = i.product_id 
+        LEFT JOIN images i ON p.id = i.product_id 
         WHERE pc.category_id IN (" . implode(',', $category_ids) . ")
         AND p.id != ? 
-        GROUP BY p.id
+        GROUP BY p.id, p.name, p.price, p.original_price, c.category_name
         LIMIT 3";
 
     $similar_products_stmt = $conn->prepare($similar_products_query);
     $similar_products_stmt->bind_param("i", $product_id);
     $similar_products_stmt->execute();
     $similar_products_result = $similar_products_stmt->get_result();
-} else {
-    $similar_products_result = null; // No categories found, no similar products
 }
 
 // Close the database connection
@@ -199,8 +196,8 @@ $conn->close();
                 <h5>Storage</h5>
                     <div class="d-flex gap-2">
                         <?php
-                        // Display storage attributes dynamically
-                        foreach ($attributes as $attribute) {
+
+                            foreach ($attributes as $attribute) {
                             if ($attribute['attribute_name'] === 'Storage') {
                                 echo '<button class="btn btn-storage">' . htmlspecialchars($attribute['value']) . '</button>';
                             }
@@ -404,12 +401,12 @@ $conn->close();
                 while ($similar_product = $similar_products_result->fetch_assoc()) {
                     ?>
                     <div class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card h-100">
                             <img src="<?php echo htmlspecialchars($similar_product['image_path']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($similar_product['name']); ?>">
-                            <div class="card-body">
+                            <div class="card-body d-flex flex-column">
                                 <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($similar_product['category_name']); ?></h6> 
                                 <h5 class="card-title"><?php echo htmlspecialchars($similar_product['name']); ?></h5>
-                                <p class="card-text">
+                                <p class="card-text mt-auto">
                                     <span class="text-danger">$<?php echo number_format($similar_product['price'], 2); ?></span> 
                                     <span class="text-muted text-decoration-line-through">$<?php echo number_format($similar_product['original_price'], 2); ?></span>
                                 </p>

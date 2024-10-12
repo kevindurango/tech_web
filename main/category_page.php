@@ -11,8 +11,52 @@
 <body>
 
 <?php
+
 $pageTitle = 'category_page'; 
+
 include 'header.php'; 
+
+include '../web/db_connection.php';
+
+// Function to fetch all categories
+function fetchCategories($conn) {
+    $sql = "SELECT * FROM categories";
+    $result = $conn->query($sql);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+// Function to fetch products based on category
+function fetchProductsByCategory($conn, $categoryId) {
+    $sql = "SELECT * FROM products WHERE category_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $categoryId); // "i" specifies the variable type => integer
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+// Fetch products based on category
+$categoryId = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
+$sql = "SELECT * FROM products WHERE category_id = $categoryId";
+$result = $conn->query($sql);
+$products = $result->fetch_all(MYSQLI_ASSOC);
+
+// Count total products
+$totalProducts = count($products);
+
+// Fetch all categories
+$categories = fetchCategories($conn);
+
+// Check if a category ID is provided in the URL
+if (isset($_GET['category_id'])) {
+    $categoryId = (int)$_GET['category_id']; // Sanitize input
+    // Fetch products for the selected category
+    $products = fetchProductsByCategory($conn, $categoryId);
+} else {
+    $products = []; 
+}
+
+$conn->close();
 ?>
 
 <section class="mt-3">
@@ -23,30 +67,17 @@ include 'header.php';
                     <h3 class="fw-bold mb-3 ps-3 text-start fs-4">Categories</h3>
                     <div class="categories-nav-wrapper">
                         <div class="categories-nav">
-                            <a href="#" class="category-item">
-                                <img src="/tech_web/assets/computer_icon.png" alt="Computers" class="category-icon">
-                                Computers and Accessories
-                            </a>
-                            <a href="#" class="category-item">
-                                <img src="/tech_web/assets/smartphone_icon.png" alt="Smartphones" class="category-icon">
-                                Smartphones and Tablets
-                            </a>
-                            <a href="#" class="category-item">
-                                <img src="/tech_web/assets/tv_icon.png" alt="TV" class="category-icon">
-                                TV, Video and Audio
-                            </a>
-                            <a href="#" class="category-item">
-                                <img src="/tech_web/assets/camera_icon.png" alt="Camera" class="category-icon">
-                                Camera
-                            </a>
-                            <a href="#" class="category-item">
-                                <img src="/tech_web/assets/headphone_icon.png" alt="Headphones" class="category-icon">
-                                Headphones
-                            </a>
-                            <a href="#" class="category-item">
-                                <img src="/tech_web/assets/wearable_electronics_icon.png" alt="Wearable" class="category-icon">
-                                Wearable Electronics
-                            </a>
+                            <?php foreach ($categories as $category): ?>
+                                <?php
+                                    // Generate the icon file name
+                                    $iconFileName = strtolower(str_replace(' ', '_', $category['category_name'])) . '_icon.png';
+                                    $iconFilePath = "/tech_web/assets/" . $iconFileName;
+                                ?>
+                                <a href="?category_id=<?php echo $category['id']; ?>" class="category-item">
+                                    <img src="<?php echo $iconFilePath; ?>" alt="<?php echo htmlspecialchars($category['category_name']); ?>" class="category-icon">
+                                    <?php echo htmlspecialchars($category['category_name']); ?>
+                                </a>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -60,35 +91,35 @@ include 'header.php';
         <div class="row justify-content-between align-items-center">
 
             <div class="col-md-6">
-                <h5 class="fw-normal">All products - 39 items</h5>
+                <h5 class="fw-normal">All products - <?php echo $totalProducts; ?> items</h5>
             </div>
 
             <div class="col-md-6 d-flex justify-content-end align-items-center">
 
                 <div class="me-3 d-flex align-items-center">
                     <label for="price-list" class="me-1 mb-0">Pricelist:</label>
-                    <select id="price-list" class="form-select form-select-sm ms-1">
-                        <option>EUR</option>
-                        <option>USD</option>
-                        <option>GBP</option>
+                    <select id="price-list" class="form-select form-select-sm ms-1" onchange="changeCurrency(this.value)">
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
+                        <option value="GBP">GBP</option>
                     </select>
                 </div>
 
                 <div class="d-flex align-items-center me-3">
                     <label for="sort-by" class="me-2 mb-0">Sort by:</label>
-                    <select id="sort-by" class="form-select form-select-sm w-auto">
-                        <option>Featured</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Newest Arrivals</option>
+                    <select id="sort-by" class="form-select form-select-sm w-auto" onchange="sortProducts(this.value)">
+                        <option value="featured">Featured</option>
+                        <option value="price_low_to_high">Price: Low to High</option>
+                        <option value="price_high_to_low">Price: High to Low</option>
+                        <option value="newest_arrivals">Newest Arrivals</option>
                     </select>
                 </div>
 
                 <div class="view-options d-flex align-items-center">
-                    <a href="#" class="me-2 text-danger">
+                    <a href="#" class="me-2 text-danger" id="list-view">
                         <i class="bi bi-list" style="font-size: 1rem;"></i>
                     </a>
-                    <a href="#" class="text-danger">
+                    <a href="#" class="text-danger" id="grid-view">
                         <i class="bi bi-grid" style="font-size: 1rem;"></i>
                     </a>
                 </div>
@@ -96,6 +127,21 @@ include 'header.php';
         </div>
     </div>
 </section>
+
+<script>
+    function changeCurrency(currency) {
+
+        console.log("Currency changed to: " + currency);
+
+    }
+
+    function sortProducts(sortBy) {
+
+        console.log("Sorting products by: " + sortBy);
+
+    }
+</script>
+
 
 <section class="mt-2">
     <div class="container">

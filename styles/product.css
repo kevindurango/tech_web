@@ -113,8 +113,9 @@
 }
 
 .card-img-top {
-  width: 100%;
-  height: auto;
+  height: 200px; /* Fixed height */
+  object-fit: cover; /* Ensure the image fits well */
+  width: 100%; /* Make sure the image fills the card width */
 }
 
 .card {
@@ -547,6 +548,7 @@ p.card-text {
   background-color: black;
   border: 1px solid #ccc;
 }
+
 /* Show color dots on hover */
 .card:hover .color-options {
   opacity: 1;
