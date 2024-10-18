@@ -1,7 +1,7 @@
 <?php
 include 'db_connection.php'; 
 
-$result = $conn->query("SELECT * FROM Categories");
+$result = $conn->query("SELECT * FROM categories"); // Note: Changed to lowercase 'categories' for consistency
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +10,14 @@ $result = $conn->query("SELECT * FROM Categories");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category List</title>
+    <style>
+        /* Optional: Style the icon to fit nicely */
+        .category-icon {
+            width: 30px; /* Set the width of the icon */
+            height: 30px; /* Set the height of the icon */
+            margin-right: 10px; /* Space between icon and text */
+        }
+    </style>
 </head>
 <body>
     <h2>Category List</h2>
@@ -17,6 +25,7 @@ $result = $conn->query("SELECT * FROM Categories");
     <table border="1">
         <tr>
             <th>ID</th>
+            <th>Icon</th> <!-- New header for the icon -->
             <th>Name</th>
             <th>Description</th>
             <th>Actions</th>
@@ -24,6 +33,13 @@ $result = $conn->query("SELECT * FROM Categories");
         <?php while ($row = $result->fetch_assoc()) { ?>
         <tr>
             <td><?php echo $row['id']; ?></td>
+            <td>
+                <?php if (!empty($row['icon_path'])): ?> <!-- Check if the icon path is not empty -->
+                    <img src="<?php echo htmlspecialchars($row['icon_path']); ?>" alt="<?php echo htmlspecialchars($row['category_name']); ?>" class="category-icon">
+                <?php else: ?>
+                    No Icon
+                <?php endif; ?>
+            </td>
             <td><?php echo htmlspecialchars($row['category_name']); ?></td>
             <td><?php echo htmlspecialchars($row['description']); ?></td>
             <td>

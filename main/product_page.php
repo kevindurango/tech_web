@@ -131,7 +131,7 @@ $conn->close();
                             echo '<div class="carousel-item ' . $isActive . '">';
                             echo '<img src="' . $image['image_path'] . '" class="d-block w-100" alt="Product Image">';
                             echo '</div>';
-                            $isActive = ''; // Set to empty after the first iteration
+                            $isActive = ''; 
                         }
                         ?>
                     </div>
