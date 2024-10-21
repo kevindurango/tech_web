@@ -1,16 +1,13 @@
     <?php
-    // Connect to the database
-    include '../web/db_connection.php';
 
-    // Get the selected category
+include '../web/db_connection.php';
+
     $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
 
-    // Get all categories
     $sql = "SELECT * FROM categories";
     $result = $conn->query($sql);
     $categories = $result->fetch_all(MYSQLI_ASSOC);
 
-    // Get all products with their categories and brands
     $sql = "SELECT p.*, pc.category_id, c.category_name, b.brand_name, i.image_path AS main_image
             FROM products p 
             LEFT JOIN product_categories pc ON p.id = pc.product_id
@@ -18,22 +15,18 @@
             LEFT JOIN brands b ON p.brand_id = b.id
             LEFT JOIN images i ON p.id = i.product_id AND i.image_path = p.main_image_url";
 
-    // Modify the query to filter by category if selected
     if ($category_id > 0) {
         $sql .= " WHERE pc.category_id = $category_id";
     }
 
-    // Group the products by ID to avoid duplicates
     $sql .= " GROUP BY p.id";
     $result = $conn->query($sql);
     $products = $result->fetch_all(MYSQLI_ASSOC);
 
-    // Fetch total number of products regardless of category
     $sql_count = "SELECT COUNT(*) as total FROM products";
     $result_count = $conn->query($sql_count);
     $total_products = $result_count->fetch_assoc()['total'];
 
-    // Close the database connection
     $conn->close();
     ?>
 
@@ -66,7 +59,7 @@
                             <div class="categories-nav">
                                 <?php foreach ($categories as $cat): ?>
                                     <a href="category_page.php?category=<?= $cat['id'] ?>" class="category-item">
-                                        <?= htmlspecialchars($cat['category_name']) ?>
+                                        <img src="<?= $cat['icon_path'] ?>" alt="" style= "width: 15px; "> <?= htmlspecialchars($cat['category_name']) ?>
                                     </a>
                                 <?php endforeach; ?>
                             </div>
@@ -117,45 +110,58 @@
         </div>
     </section>
 
-    <section class="mt-2">
-    <div class="container">
-        <div class="row">
+        <section class="mt-2">
+        <div class="container">
+            <div class="row">
             <div class="col-md-4">
-                <form method="GET" action="category_page.php">
-                    <input type="hidden" name="scroll" id="scroll-position" value=""> <!-- Hidden input to store scroll position -->
-                    <div class="list-group border p-2" style="border-radius: 0;">
-                        <h5 class="fw-bold mb-4">Categories</h5>
-                        
-                        <!-- All Products -->
-                        <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
-                            <input type="radio" name="category" class="form-check-input me-2" value="0" <?= $category_id == 0 ? 'checked' : '' ?> style="display: none;">
-                            <span>All products</span>
-                            <span class="text-muted small ms-auto">(<?= $total_products ?>)</span>
-                        </label>
+    <form method="GET" action="category_page.php">
+        <div class="list-group border p-2" style="border-radius: 0;">
+            <h5 class="fw-bold mb-4">Categories</h5>
+            
+            <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
+                <input type="radio" name="category" class="form-check-input me-2" value="0" <?= $category_id == 0 ? 'checked' : '' ?>>
+                <span>All products</span>
+                <span class="text-muted small ms-auto">(<?= $total_products ?>)</span>
+            </label>
 
-                        <?php foreach ($categories as $cat): 
-                            $count = array_reduce($products, function($carry, $product) use ($cat) {
-                                return $carry + ($product['category_id'] == $cat['id'] ? 1 : 0);
-                            }, 0);
-                        ?>
-                            <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
-                                <input type="radio" name="category" class="form-check-input me-2" value="<?= $cat['id'] ?>" <?= $category_id == $cat['id'] ? 'checked' : '' ?> style="display: none;">
-                                <span><?= htmlspecialchars($cat['category_name']) ?></span> 
-                                <span class="text-muted small ms-auto">(<?= $count ?>)</span>
-                            </label>
-                        <?php endforeach; ?>
-                        
-                        <button type="submit" class="btn btn-dark w-100 mt-3" style="border-radius: 0;">Filter</button>
-                    </div>
-                </form>
-                
-                <!-- Advertisement Banner -->
-                <div class="mt-4">
-                    <img src="/tech_web/assets/headphone_sale.png" alt="Advertisement" class="img-fluid w-100" />
-                </div>
-            </div>
+            <?php foreach ($categories as $cat): 
+                $count = array_reduce($products, function($carry, $product) use ($cat) {
+                    return $carry + ($product['category_id'] == $cat['id'] ? 1 : 0);
+                }, 0);
+            ?>
+                <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
+                    <input type="radio" name="category" class="form-check-input me-2" value="<?= $cat['id'] ?>" <?= $category_id == $cat['id'] ? 'checked' : '' ?>>
+                    <span><?= htmlspecialchars($cat['category_name']) ?></span> 
+                    <span class="text-muted small ms-auto">(<?= $count ?>)</span>
+                </label>
+            <?php endforeach; ?>
+        </div>
+    </form>
+    
+    <div class="mt-4">
+        <img src="/tech_web/assets/headphone_sale.png" alt="Advertisement" class="img-fluid w-100" />
+    </div>
+</div>
 
-                
+    <script>
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('click', function() {
+            sessionStorage.setItem('scrollPos', window.scrollY); // Store the scroll position
+            this.form.submit(); // Submit the form
+        });
+    });
+
+    // Restore scroll position after page load
+    window.onload = function() {
+        var scrollPos = sessionStorage.getItem('scrollPos');
+        if (scrollPos) {
+            window.scrollTo(0, scrollPos);  // Scroll to the stored position
+            sessionStorage.removeItem('scrollPos'); // Remove scroll position from storage
+        }
+    };
+    </script>
+
+
                 <!-- Right Column: Products -->
                 <div class="col-md-8">
                     <div class="row">

@@ -113,6 +113,23 @@ if (!empty($category_ids)) {
     $similar_products_result = $similar_products_stmt->get_result();
 }
 
+// Fetch the next product
+$next_product_query = "SELECT id FROM products WHERE id > ? ORDER BY id ASC LIMIT 1";
+$next_product_stmt = $conn->prepare($next_product_query);
+$next_product_stmt->bind_param("i", $product_id);
+$next_product_stmt->execute();
+$next_product_result = $next_product_stmt->get_result();
+$next_product = $next_product_result->fetch_assoc();
+
+// Fetch the previous product
+$prev_product_query = "SELECT id FROM products WHERE id < ? ORDER BY id DESC LIMIT 1";
+$prev_product_stmt = $conn->prepare($prev_product_query);
+$prev_product_stmt->bind_param("i", $product_id);
+$prev_product_stmt->execute();
+$prev_product_result = $prev_product_stmt->get_result();
+$prev_product = $prev_product_result->fetch_assoc();
+
+
 // Close the database connection
 $conn->close();
 ?>
@@ -165,9 +182,25 @@ $conn->close();
                     <span class="mx-2">/</span>
                     <span class="fw-semibold"><?php echo $product['name']; ?></span>
                     <div class="d-flex align-items-center ms-auto">
-                        <span style="color: red; font-size: 1rem;">&lt;</span>
+                        <?php if ($prev_product): ?>
+                            <a href="product_page.php?id=<?php echo $prev_product['id']; ?>" class="text-decoration-none">
+                                <span style="color: red; font-size: 1rem;">&lt;</span>
+                            </a>
+                        <?php else: ?>
+                            <!-- If no previous product, show disabled arrow or hide -->
+                            <span style="color: gray; font-size: 1rem;">&lt;</span>
+                        <?php endif; ?>
+
                         <i class="bi bi-grid text-danger mx-2" style="font-size: 1rem;"></i>
-                        <span style="color: red; font-size: 1rem;">&gt;</span>
+
+                        <?php if ($next_product): ?>
+                            <a href="product_page.php?id=<?php echo $next_product['id']; ?>" class="text-decoration-none">
+                                <span style="color: red; font-size: 1rem;">&gt;</span>
+                            </a>
+                        <?php else: ?>
+                            <!-- If no next product, show disabled arrow or hide -->
+                            <span style="color: gray; font-size: 1rem;">&gt;</span>
+                        <?php endif; ?>
                     </div>
                 </div>
 
