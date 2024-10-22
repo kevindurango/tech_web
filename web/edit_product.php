@@ -1,5 +1,5 @@
 <?php
-include 'db_connection.php';
+include 'db_connection.php'; 
 
 // Get the product ID from the URL
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; // Default to 1 if not set
@@ -39,12 +39,21 @@ while ($row = $result_categories->fetch_assoc()) {
     $current_categories[] = $row['category_id'];
 }
 
+// Fetch current product subcategories
+$stmt_subcategories = $conn->prepare("SELECT subcategory_id FROM product_subcategories WHERE product_id = ?");
+$stmt_subcategories->bind_param("i", $product_id);
+$stmt_subcategories->execute();
+$result_subcategories = $stmt_subcategories->get_result();
+
+$current_subcategories = [];
+while ($row = $result_subcategories->fetch_assoc()) {
+    $current_subcategories[] = $row['subcategory_id'];
+}
+
 // Fetch all brands
 $stmt_all_brands = $conn->query("SELECT id, brand_name FROM brands");
 $brands = $stmt_all_brands->fetch_all(MYSQLI_ASSOC);
 
-// Check if the update was successful (for displaying the success message)
-$success = isset($_GET['update']) && $_GET['update'] == 'success';
 ?>
 
 <!DOCTYPE html>
@@ -53,19 +62,14 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
 <body>
     <h2>Edit Product</h2>
-
-    <!-- Display success message if the product was updated successfully -->
-    <?php if ($success): ?>
-        <p style="color: green;">Product updated successfully!</p>
-        <p><a href="product_list.php">Go back to Product List</a></p>
-    <?php endif; ?>
-
+    
     <form action="update_product.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
         
@@ -131,27 +135,72 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
             ?>
         </select><br><br>
 
+        <!-- Subcategory selection -->
+        <label for="subcategories">Select Subcategories:</label>
+        <select id="subcategories" name="subcategories[]" multiple>
+            <!-- Subcategories will be populated dynamically via JavaScript -->
+        </select><br><br>
+
         <input type="submit" value="Update Product">
     </form>
 
     <script>
-        $(document).ready(function() {
-            $('#attributes').select2({
-                placeholder: 'Select Attributes',
-                allowClear: true
-            });
-            
-            $('#categories').select2({
-                placeholder: 'Select Categories',
-                allowClear: true
-            });
-
-            $('#brand').select2({
-                placeholder: 'Select a Brand',
-                allowClear: true
-            });
+    $(document).ready(function() {
+        $('#attributes').select2({
+            placeholder: 'Select Attributes',
+            allowClear: true
         });
-    </script>
+
+        $('#categories').select2({
+            placeholder: 'Select Categories',
+            allowClear: true
+        });
+
+        $('#subcategories').select2({
+            placeholder: 'Select Subcategories',
+            allowClear: true
+        });
+
+        $('#brand').select2({
+            placeholder: 'Select a Brand',
+            allowClear: true
+        });
+
+        // Fetch subcategories based on selected categories
+        $('#categories').change(function() {
+            var selectedCategories = $(this).val();
+            $('#subcategories').empty(); // Clear previous subcategories
+
+            if (selectedCategories.length > 0) {
+                // Fetch subcategories for all selected categories
+                $.ajax({
+                    url: 'load_subcategories.php',
+                    type: 'POST',
+                    data: { categoryIds: selectedCategories }, // Send all selected categories
+                    dataType: 'json', // Expect a JSON response
+                    success: function(data) {
+                        if (data.error) {
+                            console.log(data.error); // Log error if any
+                        } else {
+                            $.each(data, function(index, value) {
+                                $('#subcategories').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            });
+                        }
+                        $('#subcategories').select2(); // Reinitialize Select2
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error loading subcategories:', error);
+                    }
+                });
+            }
+        });
+
+        // Trigger change to load subcategories for the initially selected categories
+        $('#categories').change(); 
+    });
+</script>
+
+
 </body>
 </html>
 
@@ -159,5 +208,6 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
 $product_stmt->close();
 $stmt_attributes->close();
 $stmt_categories->close();
+$stmt_subcategories->close();
 $conn->close();
 ?>

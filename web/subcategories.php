@@ -58,7 +58,7 @@ if (isset($_GET['category_id'])) {
     <br>
     <a href="subcategory_form.php?category_id=<?php echo $category_id; ?>">Add New Subcategory</a>
     <br>
-    <a href="category_list.php">Back to Categories</a> <!-- Link back to the main categories page -->
+    <a href="category_list.php">Back to Categories</a>
 </body>
 </html>
 
@@ -67,3 +67,4 @@ $stmt->close();
 $subcategories_stmt->close();
 $conn->close();
 ?>
+    

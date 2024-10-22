@@ -39,11 +39,17 @@ include 'db_connection.php';
         <label for="categories">Select Categories:</label>
         <select id="categories" name="categories[]" multiple required>
             <?php
-            $result = $conn->query("SELECT id, category_name FROM Categories");
+            $result = $conn->query("SELECT id, category_name FROM categories");
             while ($row = $result->fetch_assoc()) {
                 echo "<option value='{$row['id']}'>{$row['category_name']}</option>";
             }
             ?>
+        </select><br><br>
+
+        <!-- Subcategories selection -->
+        <label for="subcategories">Select Subcategories:</label>
+        <select id="subcategories" name="subcategories[]" multiple>
+            <!-- Subcategories will be loaded here based on selected categories -->
         </select><br><br>
 
         <label for="image">Product Image:</label>
@@ -53,9 +59,9 @@ include 'db_connection.php';
         <label for="attributes">Select Attributes:</label>
         <select id="attributes" name="attributes[]" multiple>
             <?php
-            $attr_result = $conn->query("SELECT id, attribute_name FROM Attributes");
+            $attr_result = $conn->query("SELECT id, attribute_name FROM attributes");
             while ($attr_row = $attr_result->fetch_assoc()) {
-                $value_result = $conn->query("SELECT id, value FROM Attribute_Values WHERE attribute_id = " . $attr_row['id']);
+                $value_result = $conn->query("SELECT id, value FROM attribute_values WHERE attribute_id = " . $attr_row['id']);
                 echo "<optgroup label='" . htmlspecialchars($attr_row['attribute_name']) . "'>";
                 while ($value_row = $value_result->fetch_assoc()) {
                     echo "<option value='" . $value_row['id'] . "'>" . htmlspecialchars($value_row['value']) . "</option>";
@@ -70,19 +76,42 @@ include 'db_connection.php';
 
     <script>
         $(document).ready(function() {
+            // Initialize select2 for better UI
             $('#attributes').select2({
-                placeholder: 'Select Attributes',
+                placeholder: 'Select attributes',
                 allowClear: true
             });
+
             $('#categories').select2({
-                placeholder: 'Select Categories',
+                placeholder: 'Select categories',
                 allowClear: true
+            });
+
+            // Load subcategories based on selected categories
+            $('#categories').on('change', function() {
+                var categoryIds = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'load_subcategories.php',
+                    data: {categoryIds: categoryIds},
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data); // Log the response data
+                        $('#subcategories').empty(); // Clear previous subcategories
+                        if (data.length > 0) {
+                            $.each(data, function(index, value) {
+                                $('#subcategories').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            });
+                        } else {
+                            $('#subcategories').append('<option value="">No subcategories available</option>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error loading subcategories:', error);
+                    }
+                });
             });
         });
     </script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>

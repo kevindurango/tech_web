@@ -1,7 +1,6 @@
 <?php
 include 'db_connection.php'; 
 
-// Fetch all categories
 $result = $conn->query("SELECT * FROM Categories");
 ?>
 
@@ -31,7 +30,7 @@ $result = $conn->query("SELECT * FROM Categories");
                 <a href="edit_category.php?id=<?php echo $row['id']; ?>">Edit</a> |
                 <a href="delete_category.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a> |
                 <a href="category_values.php?category_id=<?php echo $row['id']; ?>">View Products</a> |
-                <a href="subcategories.php?category_id=<?php echo $row['id']; ?>">View Subcategories</a> <!-- Link to show subcategories -->
+                <a href="subcategories.php?category_id=<?php echo $row['id']; ?>">View Subcategories</a> 
             </td>
         </tr>
         <?php } ?>
@@ -39,7 +38,7 @@ $result = $conn->query("SELECT * FROM Categories");
 
     <br>
     <a href="category_form.php">Add New Category</a> |
-    <a href="subcategory_form.php">Add New Subcategory</a> <!-- Link to add new subcategories -->
+    <a href="subcategory_form.php">Add New Subcategory</a> 
 
 </body>
 </html>
