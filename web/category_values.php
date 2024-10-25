@@ -4,6 +4,9 @@ include 'db_connection.php';
 if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
     $category_id = intval($_GET['category_id']); 
 
+    // Debugging output
+    echo "Category ID: " . $category_id; // Check the category ID
+    
     $product_query = "SELECT p.id, p.name AS product_name, p.price, p.product_description AS description 
                       FROM products p
                       JOIN product_categories pc ON p.id = pc.product_id
@@ -13,6 +16,9 @@ if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
     $stmt->bind_param("i", $category_id);
     $stmt->execute();
     $result = $stmt->get_result();
+
+    // Debugging output
+    echo "Number of products found: " . $result->num_rows; // Check how many products were found
 } else {
     echo "Invalid category ID.";
     exit;
@@ -56,7 +62,6 @@ if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
     <a href="category_list.php">Back to Categories</a>
 
     <?php
-
     $stmt->close();
     $conn->close();
     ?>

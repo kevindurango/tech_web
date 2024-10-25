@@ -9,7 +9,6 @@ $price = $_POST['price'];
 $product_description = $_POST['product_description'];
 $feature_product = isset($_POST['feature_product']) ? 1 : 0;
 $categories = isset($_POST['categories']) ? $_POST['categories'] : [];
-$subcategories = isset($_POST['subcategories']) ? $_POST['subcategories'] : []; // Added subcategories
 $attributes = isset($_POST['attributes']) ? $_POST['attributes'] : [];
 
 // Handle image upload
@@ -42,14 +41,6 @@ if (move_uploaded_file($image_tmp, $image_path)) {
             $stmt_category->bind_param("ii", $product_id, $category_id);
             $stmt_category->execute();
             $stmt_category->close();
-        }
-
-        // Insert subcategories associated with the product
-        foreach ($subcategories as $subcategory_id) {
-            $stmt_subcategory = $conn->prepare("INSERT INTO Product_Subcategories (product_id, subcategory_id) VALUES (?, ?)");
-            $stmt_subcategory->bind_param("ii", $product_id, $subcategory_id);
-            $stmt_subcategory->execute();
-            $stmt_subcategory->close();
         }
 
         // Insert attributes associated with the product

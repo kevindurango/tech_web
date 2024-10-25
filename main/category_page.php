@@ -28,7 +28,7 @@ include '../web/db_connection.php';
     $total_products = $result_count->fetch_assoc()['total'];
 
     $conn->close();
-    ?>
+    ?>  
 
 
     <!DOCTYPE html>

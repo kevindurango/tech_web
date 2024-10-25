@@ -46,12 +46,6 @@ include 'db_connection.php';
             ?>
         </select><br><br>
 
-        <!-- Subcategories selection -->
-        <label for="subcategories">Select Subcategories:</label>
-        <select id="subcategories" name="subcategories[]" multiple>
-            <!-- Subcategories will be loaded here based on selected categories -->
-        </select><br><br>
-
         <label for="image">Product Image:</label>
         <input type="file" id="image" name="image" accept="image/*" required><br><br>
 
@@ -85,31 +79,6 @@ include 'db_connection.php';
             $('#categories').select2({
                 placeholder: 'Select categories',
                 allowClear: true
-            });
-
-            // Load subcategories based on selected categories
-            $('#categories').on('change', function() {
-                var categoryIds = $(this).val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'load_subcategories.php',
-                    data: {categoryIds: categoryIds},
-                    dataType: 'json',
-                    success: function(data) {
-                        console.log(data); // Log the response data
-                        $('#subcategories').empty(); // Clear previous subcategories
-                        if (data.length > 0) {
-                            $.each(data, function(index, value) {
-                                $('#subcategories').append('<option value="' + value.id + '">' + value.name + '</option>');
-                            });
-                        } else {
-                            $('#subcategories').append('<option value="">No subcategories available</option>');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error loading subcategories:', error);
-                    }
-                });
             });
         });
     </script>
