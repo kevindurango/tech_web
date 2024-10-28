@@ -29,7 +29,7 @@ if ($parent_id) {
         }
         echo '</table>';
     } else {
-        echo '<p>No subcategories (Product Types) found.</p>'; // Adjusted message for clarity
+        echo '<p>No subcategories (Product Types) found.</p>'; 
     }
 }
 

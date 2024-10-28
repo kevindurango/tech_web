@@ -1,78 +1,71 @@
 <?php
 include 'db_connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = intval($_POST['id']);
-    $name = $_POST['name'];
-    $sku = $_POST['sku'];
-    $short_description = $_POST['short_description'];
-    $price = floatval($_POST['price']);
-    $product_description = $_POST['product_description'];
-    $feature_product = isset($_POST['feature_product']) ? 1 : 0;
-    $brand_id = isset($_POST['brand_id']) ? intval($_POST['brand_id']) : null;
+// Retrieve posted data
+$product_id = $_POST['id'];
+$name = $_POST['name'];
+$sku = $_POST['sku'];
+$short_description = $_POST['short_description'];
+$price = $_POST['price'];
+$product_description = $_POST['product_description'];
+$feature_product = isset($_POST['feature_product']) ? 1 : 0; // Checkbox value
+$brand_id = $_POST['brand_id'];
+$product_variation_id = $_POST['product_variation_id']; // Single selected variation
+$attributes = isset($_POST['attribute_value_ids']) ? $_POST['attribute_value_ids'] : [];
 
-    // Update product details
-    $stmt = $conn->prepare("UPDATE products SET name=?, SKU=?, short_description=?, price=?, product_description=?, feature_product=?, brand_id=? WHERE id=?");
-    $stmt->bind_param("sssdsiii", $name, $sku, $short_description, $price, $product_description, $feature_product, $brand_id, $id);
-    
-    if ($stmt->execute()) {
-        // Handle image upload if a new image is provided
-        if (!empty($_FILES['image']['name'])) {
-            $target_dir = "C:/xampp/htdocs/tech_web/uploads/" . $id . "/";
-            if (!is_dir($target_dir)) {
-                mkdir($target_dir, 0755, true);
-            }
+// Update the main product details
+$update_product_query = "UPDATE products SET name = ?, SKU = ?, short_description = ?, price = ?, 
+    product_description = ?, feature_product = ?, brand_id = ? WHERE id = ?";
+$stmt = $conn->prepare($update_product_query);
+$stmt->bind_param("sssdssii", $name, $sku, $short_description, $price, $product_description, $feature_product, $brand_id, $product_id);
+$stmt->execute();
 
-            $target_file = $target_dir . basename($_FILES['image']['name']);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+// Fetch the category path for the selected product variation
+$category_path = [];
+$current_category_id = $product_variation_id;
 
-            $check = getimagesize($_FILES['image']['tmp_name']);
-            if ($check !== false) {
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-                    $image_path = "/tech_web/uploads/" . $id . "/" . basename($_FILES['image']['name']);
-                    $stmt_update_image = $conn->prepare("UPDATE products SET main_image_url=? WHERE id=?");
-                    $stmt_update_image->bind_param("si", $image_path, $id);
-                    $stmt_update_image->execute();
-                    $stmt_update_image->close();
-                } else {
-                    header("Location: edit_product.php?id=$id&update=error&message=upload_failed");
-                    exit();
-                }
-            } else {
-                header("Location: edit_product.php?id=$id&update=error&message=invalid_image");
-                exit();
-            }
-        }
+while ($current_category_id) {
+    $category_query = $conn->prepare("SELECT id, parent_id FROM categories WHERE id = ?");
+    $category_query->bind_param("i", $current_category_id);
+    $category_query->execute();
+    $category_result = $category_query->get_result();
+    $category = $category_result->fetch_assoc();
 
-        // Delete old product categories
-        $stmt_delete_categories = $conn->prepare("DELETE FROM product_categories WHERE product_id = ?");
-        $stmt_delete_categories->bind_param("i", $id);
-        $stmt_delete_categories->execute();
-        $stmt_delete_categories->close();
-
-        // Insert new product categories
-        if (isset($_POST['categories']) && !empty($_POST['categories'])) {
-            $categories = $_POST['categories'];
-            $stmt_insert_categories = $conn->prepare("INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)");
-            foreach ($categories as $category_id) {
-                $stmt_insert_categories->bind_param("ii", $id, $category_id);
-                $stmt_insert_categories->execute();
-            }
-            $stmt_insert_categories->close();
-        }
-
-        // Redirect with success message
-        header("Location: edit_product.php?id=$id&update=success");
-        exit();
+    if ($category) {
+        $category_path[] = $category['id'];
+        $current_category_id = $category['parent_id'];
     } else {
-        // Redirect with error message
-        header("Location: edit_product.php?id=$id&update=error&message=update_failed");
-        exit();
+        break;
     }
-
-    $stmt->close();
 }
 
-$conn->close();
+// Clear existing categories for the product
+$conn->query("DELETE FROM product_categories WHERE product_id = $product_id");
+
+// Insert the new categories for the product based on the category path
+foreach (array_reverse($category_path) as $category_id) {
+    $insert_category_query = "INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)";
+    $insert_category_stmt = $conn->prepare($insert_category_query);
+    $insert_category_stmt->bind_param("ii", $product_id, $category_id);
+    $insert_category_stmt->execute();
+}
+
+// Clear existing attributes for the product
+$conn->query("DELETE FROM product_attributes WHERE product_id = $product_id");
+
+// Insert the new attributes for the product
+if (!empty($attributes)) {
+    foreach ($attributes as $attribute_id => $value_ids) {
+        foreach ($value_ids as $value_id) {
+            $insert_attribute_query = "INSERT INTO product_attributes (product_id, attribute_value_id) VALUES (?, ?)";
+            $insert_attribute_stmt = $conn->prepare($insert_attribute_query);
+            $insert_attribute_stmt->bind_param("ii", $product_id, $value_id);
+            $insert_attribute_stmt->execute();
+        }
+    }
+}
+
+// Redirect back to the edit page with a success message
+header("Location: edit_product.php?id=$product_id&update=success");
+exit();
 ?>

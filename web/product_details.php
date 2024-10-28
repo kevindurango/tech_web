@@ -1,106 +1,86 @@
 <?php
 include 'db_connection.php';
 
-if (isset($_GET['id'])) {
-    $id = intval($_GET['id']); 
+// Get the product ID from the URL
+$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; // Default to 1 if not set
 
-    // Fetch product details including brand
-    $stmt = $conn->prepare("
-        SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url, b.brand_name 
-        FROM Products p 
-        LEFT JOIN Brands b ON p.brand_id = b.id
-        WHERE p.id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $product = $result->fetch_assoc();
+// Fetch product details
+$product_query = "SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url, p.brand_id, b.brand_name 
+                  FROM products p 
+                  LEFT JOIN brands b ON p.brand_id = b.id 
+                  WHERE p.id = ?";
+$stmt = $conn->prepare($product_query);
+$stmt->bind_param("i", $product_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$product = $result->fetch_assoc();
 
-    if (!$product) {
-        die("Product not found.");
-    }
+if (!$product) {
+    die("Product not found.");
+}
 
-    // Initialize $category_path to prevent undefined variable error
-    $category_path = "No category found";
+// Fetch category path
+$category_path = [];
+$product_variation_id = null;
 
-    // Fetch categories directly associated with the product
-    $stmt_categories = $conn->prepare("
-        SELECT c.id, c.category_name, c.parent_id 
-        FROM Categories c
-        INNER JOIN Product_Categories pc ON c.id = pc.category_id
-        WHERE pc.product_id = ?
-    ");
-    $stmt_categories->bind_param("i", $id);
+// Retrieve product variation ID directly
+$variation_query = "SELECT category_id FROM product_categories WHERE product_id = ? ORDER BY category_id DESC LIMIT 1";
+$variation_stmt = $conn->prepare($variation_query);
+$variation_stmt->bind_param("i", $product_id);
+$variation_stmt->execute();
+$variation_result = $variation_stmt->get_result();
 
-    // Execute the category query and handle errors
-    if (!$stmt_categories->execute()) {
-        echo "Error fetching categories: " . $stmt_categories->error;
-    } else {
-        $result_categories = $stmt_categories->get_result();
-        $categories = [];
+if ($variation_row = $variation_result->fetch_assoc()) {
+    $product_variation_id = $variation_row['category_id'];
+}
 
-        while ($row = $result_categories->fetch_assoc()) {
-            $categories[] = $row;
-        }
-
-        // Build the category tree
-        function buildCategoryTree($categories, $parentId = null) {
-            $branch = array();
-
-            foreach ($categories as $category) {
-                if ($category['parent_id'] == $parentId) {
-                    $children = buildCategoryTree($categories, $category['id']);
-                    if ($children) {
-                        $category['children'] = $children;
-                    }
-                    $branch[] = $category;
-                }
-            }
-
-            return $branch;
-        }
-
-        $categoryTree = buildCategoryTree($categories);
-
-        // Check if any categories were found for the product
-        if (!empty($categoryTree)) {
-            // Build the category path (as a list of category names)
-            $category_path = implode(' / ', array_column($categories, 'category_name'));
+if ($product_variation_id) {
+    $current_category_id = $product_variation_id;
+    while ($current_category_id) {
+        $category_query = $conn->prepare("SELECT id, category_name, parent_id FROM categories WHERE id = ?");
+        $category_query->bind_param("i", $current_category_id);
+        $category_query->execute();
+        $category_result = $category_query->get_result();
+        $category = $category_result->fetch_assoc();
+        
+        if ($category) {
+            $category_path[] = $category['category_name'];
+            $current_category_id = $category['parent_id'];
         } else {
-            // Debug: Inform that no categories were found
-            echo "<p>No categories associated with this product.</p>";
-            $category_path = "No category found";
+            break;
         }
     }
-
-    // Define the image path based on your folder structure
-    $image_path = "/tech_web/uploads/" . $id . "/" . basename($product['main_image_url']);
-
-    // Fetch product attributes
-    $stmt_attributes = $conn->prepare("
-        SELECT av.value, a.attribute_name 
-        FROM Product_Attributes pa 
-        JOIN Attribute_Values av ON pa.attribute_value_id = av.id 
-        JOIN Attributes a ON av.attribute_id = a.id 
-        WHERE pa.product_id = ?");
-    $stmt_attributes->bind_param("i", $id);
-
-    if (!$stmt_attributes->execute()) {
-        echo "Error fetching attributes: " . $stmt_attributes->error;
-    } else {
-        $result_attributes = $stmt_attributes->get_result();
-        $attributes = [];
-
-        while ($row = $result_attributes->fetch_assoc()) {
-            $attributes[$row['attribute_name']][] = $row['value'];
-        }
-
-        if (empty($attributes)) {
-            echo "<p>No attributes found for this product.</p>";
-        }
-    }
-
+    $category_path = array_reverse($category_path);
+    $full_category_path = implode("/", $category_path);
 } else {
-    die("Invalid request.");
+    $full_category_path = 'N/A';
+}
+
+// Fetch related images
+$image_query = "SELECT image_path FROM images WHERE product_id = ?";
+$image_stmt = $conn->prepare($image_query);
+$image_stmt->bind_param("i", $product_id);
+$image_stmt->execute();
+$image_result = $image_stmt->get_result();
+$images = [];
+while ($img_row = $image_result->fetch_assoc()) {
+    $images[] = $img_row['image_path'];
+}
+
+// Fetch product attributes (including tags)
+$attributes_query = "
+    SELECT a.attribute_name, av.value 
+    FROM product_attributes pa 
+    LEFT JOIN attribute_values av ON pa.attribute_value_id = av.id 
+    LEFT JOIN attributes a ON av.attribute_id = a.id 
+    WHERE pa.product_id = ?";
+$attributes_stmt = $conn->prepare($attributes_query);
+$attributes_stmt->bind_param("i", $product_id);
+$attributes_stmt->execute();
+$attributes_result = $attributes_stmt->get_result();
+$attributes = [];
+while ($attr_row = $attributes_result->fetch_assoc()) {
+    $attributes[] = $attr_row;
 }
 ?>
 
@@ -109,68 +89,42 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($product['name']); ?></title>
+    <title>Product Details</title>
 </head>
 <body>
-    <div class="product-details">
-        <h2><?php echo htmlspecialchars($product['name']); ?></h2>
-        
-        <!-- Display the product image -->
-        <img src="<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style ="max-width: 150px; max-height: 150px;">
-        
-        <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['SKU']); ?></p>
-        <p><strong>Short Description:</strong> <?php echo htmlspecialchars($product['short_description']); ?></p >
-        <p><strong>Price:</strong> €<?php echo number_format($product['price'], 2); ?></p>
-        <p><strong>Product Description:</strong><br><?php echo nl2br(htmlspecialchars($product['product_description'])); ?></p>
-        <p><strong>Featured Product:</strong> <?php echo $product['feature_product'] ? 'Yes' : 'No'; ?></p>
-        
-        <!-- Display the brand -->
-        <p><strong>Brand:</strong> <?php echo htmlspecialchars($product['brand_name']); ?></p>
-        
-        <!-- Display categories -->
-        <p><strong>Category:</strong></p>
+    <h2>Product Details</h2>
+
+    <p><strong>Name:</strong> <?php echo htmlspecialchars($product['name']); ?></p>
+    <p><strong>SKU:</strong> <?php echo htmlspecialchars($product['SKU']); ?></p>
+    <p><strong>Short Description:</strong> <?php echo htmlspecialchars($product['short_description']); ?></p>
+    <p><strong>Price:</strong> $<?php echo htmlspecialchars($product['price']); ?></p>
+    <p><strong>Full Description:</strong> <?php echo htmlspecialchars($product['product_description']); ?></p>
+    <p><strong>Featured Product:</strong> <?php echo $product['feature_product'] ? 'Yes' : 'No'; ?></p>
+    <p><strong>Brand:</strong> <?php echo htmlspecialchars($product['brand_name']); ?></p>
+    <p><strong>Category Path:</strong> <?php echo $full_category_path ? htmlspecialchars($full_category_path) : 'N/A'; ?></p>
+
+    <!-- Display attributes (including tags) -->
+    <h3>Product Attributes</h3>
+    <?php if (!empty($attributes)): ?>
         <ul>
-            <?php
-            function displayCategories($categories) {
-                foreach ($categories as $category) {
-                    echo '<li>' . htmlspecialchars($category['category_name']);
-                    if (!empty($category['children'])) {
-                        echo '<ul>';
-                        displayCategories($category['children']);
-                        echo '</ul>';
-                    }
-                    echo '</li>';
-                }
-            }
-
-            displayCategories($categoryTree);
-            ?>
+            <?php foreach ($attributes as $attribute): ?>
+                <li><strong><?php echo htmlspecialchars($attribute['attribute_name']); ?>:</strong> <?php echo htmlspecialchars($attribute['value']); ?></li>
+            <?php endforeach; ?>
         </ul>
+    <?php else: ?>
+        <p>No attributes available for this product.</p>
+    <?php endif; ?>
 
-        <!-- Display product attributes -->
-        <p><strong>Attributes:</strong></p>
-        <ul>
-            <?php
-            if (!empty($attributes)) {
-                foreach ($attributes as $attribute_name => $values) {
-                    echo "<li><strong>" . htmlspecialchars($attribute_name) . ":</strong> " . htmlspecialchars(implode(', ', $values)) . "</li>";
-                }
-            } else {
-                echo "<p>No attributes found for this product.</p>";
-            }
-            ?>
-        </ul>
+    <!-- Display images -->
+    <h3>Product Images</h3>
+    <?php if (!empty($images)): ?>
+        <?php foreach ($images as $image_path): ?>
+            <img src="<?php echo htmlspecialchars($image_path); ?>" alt="Product Image" style="max-width:200px; height:auto;">
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No images available for this product.</p>
+    <?php endif; ?>
 
-        <a href="product_list.php">Back to Product List</a>
-    </div>
+    <p><a href="edit_product.php?id=<?php echo $product['id']; ?>">Edit Product</a></p>
 </body>
 </html>
-
-<?php
-$stmt->close();
-if (isset($stmt_attributes)) {
-    $stmt_attributes->close();
-}
-$stmt_categories->close();
-$conn->close();
-?>
