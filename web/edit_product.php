@@ -92,7 +92,7 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
             <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required placeholder="Enter product name"><br><br>
 
             <label for="sku">SKU:</label>
-            <input type="text" id="sku" name="sku" value="<?php echo htmlspecialchars($product['SKU']); ?>" required placeholder="Enter SKU"><br><br>
+            <input type="text" id="sku " name="sku" value="<?php echo htmlspecialchars($product['SKU']); ?>" required placeholder="Enter SKU"><br><br>
 
             <label for="short_description">Short Description:</label>
             <textarea id="short_description" name="short_description" required placeholder="Enter short description"><?php echo htmlspecialchars($product['short_description']); ?></textarea><br><br>
@@ -134,17 +134,18 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
         <fieldset>
             <legend>Product Attributes</legend>
 
-            <?php foreach ($attributes_with_values as $attribute_id => $attribute): ?>
-                <label for="attribute_<?php echo $attribute_id; ?>">Select <?php echo htmlspecialchars($attribute['name']); ?>:</label>
-                <select id="attribute_<?php echo $attribute_id; ?>" name="attribute_value_ids[<?php echo $attribute_id; ?>][]" multiple required>
-                    <?php foreach ($attribute['values'] as $value): ?>
-                        <option value="<?php echo $value['id']; ?>" <?php echo (in_array($value['id'], $current_attributes) ? 'selected' : ''); ?>>
-                            <?php echo htmlspecialchars($value['value']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <br><br>
-            <?php endforeach; ?>
+            <label for="attributes">Select Attributes:</label>
+            <select id="attributes" name="attributes[]" multiple required>
+                <?php foreach ($attributes_with_values as $attribute_id => $attribute): ?>
+                    <optgroup label="<?php echo htmlspecialchars($attribute['name']); ?>">
+                        <?php foreach ($attribute['values'] as $value): ?>
+                            <option value="<?php echo $value['id']; ?>" <?php echo (in_array($value['id'], $current_attributes) ? 'selected' : ''); ?>>
+                                <?php echo htmlspecialchars($value['value']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </optgroup>
+                <?php endforeach; ?>
+            </select><br><br>
         </fieldset>
 
         <button type="submit">Update Product</button>
@@ -152,27 +153,6 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
 
     <script>
         $(document).ready(function() {
-            // Populate the category path based on selected Product Variation
-            $('#product_variation').change(function() {
-                var variationId = $(this).val();
-
-                if (variationId) {
-                    $.ajax({
-                        url: 'fetch_category_path.php',
-                        type: 'GET',
-                        dataType: 'json',
-                        data: { product_variation_id: variationId },
-                        success: function(data) {
-                            if (data.length > 0) {
-                                // Display category path (e.g., Electronics > Smartphones > iPhones)
-                                var categoryPath = data.map(category => category.name).join(" > ");
-                                alert("Selected Category Path: " + categoryPath);
-                            }
-                        }
-                    });
-                }
-            });
-
             // Initialize Select2 for better UI
             $('select').select2({
                 allowClear: true

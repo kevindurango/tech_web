@@ -1,9 +1,9 @@
 <?php
 include 'db_connection.php'; 
+include 'product.php'; // Include the Product class
 
-$sql = "SELECT p.id, p.name, p.SKU, p.short_description, p.price, p.product_description, p.feature_product, p.main_image_url 
-        FROM Products p";
-$result = $conn->query($sql);
+// Retrieve all products using the new method
+$products = Product::getAllProducts($conn);
 ?>
 
 <!DOCTYPE html>
@@ -43,8 +43,8 @@ $result = $conn->query($sql);
             </tr>
         </thead>
         <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while($product = $result->fetch_assoc()): ?>
+            <?php if (!empty($products)): ?>
+                <?php foreach($products as $product): ?>
                     <tr>
                         <td><?php echo $product['id']; ?></td>
                         <td>
@@ -68,7 +68,7 @@ $result = $conn->query($sql);
                             <a href="delete_product.php?id=<?php echo $product['id']; ?>" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
                         </td>
                     </tr>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             <?php else: ?>
                 <tr>
                     <td colspan="7">No products found.</td>
