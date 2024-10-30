@@ -1,15 +1,15 @@
 <?php
-include 'db_connection.php'; 
+include 'db_connection.php';
+include 'Category.php'; // Make sure to include your Category class file
+
+// Create an instance of the Category class
+$category = new Category($conn);
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
-    $stmt = $conn->prepare("SELECT id, category_name, description, parent_id FROM Categories WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $category = $result->fetch_assoc();
+    $categoryData = $category->getCategoryById($id);
 
-    if (!$category) {
+    if (!$categoryData) {
         die("Category not found.");
     }
 } else {
@@ -57,19 +57,19 @@ $all_categories = fetchCategories();
 <body>
     <h2>Edit Category</h2>
     <form action="update_category.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
+        <input type="hidden" name="id" value="<?php echo $categoryData['id']; ?>">
         
         <label for="category_name">Category Name:</label>
-        <input type="text" id="category_name" name="category_name" value="<?php echo htmlspecialchars($category['category_name']); ?>" required><br><br>
+        <input type="text" id="category_name" name="category_name" value="<?php echo htmlspecialchars($categoryData['category_name']); ?>" required><br><br>
 
         <label for="description">Description:</label>
-        <textarea id="description" name="description" required><?php echo htmlspecialchars($category['description']); ?></textarea><br><br>
+        <textarea id="description" name="description" required><?php echo htmlspecialchars($categoryData['description']); ?></textarea><br><br>
 
         <label for="parent_id">Select Parent Category (Product Line or Product Type):</label>
         <select id="parent_id" name="parent_id">
             <option value="0">None</option>
             <?php foreach ($all_categories as $cat): ?>
-                <option value="<?php echo $cat['id']; ?>" <?php echo ($cat['id'] == $category['parent_id']) ? 'selected' : ''; ?>>
+                <option value="<?php echo $cat['id']; ?>" <?php echo ($cat['id'] == $categoryData['parent_id']) ? 'selected' : ''; ?>>
                     <?php echo $cat['name']; ?>
                 </option>
             <?php endforeach; ?>
@@ -81,6 +81,5 @@ $all_categories = fetchCategories();
 </html>
 
 <?php
-$stmt->close();
 $conn->close();
 ?>

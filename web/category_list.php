@@ -1,8 +1,9 @@
 <?php
 include 'db_connection.php'; 
+include 'Category.php'; // Include the Category class
 
-// Fetch Product Lines (Main Categories)
-$main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id IS NULL");
+$category = new Category($conn);
+$main_categories_result = $category->fetchMainCategories();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,6 @@ $main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id
 <body>
     <h2>Category List with Filter</h2>
 
-    <!-- Category Filter for Product Lines -->
     <label for="parent-category-filter">Filter by Product Line:</label>
     <select id="parent-category-filter">
         <option value="">Show All Product Lines</option>
@@ -32,14 +32,11 @@ $main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id
         <?php } ?>
     </select>
 
-    <!-- Category Filter for Product Types -->
     <label for="product-type-filter">Filter by Product Type:</label>
     <select id="product-type-filter" disabled>
         <option value="">Select a Product Line first</option>
-        <!-- Product Types will be populated dynamically -->
     </select>
 
-    <!-- Table to display categories -->
     <table border="1" id="category-table">
         <tr>
             <th>ID</th>
@@ -54,24 +51,20 @@ $main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id
 
     <script>
         $(document).ready(function() {
-            // Fetch and display categories on page load
             fetchCategories();
 
-            // Handle filter change for Product Line
             $('#parent-category-filter').change(function() {
                 var parentId = $(this).val();
                 fetchCategories(parentId);
-                fetchProductTypes(parentId); // Fetch Product Types for the selected Product Line
+                fetchProductTypes(parentId);
             });
 
-            // Handle filter change for Product Type
             $('#product-type-filter').change(function() {
                 var parentId = $('#parent-category-filter').val();
                 var productTypeId = $(this).val();
                 fetchCategories(parentId, productTypeId);
             });
 
-            // Function to fetch categories dynamically using AJAX
             function fetchCategories(parentId = '', productTypeId = '') {
                 $.ajax({
                     url: 'fetch_categories.php',
@@ -86,7 +79,6 @@ $main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id
                 });
             }
 
-            // Function to fetch Product Types for the selected Product Line
             function fetchProductTypes(parentId) {
                 $.ajax({
                     url: 'fetch_product_types.php',
@@ -98,17 +90,14 @@ $main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id
                 });
             }
 
-            // Expand/Collapse subcategories when the expand button is clicked
             $(document).on('click', '.expand-btn', function() {
                 var categoryId = $(this).data('id');
                 var subcategoryRow = $('#subcategories-' + categoryId);
 
-                // Toggle visibility of subcategories
                 if (subcategoryRow.is(':visible')) {
                     subcategoryRow.hide();
-                    $(this).html('&#9654;'); // Arrow pointing right
+                    $(this).html('&#9654;');
                 } else {
-                    // Load subcategories via AJAX if not already loaded
                     if (subcategoryRow.find('td').html().trim() === '') {
                         $.ajax({
                             url: 'fetch_subcategories.php',
@@ -129,5 +118,5 @@ $main_categories_result = $conn->query("SELECT * FROM Categories WHERE parent_id
 </html>
 
 <?php
-$conn->close();
+$category->closeConnection();
 ?>

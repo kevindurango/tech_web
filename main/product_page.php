@@ -11,143 +11,133 @@
 <body>
 
 <?php
-class Product
-{
-    private $id;
-    private $name;
-    private $sku;
-    private $short_description;
-    private $price;
-    private $product_description;
-    private $feature_product;
-    private $brand_id;
-    private $attributes;
-    private $image_path;
+include 'header.php';
+include '../web/db_connection.php'; // Ensure the path is correct
+include '../web/productpage.php';
+// Get the product ID from the URL
+$product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0; 
 
-    // Constructor
-    public function __construct($name, $sku, $short_description, $price, $product_description, $feature_product, $brand_id, $attributes = [], $image_path = null)
-    {
-        $this->name = $name;
-        $this->sku = $sku;
-        $this->short_description = $short_description;
-        $this->price = $price;
-        $this->product_description = $product_description;
-        $this->feature_product = $feature_product;
-        $this->brand_id = $brand_id;
-        $this->attributes = $attributes;
-        $this->image_path = $image_path;
-    }
-
-    // Method to submit a new product
-    public function submitProduct($conn, $categories)
-    {
-        $stmt = $conn->prepare("INSERT INTO products (name, SKU, short_description, price, product_description, feature_product, brand_id, main_image_url) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssdssss", $this->name, $this->sku, $this->short_description, $this->price, $this->product_description, $this->feature_product, $this->brand_id, $this->image_path);
-
-        if ($stmt->execute()) {
-            $product_id = $stmt->insert_id;
-
-            foreach ($categories as $category_id) {
-                $stmt_category = $conn->prepare("INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)");
-                $stmt_category->bind_param("ii", $product_id, $category_id);
-                $stmt_category->execute();
-                $stmt_category->close();
-            }
-
-            if (!empty($this->attributes)) {
-                foreach ($this->attributes as $attribute_value_id) {
-                    $stmt_attribute = $conn->prepare("INSERT INTO product_attributes (product_id, attribute_value_id) VALUES (?, ?)");
-                    $stmt_attribute->bind_param("ii", $product_id, $attribute_value_id);
-                    $stmt_attribute->execute();
-                    $stmt_attribute->close();
-                }
-            }
-
-            $stmt->close();
-            return true;
-        } else {
-            echo "Error: " . $stmt->error;
-            return false;
-        }
-    }
-
-    // Method to update product details
-    public function updateProduct($product_id, $conn)
-    {
-        $update_product_query = "UPDATE products SET name = ?, SKU = ?, short_description = ?, price = ?, 
-            product_description = ?, feature_product = ?, brand_id = ? WHERE id = ?";
-        $stmt = $conn->prepare($update_product_query);
-        $stmt->bind_param("sssdssii", $this->name, $this->sku, $this->short_description, $this->price, $this->product_description, $this->feature_product, $this->brand_id, $product_id);
-
-        if (!$stmt->execute()) {
-            echo "Error updating product: " . $stmt->error;
-            return false;
-        }
-        $stmt->close();
-        return true;
-    }
-
-    // Method to get major attributes
-    public function getMajorAttributes($conn, $product_id)
-    {
-        $major_features = ['Dolby Atmos', 'Wi-Fi', 'Bluetooth 5.3', 'Ultra 4K Ready', 'Storage', 'Color'];
-        $major_features_placeholders = implode("','", array_map(function($feature) use ($conn) {
-            return mysqli_real_escape_string($conn, $feature);
-        }, $major_features));
-
-        $attributes_query = "SELECT a.attribute_name, av.value 
-                             FROM product_attributes pa 
-                             JOIN attribute_values av ON pa.attribute_value_id = av.id 
-                             JOIN attributes a ON av.attribute_id = a.id 
-                             WHERE pa.product_id = ? 
-                             AND a.attribute_name IN ('$major_features_placeholders')";
-
-        $attributes_stmt = $conn->prepare($attributes_query);
-        $attributes_stmt->bind_param("i", $product_id);
-        $attributes_stmt->execute();
-        $attributes_result = $attributes_stmt->get_result();
-
-        $attributes = [];
-        while ($attribute = $attributes_result->fetch_assoc()) {
-            $attributes[] = $attribute;
-        }
-
-        return $attributes;
-    }
-
-    // Method to delete a product
-    public function deleteProduct($product_id, $conn)
-    {
-        $conn->query("DELETE FROM product_categories WHERE product_id = $product_id");
-        $conn->query("DELETE FROM product_attributes WHERE product_id = $product_id");
-
-        $sql = "DELETE FROM products WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $product_id);
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            echo "Error deleting product: " . $stmt->error;
-            return false;
-        }
-    }
-
-    // Method to get all products
-    public static function getAllProducts($conn)
-    {
-        $sql = "SELECT id, name, SKU, short_description, price, product_description, feature_product, main_image_url FROM products";
-        $result = $conn->query($sql);
-        
-        if ($result && $result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-        
-        return [];
-    }
+// Check if the connection is established
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
 }
+
+// Fetch product details along with brand information
+$product_query = "
+    SELECT p.*, b.logo_url, b.brand_name, b.description AS brand_description 
+    FROM products p
+    JOIN brands b ON p.brand_id = b.id
+    WHERE p.id = ?";
+$product_stmt = $conn->prepare($product_query);
+$product_stmt->bind_param("i", $product_id);
+$product_stmt->execute();
+$product_result = $product_stmt->get_result();
+$product = $product_result->fetch_assoc();
+
+if (!$product) {
+    die("Product not found.");
+}
+
+// Fetch product images
+$images_query = "SELECT * FROM images WHERE product_id = ?";
+$images_stmt = $conn->prepare($images_query);
+$images_stmt->bind_param("i", $product_id);
+$images_stmt->execute();
+$images_result = $images_stmt->get_result();
+
+// Fetch major attributes including storage and color options
+$major_features = ['Dolby Atmos', 'Wi-Fi', 'Bluetooth 5.3', 'Ultra 4K Ready', 'Storage', 'Color'];
+$major_features_placeholders = implode("','", array_map(function($feature) use ($conn) {
+    return mysqli_real_escape_string($conn, $feature);
+}, $major_features));
+
+$attributes_query = "SELECT a.attribute_name, av.value 
+                     FROM product_attributes pa 
+                     JOIN attribute_values av ON pa.attribute_value_id = av.id 
+                     JOIN attributes a ON av.attribute_id = a.id 
+                     WHERE pa.product_id = ? 
+                     AND a.attribute_name IN ('$major_features_placeholders')";
+$attributes_stmt = $conn->prepare($attributes_query);
+$attributes_stmt->bind_param("i", $product_id);
+$attributes_stmt->execute();
+$attributes_result = $attributes_stmt->get_result();
+
+$attributes = [];
+while ($attribute = $attributes_result->fetch_assoc()) {
+    $attributes[] = $attribute;
+}
+
+// Fetch tags from the attributes if applicable
+$tags_query = "SELECT av.value 
+               FROM product_attributes pa 
+               JOIN attribute_values av ON pa.attribute_value_id = av.id 
+               JOIN attributes a ON av.attribute_id = a.id 
+               WHERE pa.product_id = ? 
+               AND a.attribute_name = 'tags'";
+$tags_stmt = $conn->prepare($tags_query);
+$tags_stmt->bind_param("i", $product_id);
+$tags_stmt->execute();
+$tags_result = $tags_stmt->get_result();
+
+$tags = [];
+while ($tag = $tags_result->fetch_assoc()) {
+    $tags[] = htmlspecialchars($tag['value']);
+}
+
+// Fetch categories for the current product
+$categories_query = "SELECT c.id, c.category_name 
+                     FROM product_categories pc 
+                     JOIN categories c ON pc.category_id = c.id 
+                     WHERE pc.product_id = ?";
+$categories_stmt = $conn->prepare($categories_query);
+$categories_stmt->bind_param("i", $product_id);
+$categories_stmt->execute();
+$categories_result = $categories_stmt->get_result();
+
+// Get category IDs
+$category_ids = [];
+while ($category = $categories_result->fetch_assoc()) {
+    $category_ids[] = $category['id'];
+}
+
+if (!empty($category_ids)) {
+    $similar_products_query = "
+        SELECT p.id, p.name, p.price, p.original_price, c.category_name, MIN(i.image_path) AS image_path 
+        FROM products p 
+        JOIN product_categories pc ON p.id = pc.product_id 
+        JOIN categories c ON pc.category_id = c.id 
+        LEFT JOIN images i ON p.id = i.product_id 
+        WHERE pc.category_id IN (" . implode(',', $category_ids) . ")
+        AND p.id != ? 
+        GROUP BY p.id, p.name, p.price, p.original_price, c.category_name
+        LIMIT 3";
+
+    $similar_products_stmt = $conn->prepare($similar_products_query);
+    $similar_products_stmt->bind_param("i", $product_id);
+    $similar_products_stmt->execute();
+    $similar_products_result = $similar_products_stmt->get_result();
+}
+
+// Fetch the next product
+$next_product_query = "SELECT id FROM products WHERE id > ? ORDER BY id ASC LIMIT 1";
+$next_product_stmt = $conn->prepare($next_product_query);
+$next_product_stmt->bind_param("i", $product_id);
+$next_product_stmt->execute();
+$next_product_result = $next_product_stmt->get_result();
+$next_product = $next_product_result->fetch_assoc();
+
+// Fetch the previous product
+$prev_product_query = "SELECT id FROM products WHERE id < ? ORDER BY id DESC LIMIT 1";
+$prev_product_stmt = $conn->prepare($prev_product_query);
+$prev_product_stmt->bind_param("i", $product_id);
+$prev_product_stmt->execute();
+$prev_product_result = $prev_product_stmt->get_result();
+$prev_product = $prev_product_result->fetch_assoc();
+
+// Close the database connection
+$conn->close();
 ?>
+<!-- Product Page HTML here, displaying $product, $images, $attributes, etc. -->
 
 
 <!-- Product Image Carousel Section -->

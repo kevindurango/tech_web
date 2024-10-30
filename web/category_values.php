@@ -1,24 +1,20 @@
 <?php
 include 'db_connection.php'; 
+include 'Category.php'; // Include the Category class
 
+// Initialize the Category class
+$category = new Category($conn);
+
+// Check if category_id is set and is a valid integer
 if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
     $category_id = intval($_GET['category_id']); 
 
-    // Debugging output
-    echo "Category ID: " . $category_id; // Check the category ID
-    
-    $product_query = "SELECT p.id, p.name AS product_name, p.price, p.product_description AS description 
-                      FROM products p
-                      JOIN product_categories pc ON p.id = pc.product_id
-                      WHERE pc.category_id = ?";
-    
-    $stmt = $conn->prepare($product_query);
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Fetch products in the specified category
+    $products = $category->fetchProductsInCategory($category_id);
 
     // Debugging output
-    echo "Number of products found: " . $result->num_rows; // Check how many products were found
+    echo "Category ID: " . $category_id; // Check the category ID
+    echo "Number of products found: " . count($products); // Check how many products were found
 } else {
     echo "Invalid category ID.";
     exit;
@@ -42,8 +38,8 @@ if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
             <th>Price</th>
             <th>Description</th>
         </tr>
-        <?php if ($result->num_rows > 0) { ?>
-            <?php while ($row = $result->fetch_assoc()) { ?>
+        <?php if (!empty($products)) { ?>
+            <?php foreach ($products as $row) { ?>
             <tr>
                 <td><?php echo htmlspecialchars($row['id']); ?></td>
                 <td><?php echo htmlspecialchars($row['product_name']); ?></td>
@@ -62,7 +58,6 @@ if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
     <a href="category_list.php">Back to Categories</a>
 
     <?php
-    $stmt->close();
     $conn->close();
     ?>
 </body>
