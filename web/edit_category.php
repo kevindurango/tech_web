@@ -1,9 +1,9 @@
 <?php
 include 'db_connection.php';
-include 'Category.php'; // Make sure to include your Category class file
+include 'category.php'; // Include the category class
 
-// Create an instance of the Category class
-$category = new Category($conn);
+// Create an instance of the category class
+$category = new category($conn);
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
@@ -21,7 +21,7 @@ function fetchCategories($parent_id = null, $level = 0) {
     global $conn; // Access the database connection
     $categories = [];
 
-    $stmt = $conn->prepare("SELECT id, category_name FROM Categories WHERE parent_id " . ($parent_id === null ? "IS NULL" : "= ?"));
+    $stmt = $conn->prepare("SELECT id, category_name FROM categories WHERE parent_id " . ($parent_id === null ? "IS NULL" : "= ?"));
     if ($parent_id !== null) {
         $stmt->bind_param("i", $parent_id);
     }
@@ -57,7 +57,7 @@ $all_categories = fetchCategories();
 <body>
     <h2>Edit Category</h2>
     <form action="update_category.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo $categoryData['id']; ?>">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($categoryData['id']); ?>">
         
         <label for="category_name">Category Name:</label>
         <input type="text" id="category_name" name="category_name" value="<?php echo htmlspecialchars($categoryData['category_name']); ?>" required><br><br>

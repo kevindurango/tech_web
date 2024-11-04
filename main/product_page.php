@@ -137,8 +137,6 @@ $prev_product = $prev_product_result->fetch_assoc();
 // Close the database connection
 $conn->close();
 ?>
-<!-- Product Page HTML here, displaying $product, $images, $attributes, etc. -->
-
 
 <!-- Product Image Carousel Section -->
 <section class="product-section mt-4">

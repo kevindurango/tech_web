@@ -1,8 +1,15 @@
 <?php
-include 'db_connection.php'; // Include the database connection file
+include 'db_connection.php';
+include_once 'productattribute.php'; // Use the productattribute class
 
-$sql = "SELECT id, attribute_name FROM Attributes";
-$result = $conn->query($sql);
+$productAttribute = new productattribute($conn); // Instantiate the class
+
+// Fetch attributes from the database
+$attributes_result = $conn->query("SELECT id, attribute_name FROM Attributes");
+
+if (!$attributes_result) {
+    die("Error fetching attributes: " . $conn->error); // Handle query error
+}
 ?>
 
 <!DOCTYPE html>
@@ -11,49 +18,37 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attribute List</title>
-    <script>
-        function confirmDelete(attributeName) {
-            return confirm("Are you sure you want to delete the attribute '" + attributeName + "'?");
-        }
-    </script>
 </head>
 <body>
-    <h2>Attribute Names</h2>
-    <table border="1" cellpadding="10">
-        <thead>
+    <h2>Attribute List</h2>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Attribute Name</th>
+            <th>Actions</th>
+        </tr>
+        <?php while ($row = $attributes_result->fetch_assoc()): ?>
             <tr>
-                <th>ID</th>
-                <th>Attribute Name</th>
-                <th>Action</th>
+                <td><?php echo htmlspecialchars($row['id']); ?></td>
+                <td><?php echo htmlspecialchars($row['attribute_name']); ?></td>
+                <td>
+                    <a href="attribute_values.php?id=<?php echo $row['id']; ?>">View Values</a>
+                    | 
+                    <a href="edit_attribute.php?id=<?php echo $row['id']; ?>">Edit</a> <!-- Link to edit attribute -->
+                    | 
+                    <a href="delete_attribute.php?id=<?php echo $row['id']; ?>" 
+                       onclick="return confirm('Are you sure you want to delete this attribute? This will also delete related values.');">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo htmlspecialchars($row['attribute_name']); ?></td>
-                        <td>
-                            <a href="attribute_values.php?id=<?php echo $row['id']; ?>">View Values</a> |
-                            <a href="delete_attribute.php?id=<?php echo $row['id']; ?>" 
-                               onclick="return confirmDelete('<?php echo htmlspecialchars($row['attribute_name']); ?>');">
-                               Delete
-                            </a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3">No attributes found.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
+        <?php endwhile; ?>
     </table>
+    
     <br>
-    <a href="add_attribute.php">Add New Attribute</a>
+    <a href="add_attribute.php">Add New Attribute</a> <!-- Link to add attribute -->
 </body>
 </html>
 
 <?php
-$conn->close();
+$conn->close(); // Close the database connection
 ?>

@@ -12,6 +12,19 @@
 <?php
 $pageTitle = 'Homepage'; 
 include 'header.php'; 
+
+include '../web/db_connection.php';
+
+// Update the SQL query to also select the brand ID
+$sql = "SELECT id, brand_name, logo_url FROM brands LIMIT 4"; // Include brand ID
+$result = $conn->query($sql);
+
+$brands = [];
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $brands[] = $row;
+    }
+}
 ?>
 
 <!-- Product Introduction Section -->
@@ -499,23 +512,18 @@ include 'header.php';
 
 <!-- Shop by brand -->
 <section class="container my-5">
-
     <div class="text-center mb-3">
         <img src="/tech_web/assets/shop_by_brand.png" class="img-fluid" alt="Shop by Brand">
     </div> 
     <div class="row text-center">
-        <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/canon.png" alt="Canon" class="img-fluid brand-img">
-        </div>
-        <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/micromax.png" alt="Micromax" class="img-fluid brand-img">
-        </div>
-        <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/samsung.png" alt="Samsung" class="img-fluid brand-img">
-        </div>
-        <div class="col-6 col-md-3 mb-4">
-            <img src="/tech_web/assets/sennheiser.png" alt="Sennheiser" class="img-fluid brand-img">
-        </div>
+        <?php foreach ($brands as $brand): ?>
+            <div class="col-6 col-md-3 mb-4">
+                <!-- Wrap the brand logo in an anchor tag to link to category_page.php -->
+                <a href="category_page.php?brand_id=<?= htmlspecialchars($brand['id']) ?>">
+                    <img src="/tech_web/web/<?= htmlspecialchars($brand['logo_url']) ?>" alt="<?= htmlspecialchars($brand['brand_name']) ?>" class="img-fluid brand-img">
+                </a>
+            </div>
+        <?php endforeach; ?>
     </div>
 </section>
 

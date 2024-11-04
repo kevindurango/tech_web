@@ -1,19 +1,15 @@
 <?php
-include 'db_connection.php'; 
+include 'db_connection.php';
+include 'productattribute.php'; 
+
+$productAttribute = new productattribute($conn); // Instantiate the class
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $attribute_name = $_POST['attribute_name'];
 
-    $stmt = $conn->prepare("INSERT INTO Attributes (attribute_name) VALUES (?)");
-    $stmt->bind_param("s", $attribute_name);
-
-    if ($stmt->execute()) {
-        echo "New attribute created successfully!";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
+    // Call the method to add the attribute
+    $resultMessage = $productAttribute->addAttribute($attribute_name);
+    $successMessage = htmlspecialchars($resultMessage); // Sanitize the output for safety
 }
 ?>
 
@@ -26,7 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h2>Add New Attribute</h2>
-    <form action="attribute.php" method="POST">
+    
+    <!-- Display success message if set -->
+    <?php if (isset($successMessage)): ?>
+        <p><?php echo $successMessage; ?></p>
+    <?php endif; ?>
+    
+    <form action="add_attribute.php" method="POST">
         <label for="attribute_name">Attribute Name:</label>
         <input type="text" id="attribute_name" name="attribute_name" required>
         <input type="submit" value="Add Attribute">
@@ -37,5 +39,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 
 <?php
-$conn->close();
+$productAttribute->closeConnection(); // Close the database connection
 ?>

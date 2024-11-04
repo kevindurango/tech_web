@@ -1,5 +1,5 @@
 <?php
-class Category
+class category
 {
     private $conn;
 
@@ -67,7 +67,7 @@ class Category
             return "Invalid category ID.";
         }
 
-        $stmt = $this->conn->prepare("DELETE FROM Categories WHERE id = ?");
+        $stmt = $this->conn->prepare("DELETE FROM categories WHERE id = ?");
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
@@ -77,9 +77,9 @@ class Category
         }
     }
 
-      // Method to fetch a category by ID
+    // Method to fetch a category by ID
     public function getCategoryById($id) {
-        $stmt = $this->conn->prepare("SELECT id, category_name, description, parent_id FROM Categories WHERE id = ?");
+        $stmt = $this->conn->prepare("SELECT id, category_name, description, parent_id FROM categories WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -95,7 +95,7 @@ class Category
             return "Invalid category ID.";
         }
 
-        $stmt = $this->conn->prepare("UPDATE Categories SET category_name = ?, description = ?, parent_id = ? WHERE id = ?");
+        $stmt = $this->conn->prepare("UPDATE categories SET category_name = ?, description = ?, parent_id = ? WHERE id = ?");
         $stmt->bind_param("ssii", $category_name, $description, $parent_id, $id);
 
         if ($stmt->execute()) {
@@ -108,7 +108,7 @@ class Category
 
     // Method to add a new category
     public function addCategory($category_name, $description, $parent_id = 0) {
-        $stmt = $this->conn->prepare("INSERT INTO Categories (category_name, description, parent_id) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO categories (category_name, description, parent_id) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $category_name, $description, $parent_id);
 
         if ($stmt->execute()) {
@@ -121,7 +121,7 @@ class Category
 
     public function fetchAllCategories() {
         $categories = [];
-        $stmt = $this->conn->prepare("SELECT id, category_name, parent_id FROM Categories");
+        $stmt = $this->conn->prepare("SELECT id, category_name, parent_id FROM categories");
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -146,6 +146,5 @@ class Category
         }
         return $output;
     }
-    
 }
 ?>

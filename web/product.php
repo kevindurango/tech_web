@@ -1,6 +1,7 @@
 <?php
 class Product
 {
+    private $db;
     private $id;
     private $name;
     private $sku;
@@ -12,35 +13,64 @@ class Product
     private $attributes;
     private $image_path;
 
-    // Constructor
-    public function __construct($name, $sku, $short_description, $price, $product_description, $feature_product, $brand_id, $attributes = [], $image_path = null)
+    // Constructor with optional product ID
+    public function __construct($db, $id = null)
     {
-        $this->name = $name;
-        $this->sku = $sku;
-        $this->short_description = $short_description;
-        $this->price = $price;
-        $this->product_description = $product_description;
-        $this->feature_product = $feature_product;
-        $this->brand_id = $brand_id;
-        $this->attributes = $attributes;
-        $this->image_path = $image_path;
+        $this->db = $db; 
+        if ($id) {
+            $this->getProductById($id); 
+        }
+    }
+
+    // Fetch a single product by ID
+    public function getProductById($id)
+    {
+        $query = "SELECT * FROM products WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $product = $result->fetch_assoc();
+
+        if ($product) {
+            $this->id = $product['id'];
+            $this->name = $product['name'];
+            $this->sku = $product['SKU'];
+            $this->short_description = $product['short_description'];
+            $this->price = $product['price'];
+            $this->product_description = $product['product_description'];
+            $this->feature_product = $product['feature_product'];
+            $this->brand_id = $product['brand_id'];
+            $this->image_path = $product['main_image_url'];
+            // Populate attributes if needed
+            $this->attributes = $this->getProductAttributes($id);
+        }
+    }
+
+    // Fetch product attributes
+    private function getProductAttributes($product_id)
+    {
+        $query = "SELECT attribute_value_id FROM product_attributes WHERE product_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC); // Returns an array of attribute value IDs
     }
 
     // Method to submit a new product
-    public function submitProduct($conn, $categories)
+    public function submitProduct($categories)
     {
-        // Prepare SQL statement to insert product details
-        $stmt = $conn->prepare("INSERT INTO products (name, SKU, short_description, price, product_description, feature_product, brand_id, main_image_url) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO products (name, SKU, short_description, price, product_description, feature_product, brand_id, main_image_url) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssdssss", $this->name, $this->sku, $this->short_description, $this->price, $this->product_description, $this->feature_product, $this->brand_id, $this->image_path);
 
         if ($stmt->execute()) {
-            // Get the ID of the newly created product
-            $product_id = $stmt->insert_id;
+            $product_id = $stmt->insert_id; // Get the ID of the newly created product
 
             // Insert categories associated with the product
             foreach ($categories as $category_id) {
-                $stmt_category = $conn->prepare("INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)");
+                $stmt_category = $this->db->prepare("INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)");
                 $stmt_category->bind_param("ii", $product_id, $category_id);
                 $stmt_category->execute();
                 $stmt_category->close();
@@ -49,7 +79,7 @@ class Product
             // Insert attributes associated with the product
             if (!empty($this->attributes)) {
                 foreach ($this->attributes as $attribute_value_id) {
-                    $stmt_attribute = $conn->prepare("INSERT INTO product_attributes (product_id, attribute_value_id) VALUES (?, ?)");
+                    $stmt_attribute = $this->db->prepare("INSERT INTO product_attributes (product_id, attribute_value_id) VALUES (?, ?)");
                     $stmt_attribute->bind_param("ii", $product_id, $attribute_value_id);
                     $stmt_attribute->execute();
                     $stmt_attribute->close();
@@ -65,11 +95,11 @@ class Product
     }
 
     // Method to update product details
-    public function updateProduct($product_id, $conn)
+    public function updateProduct($product_id)
     {
         $update_product_query = "UPDATE products SET name = ?, SKU = ?, short_description = ?, price = ?, 
-            product_description = ?, feature_product = ?, brand_id = ? WHERE id = ?";
-        $stmt = $conn->prepare($update_product_query);
+                                product_description = ?, feature_product = ?, brand_id = ? WHERE id = ?";
+        $stmt = $this->db->prepare($update_product_query);
         $stmt->bind_param("sssdssii", $this->name, $this->sku, $this->short_description, $this->price, $this->product_description, $this->feature_product, $this->brand_id, $product_id);
 
         if (!$stmt->execute()) {
@@ -80,61 +110,37 @@ class Product
         return true;
     }
 
-    // Method to update product categories
-    public function updateProductCategories($product_id, $product_variation_id, $conn)
+    // Method to delete a product
+    public function deleteProduct($product_id)
     {
-        // Fetch the category path for the selected product variation
-        $category_path = [];
-        $current_category_id = $product_variation_id;
+        // First, clear associations
+        $this->db->query("DELETE FROM product_categories WHERE product_id = $product_id");
+        $this->db->query("DELETE FROM product_attributes WHERE product_id = $product_id");
 
-        while ($current_category_id) {
-            $category_query = $conn->prepare("SELECT id, parent_id FROM categories WHERE id = ?");
-            $category_query->bind_param("i", $current_category_id);
-            $category_query->execute();
-            $category_result = $category_query->get_result();
-            $category = $category_result->fetch_assoc();
+        // Then, delete the product itself
+        $sql = "DELETE FROM products WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $product_id);
 
-            if ($category) {
-                $category_path[] = $category['id'];
-                $current_category_id = $category['parent_id'];
-            } else {
-                break;
-            }
-        }
-
-        // Clear existing categories for the product
-        $conn->query("DELETE FROM product_categories WHERE product_id = $product_id");
-
-        // Insert the new categories for the product based on the category path
-        foreach (array_reverse($category_path) as $category_id) {
-            $insert_category_query = "INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)";
-            $insert_category_stmt = $conn->prepare($insert_category_query);
-            $insert_category_stmt->bind_param("ii", $product_id, $category_id);
-            $insert_category_stmt->execute();
-            $insert_category_stmt->close();
+        if ($stmt->execute()) {
+            return true; // Product deleted successfully
+        } else {
+            echo "Error deleting product: " . $stmt->error;
+            return false;
         }
     }
 
-    // Method to update product attributes
-    public function updateProductAttributes($product_id, $conn)
+    // Method to get all products
+    public static function getAllProducts($db)
     {
-        // Clear existing attributes for the product
-        $conn->query("DELETE FROM product_attributes WHERE product_id = $product_id");
-
-        // Insert the new attributes for the product based on the corrected input structure
-        if (!empty($this->attributes)) {
-            foreach ($this->attributes as $value_id) { // Directly iterate over each selected attribute value ID
-                $insert_attribute_query = "INSERT INTO product_attributes (product_id, attribute_value_id) VALUES (?, ?)";
-                $insert_attribute_stmt = $conn->prepare($insert_attribute_query);
-                $insert_attribute_stmt->bind_param("ii", $product_id, $value_id);
-
-                // Check if the insert operation was successful
-                if (!$insert_attribute_stmt->execute()) {
-                    echo "Error inserting attribute: " . $insert_attribute_stmt->error;
-                }
-                $insert_attribute_stmt->close();
-            }
+        $sql = "SELECT id, name, SKU, short_description, price, product_description, feature_product, main_image_url FROM products";
+        $result = $db->query($sql);
+        
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_all(MYSQLI_ASSOC);
         }
+        
+        return [];
     }
 
     // Method to handle image upload
@@ -157,39 +163,6 @@ class Product
             echo "Failed to upload image.";
             return false;
         }
-    }
-
-    // Method to delete a product
-    public function deleteProduct($product_id, $conn)
-    {
-        // First, clear associations
-        $conn->query("DELETE FROM product_categories WHERE product_id = $product_id");
-        $conn->query("DELETE FROM product_attributes WHERE product_id = $product_id");
-
-        // Then, delete the product itself
-        $sql = "DELETE FROM products WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $product_id);
-
-        if ($stmt->execute()) {
-            return true; // Product deleted successfully
-        } else {
-            echo "Error deleting product: " . $stmt->error;
-            return false;
-        }
-    }
-
-    // Method to get all products
-    public static function getAllProducts($conn)
-    {
-        $sql = "SELECT id, name, SKU, short_description, price, product_description, feature_product, main_image_url FROM products";
-        $result = $conn->query($sql);
-        
-        if ($result && $result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-        
-        return [];
     }
 }
 ?>

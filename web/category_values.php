@@ -1,9 +1,9 @@
 <?php
 include 'db_connection.php'; 
-include 'Category.php'; // Include the Category class
+include 'category.php'; // Include the category class
 
-// Initialize the Category class
-$category = new Category($conn);
+// Initialize the category class
+$category = new category($conn); // Use lowercase class name
 
 // Check if category_id is set and is a valid integer
 if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
@@ -13,7 +13,7 @@ if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
     $products = $category->fetchProductsInCategory($category_id);
 
     // Debugging output
-    echo "Category ID: " . $category_id; // Check the category ID
+    echo "Category ID: " . htmlspecialchars($category_id); // Check the category ID
     echo "Number of products found: " . count($products); // Check how many products were found
 } else {
     echo "Invalid category ID.";

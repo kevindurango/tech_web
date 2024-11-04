@@ -1,23 +1,25 @@
 <?php
-include 'db_connection.php'; 
+include 'db_connection.php';
+include_once 'productattribute.php'; // Use the new class name
+
+$productAttribute = new productattribute($conn); // Instantiate using the new class name
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $attribute_id = $_POST['attribute_id'];
     $value = $_POST['value'];
 
-    $stmt = $conn->prepare("INSERT INTO Attribute_Values (attribute_id, value) VALUES (?, ?)");
-    $stmt->bind_param("is", $attribute_id, $value);
+    // Call the method to add the attribute value
+    $resultMessage = $productAttribute->addAttributeValue($attribute_id, $value);
 
-    if ($stmt->execute()) {
-        echo "New value added successfully!";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
+    echo htmlspecialchars($resultMessage); // Output success/error message
 }
 
+// Fetch attributes from the database for the dropdown
 $attributes_result = $conn->query("SELECT id, attribute_name FROM Attributes");
+
+if (!$attributes_result) {
+    die("Error fetching attributes: " . $conn->error); // Handle query error
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,5 +50,5 @@ $attributes_result = $conn->query("SELECT id, attribute_name FROM Attributes");
 </html>
 
 <?php
-$conn->close();
+$conn->close(); // Close the database connection
 ?>

@@ -22,10 +22,12 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Loop through the brands from the database and display them here -->
             <?php
             include 'db_connection.php';
+            include 'brandmanager.php'; 
 
+            $brandManager = new brandmanager($conn);
+            
             $sql = "SELECT * FROM brands";
             $result = mysqli_query($conn, $sql);
 

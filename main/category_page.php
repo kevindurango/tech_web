@@ -1,37 +1,23 @@
 <?php
+// Include necessary files and initialize database connection
 include '../web/db_connection.php';
+include '../web/categorypage.php';
 
+// Get category ID from the URL, defaulting to 0 if not set
 $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
 
-// Fetch categories with product count in a single query
-$sql = "SELECT c.*, 
-               (SELECT COUNT(*) FROM product_categories pc WHERE pc.category_id = c.id) AS product_count
-        FROM categories c";
-$result = $conn->query($sql);
-$categories = $result->fetch_all(MYSQLI_ASSOC);
+// Instantiate the CategoryPage class
+$categoryPage = new CategoryPage($category_id, $conn);
 
-// Fetch products based on the selected category
-$sql = "SELECT p.*, pc.category_id, c.category_name, b.brand_name, i.image_path AS main_image
-        FROM products p 
-        LEFT JOIN product_categories pc ON p.id = pc.product_id
-        LEFT JOIN categories c ON pc.category_id = c.id
-        LEFT JOIN brands b ON p.brand_id = b.id
-        LEFT JOIN images i ON p.id = i.product_id AND i.image_path = p.main_image_url";
+// Fetch data using the CategoryPage methods
+$categories = $categoryPage->getCategories();
+$products = $categoryPage->getProducts();
+$total_products = $categoryPage->getTotalProductCount();
 
-if ($category_id > 0) {
-    $sql .= " WHERE pc.category_id = $category_id";
-}
-
-$sql .= " GROUP BY p.id";
-$result = $conn->query($sql);
-$products = $result->fetch_all(MYSQLI_ASSOC);
-
-$sql_count = "SELECT COUNT(*) as total FROM products";
-$result_count = $conn->query($sql_count);
-$total_products = $result_count->fetch_assoc()['total'];
-
-$conn->close();
+// Build category tree
+$categoryTree = $categoryPage->buildCategoryTree($categories);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,11 +45,32 @@ include 'header.php';
                     <h3 class="fw-bold mb-3 ps-3 text-start fs-4">Categories</h3>
                     <div class="categories-nav-wrapper">
                         <div class="categories-nav">
-                            <?php foreach ($categories as $cat): ?>
-                                <a href="category_page.php?category=<?= $cat['id'] ?>" class="category-item">
-                                    <img src="<?= $cat['icon_path'] ?>" alt="" style="width: 15px;"> <?= htmlspecialchars($cat['category_name']) ?>
-                                </a>
-                            <?php endforeach; ?>
+                        <?php
+
+                            $categories = $categoryPage->getCategories();
+
+                            $hasCategories = false; 
+
+                            foreach ($categories as $cat):
+                                // Set default values if data is missing
+                                $categoryId = $cat['id'] ?? 0;
+                                $categoryName = !empty($cat['category_name']) ? htmlspecialchars($cat['category_name']) : null; // Set to null if empty
+                                $iconPath = !empty($cat['icon_path']) ? htmlspecialchars($cat['icon_path']) : '/tech_web/assets/placeholder_icon.png';
+
+                                // Only display category if it has a valid name
+                                if ($categoryName) :
+                                    $hasCategories = true; // Set the flag if a valid category name is found
+                            ?>
+                                    <a href="category_page.php?category=<?= $categoryId ?>" class="category-item">
+                                        <img src="<?= $iconPath ?>" alt="<?= $categoryName ?>" class="category-icon">
+                                        <?= $categoryName ?>
+                                    </a>
+                                <?php endif; // End if for valid category name
+                            endforeach; ?>
+
+                            <?php if (!$hasCategories): ?>
+                                <p>No categories available.</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -71,6 +78,7 @@ include 'header.php';
         </div>
     </div>
 </section>
+
 
 <section class="mt-2 mb-2">
     <div class="container">
@@ -116,25 +124,68 @@ include 'header.php';
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <form method="GET" action="category_page.php" id="category-form">
+
+                            <form method="GET" action="category_page.php" id="category-form">
                     <div class="list-group border p-2" style="border-radius: 0;">
                         <h5 class="fw-bold mb-4">Categories</h5>
-                        
+
+                        <!-- All Products Option -->
                         <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
-                            <input type="radio" name="category" class="form-check-input me-2" value="0" <?= $category_id == 0 ? 'checked' : '' ?> onclick="document.getElementById('category-form').submit();">
+                            <input type="radio" name="category" class="form-check-input me-2" value="0" <?= $category_id == 0 ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
                             <span>All products</span>
                             <span class="text-muted small ms-auto">(<?= $total_products ?>)</span>
                         </label>
 
-                        <?php foreach ($categories as $cat): ?>
-                            <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
-                                <input type="radio" name="category" class="form-check-input me-2" value="<?= $cat['id'] ?>" <?= $category_id == $cat['id'] ? 'checked' : '' ?> onclick="document.getElementById('category-form').submit();">
-                                <span><?= htmlspecialchars($cat['category_name']) ?></span> 
-                                <span class="text-muted small ms-auto">(<?= $cat['product_count'] ?>)</span>
-                            </label>
-                        <?php endforeach; ?>
+                        <?php 
+                        // Fetch all categories that are considered parents (e.g., Smartphones, Laptops, etc.)
+                        $parentCategories = array_filter($categories, function($cat) {
+                            return !is_null($cat['parent_id']); // Get categories that have a parent
+                        });
 
-                        <button type="submit" name="reset" value="1" class="btn btn-dark w-100 mt-3 border-0" onclick="window.location.href='category_page.php'">Reset Filter</button>
+                        // To get unique parent categories (which are now the immediate parents)
+                        $uniqueParentIds = array_unique(array_column($parentCategories, 'parent_id'));
+                        $newParentCategories = array_filter($categories, function($cat) use ($uniqueParentIds) {
+                            return in_array($cat['id'], $uniqueParentIds);
+                        });
+
+                        foreach ($newParentCategories as $cat): 
+                            $categoryId = $cat['id'] ?? 0;
+                            $categoryName = htmlspecialchars($cat['category_name'] ?? 'Unnamed Category');
+                            // Get product count for the main category
+                            $productCount = $categoryPage->getProductCountByCategory($categoryId); 
+                            ?>
+
+                            <!-- Main Category Label -->
+                            <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
+                                <input type="radio" name="category" class="form-check-input me-2" value="<?= $categoryId ?>" <?= $category_id == $categoryId ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
+                                <span><?= $categoryName ?></span>
+                                <span class="text-muted small ms-auto">(<?= $productCount ?>)</span> <!-- Display product count -->
+                            </label>
+
+                            <!-- Fetch and display child categories -->
+                            <?php 
+                            // Fetch child categories for the current category
+                            $childCategories = array_filter($categories, function($cat) use ($categoryId) {
+                                return $cat['parent_id'] == $categoryId; // Get child categories
+                            });
+
+                            if (!empty($childCategories)): 
+                                foreach ($childCategories as $childCat): 
+                                    $childCategoryId = $childCat['id'] ?? 0;
+                                    $childCategoryName = htmlspecialchars($childCat['category_name'] ?? 'Unnamed Category');
+                                    // Get product count for the child category
+                                    $childProductCount = $categoryPage->getProductCountByCategory($childCategoryId); 
+                            ?>
+                                <label class="list-group-item d-flex align-items-center ms-4 category-label" style="cursor: pointer;">
+                                    <input type="radio" name="category" class="form-check-input me-2" value="<?= $childCategoryId ?>" <?= $category_id == $childCategoryId ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
+                                    <span><?= $childCategoryName ?></span>
+                                    <span class="text-muted small ms-auto">(<?= $childProductCount ?>)</span> <!-- Display child product count -->
+                                </label>
+                            <?php 
+                                endforeach; 
+                            endif; 
+                        endforeach; 
+                        ?>
                     </div>
                 </form>
 
@@ -146,34 +197,38 @@ include 'header.php';
             <!-- Right Column: Products -->
             <div class="col-md-8">
                 <div class="row">
-                    <?php foreach ($products as $product): ?>
-                        <div class="col-lg-4 col-md-6 col-12 mb-3">
-                            <div class="card">
-                                <div class="card-img-container">
-                                    <img src="<?= $product['main_image'] ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
-                                    <div class="star-reviews">
-                                        <i class="bi bi-star-fill text-warning"></i> 
-                                        <span>4.5</span>
+                    <?php if (!empty($products)) : ?>
+                        <?php foreach ($products as $product): ?>
+                            <div class="col-lg-4 col-md-6 col-12 mb-3">
+                                <div class="card">
+                                    <div class="card-img-container">
+                                        <img src="<?= htmlspecialchars($product['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?>">
+                                        <div class="star-reviews">
+                                            <i class="bi bi-star-fill text-warning"></i> 
+                                            <span>4.5</span>
+                                        </div>
+                                        <button class="product-card-add-to-cart">
+                                            <i class="bi bi-cart"></i> Add to Cart
+                                        </button>
+                                        <div class="product-card-icons">
+                                            <i class="bi bi-eye"></i>
+                                            <i class="bi bi-heart"></i>
+                                            <i class="bi bi-arrow-repeat"></i>
+                                            <i class="bi bi-clipboard"></i>
+                                        </div>
                                     </div>
-                                    <button class="product-card-add-to-cart">
-                                        <i class="bi bi-cart"></i> Add to Cart
-                                    </button>
-                                    <div class="product-card-icons">
-                                        <i class="bi bi-eye"></i>
-                                        <i class="bi bi-heart"></i>
-                                        <i class="bi bi-arrow-repeat"></i>
-                                        <i class="bi bi-clipboard"></i>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?></h5>
+                                        <p class="card-text">
+                                            <span class="text-danger"><?= number_format($product['price'] ?? 0, 2) ?> €</span>
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
-                                    <p class="card-text">
-                                        <span class="text-danger"><?= number_format($product['price'], 2) ?> €</span>
-                                    </p>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <p>No products found in this category.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -182,5 +237,15 @@ include 'header.php';
 
 <?php include 'footer.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function resetFilter() {
+    const form = document.getElementById('category-form');
+    const allProductsRadio = form.querySelector('input[name="category"][value="0"]');
+    allProductsRadio.checked = true;
+    form.submit();
+}
+</script>
+
 </body>
 </html>

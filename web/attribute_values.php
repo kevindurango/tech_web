@@ -1,22 +1,18 @@
 <?php
-include 'db_connection.php'; 
+include 'db_connection.php';
+include 'ProductAttribute.php'; // Include the ProductAttribute class
+
+$productAttribute = new ProductAttribute($conn); // Create an instance
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $stmt = $conn->prepare("SELECT id, value FROM Attribute_Values WHERE attribute_id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $attribute_stmt = $conn->prepare("SELECT attribute_name FROM Attributes WHERE id = ?");
-    $attribute_stmt->bind_param("i", $id);
-    $attribute_stmt->execute();
-    $attribute_result = $attribute_stmt->get_result();
-    $attribute = $attribute_result->fetch_assoc();
+    $id = intval($_GET['id']);
+    $attribute = $productAttribute->getAttributeById($id); // Fetch attribute details
 
     if (!$attribute) {
         die("Attribute not found.");
     }
+
+    $result = $productAttribute->getAttributeValues($id); // Fetch attribute values
 } else {
     die("Invalid request.");
 }
@@ -44,12 +40,13 @@ if (isset($_GET['id'])) {
             </tr>
         </thead>
         <tbody>
-            <?php if ($result->num_rows > 0): ?>
+            <?php if ($result && $result->num_rows > 0): ?> <!-- Check if $result is valid -->
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo htmlspecialchars($row['id']); ?></td>
                         <td><?php echo htmlspecialchars($row['value']); ?></td>
                         <td>
+                            <a href="edit_attribute_value.php?id=<?php echo $row['id']; ?>">Edit</a> |
                             <a href="delete_attribute_value.php?id=<?php echo $row['id']; ?>&attribute_id=<?php echo $id; ?>" 
                                onclick="return confirm('Are you sure you want to delete this value?');">Delete</a>
                         </td>
@@ -68,7 +65,5 @@ if (isset($_GET['id'])) {
 </html>
 
 <?php
-$stmt->close();
-$attribute_stmt->close();
-$conn->close();
+$productAttribute->closeConnection(); // Close the connection
 ?>

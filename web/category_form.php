@@ -18,12 +18,10 @@
         <select id="parent_id" name="parent_id">
             <option value="0">None</option>
             <?php
-            // Include the Category class and database connection
-            include 'Category.php'; // Ensure you have the correct path to your class file
-            include 'db_connection.php'; // Your DB connection file
+            include 'category.php'; 
+            include 'db_connection.php'; 
 
-            // Create an instance of the Category class
-            $category = new Category($conn);
+            $category = new category($conn); 
             // Fetch all categories
             $all_categories = $category->fetchAllCategories();
             // Display categories in a hierarchical format

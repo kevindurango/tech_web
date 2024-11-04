@@ -1,9 +1,9 @@
 <?php
 include 'db_connection.php'; 
-include 'Category.php'; // Include the Category class
+include 'category.php'; 
 
-$category = new Category($conn);
-$main_categories_result = $category->fetchMainCategories();
+$categoryManager = new category($conn);
+$main_categories_result = $categoryManager->fetchMainCategories();
 ?>
 
 <!DOCTYPE html>
@@ -118,5 +118,5 @@ $main_categories_result = $category->fetchMainCategories();
 </html>
 
 <?php
-$category->closeConnection();
+$categoryManager->closeConnection();
 ?>
