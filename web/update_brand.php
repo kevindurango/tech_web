@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'brandmanager.php';
+include '../classes/brandmanager.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $brand_id = $_POST['id'];

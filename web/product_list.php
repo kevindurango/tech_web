@@ -1,7 +1,6 @@
 <?php
 include 'db_connection.php'; 
-include 'product.php'; // Include the Product class
-
+include '../classes/product.php';
 // Retrieve all products using the new method
 $products = Product::getAllProducts($conn);
 ?>

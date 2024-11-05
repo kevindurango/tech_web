@@ -200,32 +200,35 @@ include 'header.php';
                     <?php if (!empty($products)) : ?>
                         <?php foreach ($products as $product): ?>
                             <div class="col-lg-4 col-md-6 col-12 mb-3">
-                                <div class="card">
-                                    <div class="card-img-container">
-                                        <img src="<?= htmlspecialchars($product['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?>">
-                                        <div class="star-reviews">
-                                            <i class="bi bi-star-fill text-warning"></i> 
-                                            <span>4.5</span>
-                                        </div>
-                                        <button class="product-card-add-to-cart">
+                            <div class="card">
+                                <div class="card-img-container">
+                                    <img src="<?= htmlspecialchars($product['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?>">
+                                    <div class="star-reviews">
+                                        <i class="bi bi-star-fill text-warning"></i> 
+                                        <span>4.5</span>
+                                    </div>
+                                    <form action="cart.php" method="POST" class="d-inline">
+                                        <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                                        <button class="product-card-add-to-cart" data-product-id="<?= $product['id'] ?>">
                                             <i class="bi bi-cart"></i> Add to Cart
                                         </button>
-                                        <div class="product-card-icons">
-                                            <i class="bi bi-eye"></i>
-                                            <i class="bi bi-heart"></i>
-                                            <i class="bi bi-arrow-repeat"></i>
-                                            <i class="bi bi-clipboard"></i>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?></h5>
-                                        <p class="card-text">
-                                            <span class="text-danger"><?= number_format($product['price'] ?? 0, 2) ?> €</span>
-                                        </p>
+                                    </form>
+                                    <div class="product-card-icons">
+                                        <i class="bi bi-eye"></i>
+                                        <i class="bi bi-heart"></i>
+                                        <i class="bi bi-arrow-repeat"></i>
+                                        <i class="bi bi-clipboard"></i>
                                     </div>
                                 </div>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?></h5>
+                                    <p class="card-text">
+                                        <span class="text-danger"><?= number_format($product['price'] ?? 0, 2) ?> €</span>
+                                    </p>
+                                </div>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
+                    <?php endforeach; ?>
                     <?php else : ?>
                         <p>No products found in this category.</p>
                     <?php endif; ?>
@@ -246,6 +249,37 @@ function resetFilter() {
     form.submit();
 }
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('.product-card-add-to-cart').click(function(event) {
+        event.preventDefault(); // Prevent default button action
+
+        const productId = $(this).data('product-id'); // Get the product ID from data attribute
+        const quantity = 1; // Set quantity to 1 for this example
+
+        // AJAX request to add product to cart
+        $.ajax({
+            url: 'add_to_cart.php', // URL to the PHP script
+            type: 'POST',
+            data: { product_id: productId, quantity: quantity },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message); // Display success message
+                } else {
+                    alert('Error: ' + response.message); // Display error message
+                }
+            },
+            error: function() {
+                alert('An error occurred while adding the product to the cart.');
+            }
+        });
+    });
+});
+</script>
+
 
 </body>
 </html>

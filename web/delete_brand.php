@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'brandmanager.php'; 
+include '../classes/brandmanager.php';
 
 if (isset($_GET['id'])) {
     $brand_id = $_GET['id'];

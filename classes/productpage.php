@@ -11,7 +11,6 @@ class ProductPage
         $this->product_id = (int) $product_id;
     }
 
-    // Fetch product details along with brand information
     public function getProductDetails()
     {
         $query = "

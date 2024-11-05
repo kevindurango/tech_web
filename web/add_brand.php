@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'brandmanager.php'; 
+include '../classes/brandmanager.php';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

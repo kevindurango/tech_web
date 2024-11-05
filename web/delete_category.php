@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'category.php'; 
+include '../classes/category.php';
 
 $category = new category($conn); 
 

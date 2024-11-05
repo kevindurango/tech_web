@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'product.php';
+include '../classes/product.php';
 
 // Retrieve POST data
 $name = $_POST['name'] ?? '';

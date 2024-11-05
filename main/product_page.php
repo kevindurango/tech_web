@@ -13,7 +13,7 @@
 <?php
 include 'header.php';
 include '../web/db_connection.php'; // Ensure the path is correct
-include '../web/productpage.php';
+include '../classes/productpage.php';
 // Get the product ID from the URL
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0; 
 

@@ -24,7 +24,7 @@
         <tbody>
             <?php
             include 'db_connection.php';
-            include 'brandmanager.php'; 
+            include '../classes/brandmanager.php';
 
             $brandManager = new brandmanager($conn);
             

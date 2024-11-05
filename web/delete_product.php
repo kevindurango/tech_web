@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'Product.php'; // Ensure to include your Product class
+include '../classes/product.php';
 
 if (isset($_GET['id'])) {
     $product_id = intval($_GET['id']);

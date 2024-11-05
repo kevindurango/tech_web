@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php'; 
-include 'category.php'; 
+include '../classes/category.php';
 
 $categoryManager = new category($conn);
 $main_categories_result = $categoryManager->fetchMainCategories();
