@@ -67,7 +67,13 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
                                                 <img src="<?= htmlspecialchars($item['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" alt="<?= htmlspecialchars($item['name'] ?? 'Unnamed Product') ?>" style="width: 50px; height: auto;">
                                                 <?= htmlspecialchars($item['name']) ?>
                                             </td>
-                                            <td><?= $item['quantity'] ?></td>
+                                            <td>
+                                                <form action="update_cart.php" method="POST" class="d-inline">
+                                                    <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
+                                                    <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" style="width: 60px;">
+                                                    <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                                </form>
+                                            </td>
                                             <td><?= number_format($item['price'], 2) ?> €</td>
                                             <td><?= number_format($item['price'] * $item['quantity'], 2) ?> €</td>
                                             <td>

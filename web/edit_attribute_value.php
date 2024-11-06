@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'ProductAttribute.php'; // Use the ProductAttribute class
+include '../classes/productattribute.php';
 
 $productAttribute = new ProductAttribute($conn); // Create an instance
 

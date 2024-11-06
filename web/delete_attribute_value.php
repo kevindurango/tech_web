@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include_once 'productattribute.php'; 
+include '../classes/productattribute.php';
 
 $productAttribute = new productattribute($conn); // Instantiate using the new class name
 

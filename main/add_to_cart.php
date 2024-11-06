@@ -6,12 +6,10 @@ if (isset($_POST['product_id'])) {
     $productId = intval($_POST['product_id']);
     $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-    // Initialize cart session if not set
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
 
-    // Update cart session
     if (array_key_exists($productId, $_SESSION['cart'])) {
         $_SESSION['cart'][$productId] += $quantity;
     } else {

@@ -1,16 +1,14 @@
 <?php
 include 'db_connection.php';
-include 'productattribute.php'; // Include the new class name
+include '../classes/productattribute.php';
 
-$productAttribute = new productattribute($conn); // Instantiate using the new class name
+$productAttribute = new productattribute($conn); 
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     
-    // Call the delete method from the ProductAttribute class
     $resultMessage = $productAttribute->deleteAttribute($id);
     
-    // Redirect with a success/error message
     header("Location: attribute_list.php?message=" . urlencode($resultMessage));
     exit();
 } else {
@@ -18,5 +16,5 @@ if (isset($_GET['id'])) {
     exit();
 }
 
-$conn->close(); // Close the connection
+$conn->close(); 
 ?>

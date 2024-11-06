@@ -1,8 +1,8 @@
 <?php
 include 'db_connection.php';
-include 'productattribute.php'; 
+include '../classes/productattribute.php';
 
-$productAttribute = new productattribute($conn); // Instantiate the class
+$productAttribute = new productattribute($conn); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $attribute_name = $_POST['attribute_name'];

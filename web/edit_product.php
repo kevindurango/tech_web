@@ -1,5 +1,5 @@
 <?php
-include 'db_connection.php';
+include 'db_connection.php'; // Include your database connection
 
 // Get the product ID from the URL
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
@@ -92,16 +92,21 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
             <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required placeholder="Enter product name"><br><br>
 
             <label for="sku">SKU:</label>
-            <input type="text" id="sku " name="sku" value="<?php echo htmlspecialchars($product['SKU']); ?>" required placeholder="Enter SKU"><br><br>
+            <input type="text" id="sku" name="sku" value="<?php echo htmlspecialchars($product['SKU']); ?>" required placeholder="Enter SKU"><br><br>
 
             <label for="short_description">Short Description:</label>
             <textarea id="short_description" name="short_description" required placeholder="Enter short description"><?php echo htmlspecialchars($product['short_description']); ?></textarea><br><br>
+
+            <label for="product_description">Product Description:</label>
+            <textarea id="product_description" name="product_description" required placeholder="Enter product description"><?php echo htmlspecialchars($product['product_description']); ?></textarea><br><br>
 
             <label for="price">Price:</label>
             <input type="number" step="0.01" id="price" name="price" value="<?php echo htmlspecialchars($product['price']); ?>" required placeholder="Enter price"><br><br>
 
             <label for="feature_product">Feature Product:</label>
             <input type="checkbox" id="feature_product" name="feature_product" <?php echo ($product['feature_product'] ? 'checked' : ''); ?> title="Check to feature this product"><br><br>
+            <p><a href="image_management.php?id=<?php echo $product_id; ?>">Manage Images for this Product</a></p> <!-- Link to image management -->
+
         </fieldset>
 
         <fieldset>
@@ -161,3 +166,8 @@ $success = isset($_GET['update']) && $_GET['update'] == 'success';
     </script>
 </body>
 </html>
+
+<?php
+// Close the database connection
+$conn->close();
+?>
