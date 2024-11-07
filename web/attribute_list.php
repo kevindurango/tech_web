@@ -2,13 +2,12 @@
 include 'db_connection.php';
 include '../classes/productattribute.php';
 
-$productAttribute = new productattribute($conn); // Instantiate the class
+$productAttribute = new productattribute($conn); 
 
-// Fetch attributes from the database
 $attributes_result = $conn->query("SELECT id, attribute_name FROM Attributes");
 
 if (!$attributes_result) {
-    die("Error fetching attributes: " . $conn->error); // Handle query error
+    die("Error fetching attributes: " . $conn->error);
 }
 ?>
 
