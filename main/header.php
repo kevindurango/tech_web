@@ -7,24 +7,53 @@ $sql = "SELECT * FROM categories ORDER BY category_name";
 $result = $conn->query($sql);
 $categories = [];
 
+// Organize categories by parent-child relationships
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $parentId = $row['parent_id'];
         
+        // Store main categories and subcategories in a hierarchical structure
         if (is_null($parentId)) {
-            // Main category (no parent)
             $categories[$row['id']] = [
                 'name' => $row['category_name'],
                 'icon' => $row['icon_path'],
                 'subcategories' => []
             ];
         } else {
-            // Subcategory (has a parent)
-            $categories[$parentId]['subcategories'][] = [
-                'id' => $row['id'],
-                'name' => $row['category_name']
-            ];
+            // Nested subcategory handling
+            if (isset($categories[$parentId])) {
+                $categories[$parentId]['subcategories'][$row['id']] = [
+                    'name' => $row['category_name'],
+                    'icon' => $row['icon_path'],
+                    'subcategories' => []
+                ];
+            } else {
+                foreach ($categories as &$mainCategory) {
+                    if (isset($mainCategory['subcategories'][$parentId])) {
+                        $mainCategory['subcategories'][$parentId]['subcategories'][$row['id']] = [
+                            'name' => $row['category_name'],
+                            'icon' => $row['icon_path'],
+                            'subcategories' => []
+                        ];
+                    }
+                }
+            }
         }
+    }
+}
+
+// Recursive function to render categories and subcategories
+function renderCategoryItems($category) {
+    foreach ($category as $categoryId => $categoryData) {
+        echo '<li class="dropdown-submenu">';
+        echo '<a class="dropdown-item dropdown-toggle" href="category_page.php?category=' . $categoryId . '">' . htmlspecialchars($categoryData['name']) . '</a>';
+        
+        if (!empty($categoryData['subcategories'])) {
+            echo '<ul class="dropdown-menu">';
+            renderCategoryItems($categoryData['subcategories']);
+            echo '</ul>';
+        }
+        echo '</li>';
     }
 }
 ?>
@@ -44,9 +73,14 @@ if ($result && $result->num_rows > 0) {
             position: relative;
         }
         .dropdown-submenu > .dropdown-menu {
+            display: none;
+            position: absolute;
             top: 0;
             left: 100%;
             margin-top: -6px;
+        }
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
         }
     </style>
 </head>
@@ -105,29 +139,11 @@ if ($result && $result->num_rows > 0) {
                     <i class="bi bi-grid me-1"></i> Categories
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                    <!-- Dynamically generated categories and subcategories -->
-                    <?php foreach ($categories as $categoryId => $category): ?>
-                        <li class="dropdown-submenu">
-                            <a class="dropdown-item dropdown-toggle" href="category_page.php?category=<?= $categoryId ?>">
-                                <?= htmlspecialchars($category['name']) ?>
-                            </a>
-                            <?php if (!empty($category['subcategories'])): ?>
-                                <ul class="dropdown-menu">
-                                    <?php foreach ($category['subcategories'] as $subcategory): ?>
-                                        <li>
-                                            <a class="dropdown-item" href="category_page.php?category=<?= $subcategory['id'] ?>">
-                                                <?= htmlspecialchars($subcategory['name']) ?>
-                                            </a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php endif; ?>
-                        </li>
-                    <?php endforeach; ?>
+                    <?php renderCategoryItems($categories); ?>
                 </ul>
             </div>
         </div>
-        <!-- Additional navigation links -->
+        <!-- Additional navigation links with badges -->
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-hot-green position-absolute">HOT</span>
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Shop</a>
@@ -175,28 +191,5 @@ if ($result && $result->num_rows > 0) {
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JavaScript for Nested Dropdowns -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.dropdown-submenu > .dropdown-toggle').forEach(function(element) {
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
-            let nextEl = element.nextElementSibling;
-            if (nextEl && nextEl.classList.contains('dropdown-menu')) {
-                nextEl.classList.toggle('show');
-
-                // Close the dropdown menu if clicked outside
-                document.addEventListener('click', function(e) {
-                    if (!element.contains(e.target)) {
-                        nextEl.classList.remove('show');
-                    }
-                });
-            }
-        });
-    });
-});
-</script>
-
 </body>
 </html>

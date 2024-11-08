@@ -1022,3 +1022,28 @@ a {
 .offcanvas-header .btn-close i {
   color: white;
 }
+
+.red-radio {
+  /* Hide the default radio button */
+  display: none;
+}
+
+.red-radio + span {
+  /* Style the label when the radio button is not checked */
+  padding: 0.5em;
+  border: 2px solid transparent; /* Default border color */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+.red-radio:checked + span {
+  /* Style the label when the radio button is checked */
+  background-color: #ffcccc; /* Light red background */
+  border-color: #ff0000; /* Red border */
+  color: #900; /* Dark red text */
+}
+
+.category-label.active {
+  background-color: #ffcccc !important; /* Light red background for active state */
+  border-color: #ff0000 !important; /* Red border for active state */
+}

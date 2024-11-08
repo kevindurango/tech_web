@@ -86,7 +86,7 @@ class productattribute
         $stmt->execute();
         $result = $stmt->get_result();
         
-        return $result->fetch_assoc(); // Return the attribute value as an associative array
+        return $result->fetch_assoc(); 
     }
 
     public function updateAttribute($id, $attribute_name)

@@ -125,70 +125,69 @@ include 'header.php';
         <div class="row">
             <div class="col-md-4">
 
-                            <form method="GET" action="category_page.php" id="category-form">
-                    <div class="list-group border p-2" style="border-radius: 0;">
-                        <h5 class="fw-bold mb-4">Categories</h5>
+            <form method="GET" action="category_page.php" id="category-form">
+    <div class="list-group border p-2" style="border-radius: 0;">
+        <h5 class="fw-bold mb-4">Categories</h5>
 
-                        <!-- All Products Option -->
-                        <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
-                            <input type="radio" name="category" class="form-check-input me-2" value="0" <?= $category_id == 0 ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
-                            <span>All products</span>
-                            <span class="text-muted small ms-auto">(<?= $total_products ?>)</span>
-                        </label>
+        <!-- All Products Option -->
+        <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
+            <input type="radio" name="category" class="form-check-input me-2 red-radio" value="0" <?= $category_id == 0 ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
+            <span>All products</span>
+            <span class="text-muted small ms-auto">(<?= $total_products ?>)</span>
+        </label>
 
-                        <?php 
-                        // Fetch all categories that are considered parents (e.g., Smartphones, Laptops, etc.)
-                        $parentCategories = array_filter($categories, function($cat) {
-                            return !is_null($cat['parent_id']); // Get categories that have a parent
-                        });
+        <?php 
+        // Fetch all categories that are considered parents (e.g., Smartphones, Laptops, etc.)
+        $parentCategories = array_filter($categories, function($cat) {
+            return !is_null($cat['parent_id']); // Get categories that have a parent
+        });
 
-                        // To get unique parent categories (which are now the immediate parents)
-                        $uniqueParentIds = array_unique(array_column($parentCategories, 'parent_id'));
-                        $newParentCategories = array_filter($categories, function($cat) use ($uniqueParentIds) {
-                            return in_array($cat['id'], $uniqueParentIds);
-                        });
+        // To get unique parent categories (which are now the immediate parents)
+        $uniqueParentIds = array_unique(array_column($parentCategories, 'parent_id'));
+        $newParentCategories = array_filter($categories, function($cat) use ($uniqueParentIds) {
+            return in_array($cat['id'], $uniqueParentIds);
+        });
 
-                        foreach ($newParentCategories as $cat): 
-                            $categoryId = $cat['id'] ?? 0;
-                            $categoryName = htmlspecialchars($cat['category_name'] ?? 'Unnamed Category');
-                            // Get product count for the main category
-                            $productCount = $categoryPage->getProductCountByCategory($categoryId); 
-                            ?>
+        foreach ($newParentCategories as $cat): 
+            $categoryId = $cat['id'] ?? 0;
+            $categoryName = htmlspecialchars($cat['category_name'] ?? 'Unnamed Category');
+            // Get product count for the main category
+            $productCount = $categoryPage->getProductCountByCategory($categoryId); 
+        ?>
 
-                            <!-- Main Category Label -->
-                            <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
-                                <input type="radio" name="category" class="form-check-input me-2" value="<?= $categoryId ?>" <?= $category_id == $categoryId ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
-                                <span><?= $categoryName ?></span>
-                                <span class="text-muted small ms-auto">(<?= $productCount ?>)</span> <!-- Display product count -->
-                            </label>
+            <!-- Main Category Label -->
+            <label class="list-group-item d-flex align-items-center category-label" style="cursor: pointer;">
+                <input type="radio" name="category" class="form-check-input me-2 red-radio" value="<?= $categoryId ?>" <?= $category_id == $categoryId ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
+                <span><?= $categoryName ?></span>
+                <span class="text-muted small ms-auto">(<?= $productCount ?>)</span> <!-- Display product count -->
+            </label>
 
-                            <!-- Fetch and display child categories -->
-                            <?php 
-                            // Fetch child categories for the current category
-                            $childCategories = array_filter($categories, function($cat) use ($categoryId) {
-                                return $cat['parent_id'] == $categoryId; // Get child categories
-                            });
+            <!-- Fetch and display child categories -->
+            <?php 
+            // Fetch child categories for the current category
+            $childCategories = array_filter($categories, function($cat) use ($categoryId) {
+                return $cat['parent_id'] == $categoryId; // Get child categories
+            });
 
-                            if (!empty($childCategories)): 
-                                foreach ($childCategories as $childCat): 
-                                    $childCategoryId = $childCat['id'] ?? 0;
-                                    $childCategoryName = htmlspecialchars($childCat['category_name'] ?? 'Unnamed Category');
-                                    // Get product count for the child category
-                                    $childProductCount = $categoryPage->getProductCountByCategory($childCategoryId); 
-                            ?>
-                                <label class="list-group-item d-flex align-items-center ms-4 category-label" style="cursor: pointer;">
-                                    <input type="radio" name="category" class="form-check-input me-2" value="<?= $childCategoryId ?>" <?= $category_id == $childCategoryId ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
-                                    <span><?= $childCategoryName ?></span>
-                                    <span class="text-muted small ms-auto">(<?= $childProductCount ?>)</span> <!-- Display child product count -->
-                                </label>
-                            <?php 
-                                endforeach; 
-                            endif; 
-                        endforeach; 
-                        ?>
-                    </div>
-                </form>
-
+            if (!empty($childCategories)): 
+                foreach ($childCategories as $childCat): 
+                    $childCategoryId = $childCat['id'] ?? 0;
+                    $childCategoryName = htmlspecialchars($childCat['category_name'] ?? 'Unnamed Category');
+                    // Get product count for the child category
+                    $childProductCount = $categoryPage->getProductCountByCategory($childCategoryId); 
+            ?>
+                <label class="list-group-item d-flex align-items-center ms-4 category-label" style="cursor: pointer;">
+                    <input type="radio" name="category" class="form-check-input me-2 red-radio" value="<?= $childCategoryId ?>" <?= $category_id == $childCategoryId ? 'checked' : '' ?> onchange="document.getElementById('category-form').submit();">
+                    <span><?= $childCategoryName ?></span>
+                    <span class="text-muted small ms-auto">(<?= $childProductCount ?>)</span> <!-- Display child product count -->
+                </label>
+            <?php 
+                endforeach; 
+            endif; 
+        endforeach; 
+        ?>
+    </div>
+</form>
                 <div class="mt-4">
                     <img src="/tech_web/assets/headphone_sale.png" alt="Advertisement" class="img-fluid w-100" />
                 </div>

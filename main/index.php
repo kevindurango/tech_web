@@ -11,18 +11,34 @@
 
 <?php
 $pageTitle = 'Homepage'; 
-include 'header.php'; 
-
+include '../main/header.php';
 include '../web/db_connection.php';
 
-// Update the SQL query to also select the brand ID
-$sql = "SELECT id, brand_name, logo_url FROM brands LIMIT 4"; // Include brand ID
+// Fetch brands
+$sql = "SELECT id, brand_name, logo_url FROM brands LIMIT 4"; 
 $result = $conn->query($sql);
 
 $brands = [];
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $brands[] = $row;
+    }
+}
+
+$featuredProductsQuery = "
+    SELECT p.id, p.name, p.price, p.main_image_url AS main_image, 
+           p.original_price, pc.category_id, c.category_name
+    FROM products p
+    LEFT JOIN product_categories pc ON p.id = pc.product_id
+    LEFT JOIN categories c ON pc.category_id = c.id
+    WHERE p.feature_product = 1
+    LIMIT 3";
+$featuredProductsResult = $conn->query($featuredProductsQuery);
+
+$featuredProducts = [];
+if ($featuredProductsResult && $featuredProductsResult->num_rows > 0) {
+    while ($row = $featuredProductsResult->fetch_assoc()) {
+        $featuredProducts[] = $row;
     }
 }
 ?>
@@ -155,13 +171,6 @@ if ($result && $result->num_rows > 0) {
 
 <!-- Discover and Shop By Category Section -->
 <section class="container py-5">
-    <div class="row mb-4">
-        <div class="col-12 mb-5 text-center">
-            <a href="#" class="btn btn-danger text-white btn-sm mb-2 custom-discover">Discover</a>
-            <h2 class="fw-bold mb-2">SHOP BY CATEGORY</h2>
-            <p class="text-muted">We add new products every day, Explore our great range of products.</p>
-        </div>
-    </div>
     <div class="row mt-4">
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
@@ -169,7 +178,7 @@ if ($result && $result->num_rows > 0) {
                 <div class="card-body text-center">
                     <h5 class="card-title fw-bold mb-2">Computers and Accessories</h5>
                     <h6 class="card-subtitle mb-3 text-muted">Starting from 200.00€</h6>
-                    <a href="#" class="btn btn-custom-outline">View Products</a>                
+                    <a href="category_page.php?category=3" class="btn btn-custom-outline">View Products</a>                
                 </div>
             </div>
         </div>
@@ -180,7 +189,7 @@ if ($result && $result->num_rows > 0) {
                 <div class="card-body text-center">
                     <h5 class="card-title fw-bold mb-2">Smartphones and Tablets</h5>
                     <h6 class="card-subtitle mb-3 text-muted">Starting from 7.36€</h6>
-                    <a href="#" class="btn btn-custom-outline">View Products</a>
+                    <a href="category_page.php?category=2" class="btn btn-custom-outline">View Products</a>
                 </div>
             </div>
         </div>
@@ -191,7 +200,7 @@ if ($result && $result->num_rows > 0) {
                 <div class="card-body text-center">
                     <h5 class="card-title fw-bold mb-2">TV, Video & Audio</h5>
                     <h6 class="card-subtitle mb-3 text-muted">Starting from 176.00€</h6>
-                    <a href="#" class="btn btn-custom-outline">View Products</a>
+                    <a href="category_page.php?category=7" class="btn btn-custom-outline">View Products</a>
                 </div>
             </div>
         </div>
@@ -239,6 +248,7 @@ if ($result && $result->num_rows > 0) {
 </section>
 
 <section class="container-fluid py-4">
+
     <!-- New Container with Icon and Shop By Category Section -->
     <div class="container">
         <div class="row mb-4">
@@ -371,6 +381,7 @@ if ($result && $result->num_rows > 0) {
   </div>
 </div>
 </section>
+
 <!-- Sale Section -->
 <div class="container-fluid sale-section position-relative">
   <div class="row text-center text-dark py-5 position-absolute top-0 start-50 translate-middle-x">
@@ -441,70 +452,31 @@ if ($result && $result->num_rows > 0) {
 
 <!-- Featured Products Section -->
 <div class="col-lg-6">
-  <div class="text-center mb-2">
-    <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Featured Products">
-  </div>
-  <div class="row">     
-    <!-- Product Card 1 -->
-    <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0">
-      <div class="card h-100 text-center">
-        <img src="/tech_web/assets/home_theater.png" class="card-img-top fixed-size-img" alt="Product Image">
-        <div class="custom-card-body d-flex flex-column justify-content-between">
-          <div class="fixed-height-div">
-            <p class="text-muted fixed-height-text text-truncate discount">HOME THEATERS</p>
-            <h5 class="card-title-fe">120 W Home Theater</h5>
-            <p class="text-danger font-weight-bold">248.00 €</p>
-          </div>
-          <button class="btn btn-red mt-1">
-            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-          </button>
-        </div>
-      </div>
+    <div class="text-center mb-2">
+        <img src="/tech_web/assets/featured_products.png" class="img-fluid" alt="Featured Products">
     </div>
-
-    <!-- Product Card 2 -->
-    <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0">
-      <div class="card h-100 text-center">
-        <img src="/tech_web/assets/galaxy_fit.png" class="card-img-top fixed-size-img img-fluid" alt="Product Image">
-        <div class="custom-card-body d-flex flex-column justify-content-between">
-          <div class="fixed-height-div">
-            <p class="text-muted text-truncate">FITNESS TRACKERS</p>
-            <h5 class="card-title-fe">Galaxy Fit e Smart Band</h5>
-            <p class="text-danger font-weight-bold">
-              140.65 €
-              <span class="text-muted text-decoration-line-through">145.00 €</span>
-            </p>
-          </div>
-          <button class="btn btn-red mt-1">
-            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-          </button>
-        </div>
-      </div>
+    <div class="row">     
+        <?php foreach ($featuredProducts as $product): ?>
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0">
+                <div class="card h-100 text-center">
+                    <img src="<?= htmlspecialchars($product['main_image']) ?>" class="card-img-top fixed-size-img" alt="<?= htmlspecialchars($product['name']) ?>">
+                    <div class="custom-card-body d-flex flex-column justify-content-between">
+                        <div class="fixed-height-div">
+                            <p class="text-muted fixed-height-text text-truncate"><?= htmlspecialchars($product['category_name']) ?></p>
+                            <h5 class="card-title-fe"><?= htmlspecialchars($product['name']) ?></h5>
+                            <p class="text-danger font-weight-bold"><?= number_format($product['price'], 2) ?> €</p>
+                        </div>
+                        <button class="btn btn-red mt-1">
+                            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
-
-    <!-- Product Card 3 -->
-    <div class="col-lg-4 col-md-6 mb-4 mb-md-0 mb-lg-0 d-none d-md-none d-lg-block">
-      <div class="card h-100 text-center">
-        <img src="/tech_web/assets/ipad_7th_gen.png" class="card-img-top fixed-size-img" alt="Product Image">
-        <div class="custom-card-body d-flex flex-column justify-content-between">
-          <div class="fixed-height-div">
-            <p class="text-muted text-truncate">TABLETS</p>
-            <h5 class="card-title-fe">Apple iPad (7th Gen)</h5>
-            <p class="text-danger font-weight-bold">
-              334.88 €
-              <span class="text-muted text-decoration-line-through discount">364.00 €</span>
-            </p>
-          </div>
-          <button class="btn btn-red mt-1">
-            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
-    
+</div>
   </div>
 </div>
 </div>
