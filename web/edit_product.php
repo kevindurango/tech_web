@@ -1,5 +1,5 @@
 <?php
-include 'db_connection.php'; // Include your database connection
+include 'db_connection.php'; 
 
 // Get the product ID from the URL
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 1;

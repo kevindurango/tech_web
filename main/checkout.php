@@ -26,14 +26,30 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
         $product['quantity'] = $quantity; // Add quantity to product details
         $totalPrice += $product['price'] * $quantity; // Calculate total price
         $cartItems[] = $product; // Add product to cart items
+    } else {
+        // Handle case where product is not found
+        echo "Product with ID $productId not found.";
+        exit();
     }
 }
 
 // Process form submission for billing details
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Here you would process the billing information and finalize the order
-    // For demonstration purposes, we’ll just redirect to a confirmation page
-    // Store billing information in session or database as needed
+    // Validate and sanitize input
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $address = htmlspecialchars(trim($_POST['address']));
+    $phone = htmlspecialchars(trim($_POST['phone']));
+
+    $_SESSION['billing_info'] = [
+        'name' => $name,
+        'email' => $email,
+        'address' => $address,
+        'phone' => $phone,
+    ];
+
+    // Clear the cart after placing the order
+    unset($_SESSION['cart']);
 
     header('Location: order_confirmation.php');
     exit();
@@ -69,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="address" class="form-label">Shipping Address</label>
+                        <label for="address" class="form-label"> Shipping Address</label>
                         <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">

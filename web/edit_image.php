@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
         $resultMessage = $imageManager->updateImage($image_id, $product_id, $_FILES['image']);
-        echo $resultMessage; // Show result message
+        echo $resultMessage; 
     }
 } else {
     die("Invalid request.");

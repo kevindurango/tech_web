@@ -7,9 +7,16 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Function to fetch product details by ID
+// Function to fetch product details and main image by product ID
 function getProductDetails($productId, $conn) {
-    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+    // Fetch product details with the main image
+    $stmt = $conn->prepare("
+        SELECT p.*, i.image_path AS main_image 
+        FROM products p
+        LEFT JOIN images i ON p.id = i.product_id
+        WHERE p.id = ? 
+        LIMIT 1
+    ");
     $stmt->bind_param("i", $productId);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
@@ -69,34 +76,43 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
         <!-- Shopping Cart Section -->
         <div class="cart-table mb-4">
             <h3 class="p-3">Shopping Cart</h3>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-end">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($cartItems as $item): ?>
+            <?php if (empty($cartItems)): ?>
+                <p class="text-center">Your cart is currently empty. <a href="/shop">Continue Shopping</a></p>
+            <?php else: ?>
+                <table class="table table-borderless">
+                    <thead>
                         <tr>
-                            <td>
-                                <img src="<?= htmlspecialchars($item['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" alt="<?= htmlspecialchars($item['name'] ?? 'Unnamed Product') ?>" width="60">
-                                <?= htmlspecialchars($item['name']) ?>
-                                <br><a href="remove_from_cart.php?product_id=<?= $item['id'] ?>" class="text-danger">Remove</a>
-                            </td>
-                            <td class="text-center">
-                                <div class="quantity-control">
-                                    <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, -1)">-</button>
-                                    <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" readonly>
-                                    <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, 1)">+</button>
-                                </div>
-                            </td>
-                            <td class="text-end">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                            <th>Product</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-end">Price</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($cartItems as $item): ?>
+                            <tr>
+                                <td>
+                                    <img src="<?= htmlspecialchars($item['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" alt="<?= htmlspecialchars($item['name'] ?? 'Unnamed Product') ?>" width="60">
+                                    <div>
+                                        <strong><?= htmlspecialchars($item['name']) ?></strong>
+                                        <?php if (!empty($item['short_description'])): ?>
+                                            <p class="text-muted mb-1" style="font-size: 0.85rem;"><?= htmlspecialchars($item['short_description']) ?></p>
+                                        <?php endif; ?>
+                                        <a href="remove_from_cart.php?product_id=<?= $item['id'] ?>" class="text-danger">Remove</a>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="quantity-control">
+                                        <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, -1)">-</button>
+                                        <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" readonly>
+                                        <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, 1)">+</button>
+                                    </div>
+                                </td>
+                                <td class="text-end">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
             <!-- Cart Actions below Shopping Cart -->
             <div class="cart-actions">
                 <a href="/shop" class="btn btn-continue-shopping continue-shopping">
@@ -104,7 +120,6 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
                 </a>
                 <a href="checkout.php" class="btn btn-primary">Process Checkout</a>
             </div>
-
         </div>
 
         <!-- Order Summary Section -->
@@ -139,6 +154,10 @@ function changeQuantity(button, productId, delta) {
             document.getElementById('subtotal').innerText = `$${(data.cartTotal).toFixed(2)}`;
             document.getElementById('total').innerText = `$${(data.cartTotal).toFixed(2)}`;
         }
+    })
+    .catch(error => {
+        alert('Could not update the cart. Please try again.');
+        console.error('Error:', error);
     });
 }
 </script>

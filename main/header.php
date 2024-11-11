@@ -20,7 +20,6 @@ if ($result && $result->num_rows > 0) {
                 'subcategories' => []
             ];
         } else {
-            // Nested subcategory handling
             if (isset($categories[$parentId])) {
                 $categories[$parentId]['subcategories'][$row['id']] = [
                     'name' => $row['category_name'],

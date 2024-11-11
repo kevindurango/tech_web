@@ -125,7 +125,7 @@ include 'header.php';
         <div class="row">
             <div class="col-md-4">
 
-            <form method="GET" action="category_page.php" id="category-form">
+<form method="GET" action="category_page.php" id="category-form">
     <div class="list-group border p-2" style="border-radius: 0;">
         <h5 class="fw-bold mb-4">Categories</h5>
 
