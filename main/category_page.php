@@ -260,7 +260,7 @@ function resetFilter() {
 
         // AJAX request to add product to cart
         $.ajax({
-            url: 'add_to_cart.php', // URL to the PHP script
+            url: '../web/add_to_cart.php', // URL to the PHP script
             type: 'POST',
             data: { product_id: productId, quantity: quantity },
             dataType: 'json',

@@ -25,6 +25,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background: #f9f9f9;
   border: 1px solid #eaeaea;
+  align-self: flex-start; /* Align to top of the container */
+  box-sizing: border-box; /* Ensure padding doesn't affect total width */
 }
 
 /* Header styling for sections */
@@ -222,4 +224,110 @@
 /* Minor adjustments for cleaner layout */
 .text-danger {
   color: #dc3545 !important;
+}
+
+/* Checkout container layout */
+.checkout-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 20px;
+}
+
+.checkout-form-section {
+  width: 65%;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eaeaea;
+}
+
+.checkout-summary {
+  width: 30%;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eaeaea;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.checkout-summary h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.checkout-summary p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.checkout-summary .total-box {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.checkout-summary .btn-next-summary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: #007bff;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin-top: 15px;
+}
+
+.checkout-summary .btn-next-summary:hover {
+  background: #0056b3;
+}
+/* Back and Next button styling */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 20px;
+}
+
+.btn-back,
+.btn-next {
+  background-color: #6c757d; /* Darker gray for visibility */
+  color: #fff;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold; /* Make the text stand out */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease;
+}
+
+.btn-back {
+  background-color: #6c757d; /* Gray color for Back button */
+}
+
+.btn-back:hover {
+  background-color: #5a6268; /* Slightly darker on hover */
+}
+
+.btn-next {
+  background-color: #007bff; /* Blue color for Next button */
+}
+
+.btn-next:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
 }

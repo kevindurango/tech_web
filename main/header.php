@@ -1,6 +1,10 @@
 <?php
-// Include database connection
 include '../web/db_connection.php';
+
+// Start the session only if it hasn't already been started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Fetch categories from the database and organize them by parent-child relationship
 $sql = "SELECT * FROM categories ORDER BY category_name";
@@ -85,10 +89,11 @@ function renderCategoryItems($category) {
 </head>
 <body>
 
-<!-- First Header Section: Country Dropdown and Social Links -->
+<!-- First Header Section: Country Dropdown, Social Links, Logout Button, and Information Links -->
 <header class="bg-dark py-1">
     <div class="container">
         <div class="row align-items-center">
+            <!-- Country Dropdown and Free Shipping Notice -->
             <div class="col d-none d-md-flex align-items-center">
                 <div class="dropdown me-3 ps-4 pe-5">
                     <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -99,6 +104,8 @@ function renderCategoryItems($category) {
                 </div>
                 <span class="text-white ps-5">Free returns. Standard shipping. Orders $99</span>
             </div>
+
+            <!-- Social Links, Information Links, and Logout Button in Top Header -->
             <div class="col d-none d-md-flex justify-content-between align-items-center">
                 <nav>
                     <ul class="nav">
@@ -116,14 +123,9 @@ function renderCategoryItems($category) {
                     <a href="#" class="text-white me-2"><i class="bi bi-youtube"></i></a>
                     <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
                 </div>
-            </div>
-            <div class="col d-md-none text-center">
-                <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="text-white me-2"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="text-white me-2"><i class="bi bi-github"></i></a>
-                <a href="#" class="text-white me-2"><i class="bi bi-youtube"></i></a>
-                <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="logout.php" class="btn btn-outline-light btn-sm ms-3">Logout</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -132,6 +134,7 @@ function renderCategoryItems($category) {
 <!-- Navigation Section -->
 <section class="container bg-white border-bottom d-none d-md-block">
     <div class="row text-center align-items-center">
+        <!-- Categories Dropdown -->
         <div class="col nav-column-spacing">
             <div class="dropdown">
                 <a class="nav-link dropdown-toggle fw-semibold nav-item-wrapper" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -142,14 +145,18 @@ function renderCategoryItems($category) {
                 </ul>
             </div>
         </div>
-        <!-- Additional navigation links with badges -->
+        
+        <!-- Other Navigation Links with Badges -->
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-hot-green position-absolute">HOT</span>
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Shop</a>
         </div>
+        
         <div class="col nav-column-spacing">
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Home</a>
         </div>
+        
+        <!-- Popular Dropdown with Badge -->
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-new-yellow position-absolute">NEW</span>
             <div class="dropdown">
@@ -163,6 +170,8 @@ function renderCategoryItems($category) {
                 </ul>
             </div>
         </div>
+
+        <!-- Collection Dropdown with Badge -->
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-best-blue position-absolute">BEST</span>
             <div class="dropdown">
@@ -176,12 +185,15 @@ function renderCategoryItems($category) {
                 </ul>
             </div>
         </div>
+        
         <div class="col nav-column-spacing">
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">All Brands</a>
         </div>
+        
         <div class="col nav-column-spacing">
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Contact Us</a>
         </div>
+        
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-black position-absolute">5% OFF</span>
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Top Deals</a>

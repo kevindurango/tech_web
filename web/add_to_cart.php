@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../web/db_connection.php';
+include 'db_connection.php';
 
 if (isset($_POST['product_id'])) {
     $productId = intval($_POST['product_id']);

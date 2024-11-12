@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Include database connection
+
 include '../web/db_connection.php';
 
 // Handle registration logic

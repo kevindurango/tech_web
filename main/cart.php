@@ -2,6 +2,13 @@
 session_start();
 include '../web/db_connection.php';
 
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit;
+}
+
 // Check if the cart session exists
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -9,7 +16,6 @@ if (!isset($_SESSION['cart'])) {
 
 // Function to fetch product details and main image by product ID
 function getProductDetails($productId, $conn) {
-    // Fetch product details with the main image
     $stmt = $conn->prepare("
         SELECT p.*, i.image_path AS main_image 
         FROM products p
@@ -51,7 +57,6 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
 <?php include 'header.php'; ?>
 
 <main class="container">
-    <!-- Progress Bar -->
     <div class="progress-bar-custom">
         <div class="step completed">
             <div class="icon">✔</div>
@@ -71,9 +76,7 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
         </div>
     </div>
 
-    <!-- Cart and Order Summary Layout -->
     <div class="cart-container">
-        <!-- Shopping Cart Section -->
         <div class="cart-table mb-4">
             <h3 class="p-3">Shopping Cart</h3>
             <?php if (empty($cartItems)): ?>
@@ -89,7 +92,7 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
                     </thead>
                     <tbody>
                         <?php foreach ($cartItems as $item): ?>
-                            <tr>
+                            <tr data-product-id="<?= $item['id'] ?>">
                                 <td>
                                     <img src="<?= htmlspecialchars($item['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" alt="<?= htmlspecialchars($item['name'] ?? 'Unnamed Product') ?>" width="60">
                                     <div>
@@ -107,13 +110,12 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
                                         <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, 1)">+</button>
                                     </div>
                                 </td>
-                                <td class="text-end">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                                <td class="text-end total-price" data-price="<?= $item['price'] ?>">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             <?php endif; ?>
-            <!-- Cart Actions below Shopping Cart -->
             <div class="cart-actions">
                 <a href="/shop" class="btn btn-continue-shopping continue-shopping">
                     <i class="bi bi-arrow-left"></i> Continue Shopping
@@ -122,7 +124,6 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
             </div>
         </div>
 
-        <!-- Order Summary Section -->
         <div class="order-summary mb-4">
             <h5>Order Total</h5>
             <p>Subtotal: <span id="subtotal">$<?= number_format($totalPrice, 2) ?></span></p>
@@ -137,26 +138,38 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
 
 <script>
 function changeQuantity(button, productId, delta) {
-    const input = button.closest('.quantity-control').querySelector('input[type="number"]');
+    const row = button.closest('tr');
+    const input = row.querySelector('input[type="number"]');
+    const priceCell = row.querySelector('.total-price');
+    const unitPrice = parseFloat(priceCell.getAttribute('data-price'));
     let newQuantity = parseInt(input.value) + delta;
     if (newQuantity < 1) newQuantity = 1;
     input.value = newQuantity;
 
-    fetch(`update_cart.php`, {
+    fetch(`../web/update_cart.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `product_id=${productId}&quantity=${newQuantity}`
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not OK');
+        }
+        return response.json(); // Parse JSON response
+    })
     .then(data => {
         if (data.success) {
-            button.closest('tr').querySelector('.total-price').innerText = `$${(data.itemTotal).toFixed(2)}`;
+            // Update the item's total price in the row
+            priceCell.innerText = `$${(unitPrice * newQuantity).toFixed(2)}`;
+
+            // Update the subtotal and total amounts on the page
             document.getElementById('subtotal').innerText = `$${(data.cartTotal).toFixed(2)}`;
             document.getElementById('total').innerText = `$${(data.cartTotal).toFixed(2)}`;
+        } else {
+            console.error(data.message || 'Could not update the cart. Please try again.');
         }
     })
     .catch(error => {
-        alert('Could not update the cart. Please try again.');
         console.error('Error:', error);
     });
 }
