@@ -1,7 +1,7 @@
 <?php
-// Include necessary files and initialize database connection
+
 include '../web/db_connection.php';
-include '../web/categorypage.php';
+include '../classes/categorypage.php';
 
 // Get category ID from the URL, defaulting to 0 if not set
 $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
@@ -201,7 +201,10 @@ include 'header.php';
                             <div class="col-lg-4 col-md-6 col-12 mb-3">
                             <div class="card">
                                 <div class="card-img-container">
-                                    <img src="<?= htmlspecialchars($product['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?>">
+                                    <!-- Link wrapping product image to product page -->
+                                    <a href="product_page.php?id=<?= $product['id'] ?>">
+                                        <img src="<?= htmlspecialchars($product['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?>">
+                                    </a>
                                     <div class="star-reviews">
                                         <i class="bi bi-star-fill text-warning"></i> 
                                         <span>4.5</span>
@@ -220,7 +223,10 @@ include 'header.php';
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?></h5>
+                                    <!-- Link wrapping product title to product page -->
+                                    <a href="product_page.php?id=<?= $product['id'] ?>" class="text-decoration-none text-dark">
+                                        <h5 class="card-title"><?= htmlspecialchars($product['name'] ?? 'Unnamed Product') ?></h5>
+                                    </a>
                                     <p class="card-text">
                                         <span class="text-danger"><?= number_format($product['price'] ?? 0, 2) ?> €</span>
                                     </p>
@@ -266,7 +272,7 @@ function resetFilter() {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    alert(response.message); // Display success message
+                    alert(response.message); 
                 } else {
                     alert('Error: ' + response.message); // Display error message
                 }

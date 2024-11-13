@@ -17,15 +17,31 @@ if (!isset($_SESSION['cart'])) {
 // Function to fetch product details and main image by product ID
 function getProductDetails($productId, $conn) {
     $stmt = $conn->prepare("
-        SELECT p.*, i.image_path AS main_image 
+        SELECT p.*, i.image_path AS main_image
         FROM products p
         LEFT JOIN images i ON p.id = i.product_id
-        WHERE p.id = ? 
+        WHERE p.id = ?
         LIMIT 1
     ");
     $stmt->bind_param("i", $productId);
     $stmt->execute();
-    return $stmt->get_result()->fetch_assoc();
+    $product = $stmt->get_result()->fetch_assoc();
+    $attributeStmt = $conn->prepare("
+        SELECT a.attribute_name, av.value
+        FROM product_attributes pa
+        JOIN attribute_values av ON pa.attribute_value_id = av.id
+        JOIN attributes a ON av.attribute_id = a.id
+        WHERE pa.product_id = ? AND a.attribute_name != 'tags'
+    ");
+    $attributeStmt->bind_param("i", $productId);
+    $attributeStmt->execute();
+    $attributes = $attributeStmt->get_result();
+    $product['attributes'] = [];
+    while ($attr = $attributes->fetch_assoc()) {
+        $product['attributes'][] = $attr;
+    }
+
+    return $product;
 }
 
 // Fetch product details for all items in the cart
@@ -40,6 +56,8 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
         $cartItems[] = $product;
     }
 }
+
+$estimatedDelivery = date('F j, Y', strtotime('+5 days'));
 ?>
 
 <!DOCTYPE html>
@@ -98,9 +116,23 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
                                     <div>
                                         <strong><?= htmlspecialchars($item['name']) ?></strong>
                                         <?php if (!empty($item['short_description'])): ?>
-                                            <p class="text-muted mb-1" style="font-size: 0.85rem;"><?= htmlspecialchars($item['short_description']) ?></p>
+                                            <p class="text-muted mb-1" style="font-size: 0.85rem;">
+                                                <?= htmlspecialchars($item['short_description']) ?></p>
                                         <?php endif; ?>
-                                        <a href="remove_from_cart.php?product_id=<?= $item['id'] ?>" class="text-danger">Remove</a>
+
+                                        <!-- Display product attributes -->
+                                <?php if (!empty($item['attributes'])): ?>
+                                    <ul class="list-unstyled mb-1" style="font-size: 0.85rem;">
+                                        <?php foreach ($item['attributes'] as $attr): ?>
+                                            <?php if ($attr['attribute_name'] !== 'tags'): ?>
+                                                <li><strong><?= htmlspecialchars($attr['attribute_name']) ?>:</strong> <?= htmlspecialchars($attr['value']) ?></li>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+
+                                        <p class="text-muted mb-1" style="font-size: 0.85rem;">Estimated Delivery: <?= $estimatedDelivery ?></p>
+                                        <a href="../web/remove_from_cart.php?product_id=<?= $item['id'] ?>" class="text-danger">Remove</a>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -110,7 +142,17 @@ foreach ($_SESSION['cart'] as $productId => $quantity) {
                                         <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, 1)">+</button>
                                     </div>
                                 </td>
-                                <td class="text-end total-price" data-price="<?= $item['price'] ?>">$<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+                                <td class="text-end total-price" data-price="<?= $item['price'] ?>">
+                                    <?php if ($item['discount_percentage'] > 0): ?>
+                                        <p class="mb-0" style="font-size: 1rem;">
+                                            <del class="text-muted">$<?= number_format($item['original_price'], 2) ?></del>
+                                            <span class="text-danger">$<?= number_format($item['price'], 2) ?></span>
+                                        </p>
+                                        <p class="text-success small">Save <?= $item['discount_percentage'] ?>%</p>
+                                    <?php else: ?>
+                                        <p class="mb-0" style="font-size: 1rem;">$<?= number_format($item['price'], 2) ?></p>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

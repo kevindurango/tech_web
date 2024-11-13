@@ -109,10 +109,12 @@ $taxes = 0.00; // Set taxes if needed
                         </select>
                     </div>
                 </div>
+
                 <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="sameAddress" name="sameAddress" checked>
-                    <label for="sameAddress" class="form-check-label">Ship to the same address</label>
+                    <label class="form-check-label" for="sameAddress">Ship to the same address</label>
                 </div>
+
                 <div class="button-group">
                     <button type="button" class="btn-back" onclick="history.back()">Back</button>
                     <button type="submit" class="btn-next">Next</button>

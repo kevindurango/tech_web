@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Fetch categories from the database and organize them by parent-child relationship
-$sql = "SELECT * FROM categories ORDER BY category_name";
+$sql = "SELECT * FROM categories ORDER BY parent_id, category_name";
 $result = $conn->query($sql);
 $categories = [];
 
@@ -15,29 +15,33 @@ $categories = [];
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $parentId = $row['parent_id'];
-        
-        // Store main categories and subcategories in a hierarchical structure
         if (is_null($parentId)) {
+            // Main categories
             $categories[$row['id']] = [
                 'name' => $row['category_name'],
                 'icon' => $row['icon_path'],
                 'subcategories' => []
             ];
         } else {
+            // Ensure parent category exists before adding subcategories
             if (isset($categories[$parentId])) {
-                $categories[$parentId]['subcategories'][$row['id']] = [
+                $categories[$parentId]['subcategories'][] = [
+                    'id' => $row['id'],
                     'name' => $row['category_name'],
                     'icon' => $row['icon_path'],
                     'subcategories' => []
                 ];
             } else {
+                // Check for deeper levels of hierarchy
                 foreach ($categories as &$mainCategory) {
-                    if (isset($mainCategory['subcategories'][$parentId])) {
-                        $mainCategory['subcategories'][$parentId]['subcategories'][$row['id']] = [
-                            'name' => $row['category_name'],
-                            'icon' => $row['icon_path'],
-                            'subcategories' => []
-                        ];
+                    foreach ($mainCategory['subcategories'] as &$subCategory) {
+                        if ($subCategory['id'] == $parentId) {
+                            $subCategory['subcategories'][] = [
+                                'id' => $row['id'],
+                                'name' => $row['category_name'],
+                                'icon' => $row['icon_path'],
+                            ];
+                        }
                     }
                 }
             }
@@ -46,17 +50,31 @@ if ($result && $result->num_rows > 0) {
 }
 
 // Recursive function to render categories and subcategories
-function renderCategoryItems($category) {
-    foreach ($category as $categoryId => $categoryData) {
-        echo '<li class="dropdown-submenu">';
-        echo '<a class="dropdown-item dropdown-toggle" href="category_page.php?category=' . $categoryId . '">' . htmlspecialchars($categoryData['name']) . '</a>';
-        
-        if (!empty($categoryData['subcategories'])) {
-            echo '<ul class="dropdown-menu">';
-            renderCategoryItems($categoryData['subcategories']);
-            echo '</ul>';
+function renderCategoryItems($categories) {
+    foreach ($categories as $categoryId => $categoryData) {
+        if (isset($categoryData['name'])) {
+            echo '<li class="dropdown-submenu">';
+            echo '<a class="dropdown-item" href="category_page.php?category=' . $categoryId . '">' . htmlspecialchars($categoryData['name']) . '</a>';
+
+            if (!empty($categoryData['subcategories'])) {
+                echo '<ul class="dropdown-menu">';
+                foreach ($categoryData['subcategories'] as $subCategory) {
+                    echo '<li class="dropdown-submenu">';
+                    echo '<a class="dropdown-item" href="category_page.php?category=' . $subCategory['id'] . '">' . htmlspecialchars($subCategory['name']) . '</a>';
+                    
+                    if (!empty($subCategory['subcategories'])) {
+                        echo '<ul class="dropdown-menu">';
+                        foreach ($subCategory['subcategories'] as $childCategory) {
+                            echo '<li><a class="dropdown-item" href="category_page.php?category=' . $childCategory['id'] . '">' . htmlspecialchars($childCategory['name']) . '</a></li>';
+                        }
+                        echo '</ul>';
+                    }
+                    echo '</li>';
+                }
+                echo '</ul>';
+            }
+            echo '</li>';
         }
-        echo '</li>';
     }
 }
 ?>
@@ -71,7 +89,7 @@ function renderCategoryItems($category) {
     <link rel="stylesheet" href="/tech_web/styles/styles.css">  
     <link rel="stylesheet" href="/tech_web/styles/product.css">
     <style>
-        /* Style for nested dropdown menus */
+        /* Style for modern and minimalized dropdown menus */
         .dropdown-submenu {
             position: relative;
         }
@@ -80,10 +98,26 @@ function renderCategoryItems($category) {
             position: absolute;
             top: 0;
             left: 100%;
-            margin-top: -6px;
+            margin-top: 0;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
         .dropdown-submenu:hover > .dropdown-menu {
             display: block;
+        }
+        .dropdown-item {
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #000;
+        }
+        .dropdown-menu {
+            border: none;
+            padding: 0;
         }
     </style>
 </head>
@@ -134,6 +168,7 @@ function renderCategoryItems($category) {
 <!-- Navigation Section -->
 <section class="container bg-white border-bottom d-none d-md-block">
     <div class="row text-center align-items-center">
+    
         <!-- Categories Dropdown -->
         <div class="col nav-column-spacing">
             <div class="dropdown">
@@ -197,6 +232,17 @@ function renderCategoryItems($category) {
         <div class="col nav-column-spacing position-relative">
             <span class="badge bg-black position-absolute">5% OFF</span>
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Top Deals</a>
+        </div>
+
+        <div class="col nav-column-spacing position-relative">
+            <a href="cart.php" class="nav-link-red text-dark fw-semibold nav-item-wrapper position-relative">
+                <i class="bi bi-cart me-1"></i> Cart
+                <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                        <?= count($_SESSION['cart']) ?>
+                    </span>
+                <?php endif; ?>
+            </a>
         </div>
     </div>
 </section>

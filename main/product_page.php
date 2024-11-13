@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="/tech_web/styles/product.css">
 </head>
 <body>
-
 <?php
 include 'header.php';
-include '../web/db_connection.php'; // Ensure the path is correct
+include '../web/db_connection.php'; 
 include '../classes/productpage.php';
-// Get the product ID from the URL
+
 $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0; 
 
 // Check if the connection is established
@@ -101,17 +100,18 @@ while ($category = $categories_result->fetch_assoc()) {
 }
 
 if (!empty($category_ids)) {
+    // Modify the query to ensure unique similar products
     $similar_products_query = "
-        SELECT p.id, p.name, p.price, p.original_price, c.category_name, MIN(i.image_path) AS image_path 
+        SELECT DISTINCT p.id, p.name, p.price, p.original_price, c.category_name, MIN(i.image_path) AS image_path 
         FROM products p 
         JOIN product_categories pc ON p.id = pc.product_id 
         JOIN categories c ON pc.category_id = c.id 
         LEFT JOIN images i ON p.id = i.product_id 
         WHERE pc.category_id IN (" . implode(',', $category_ids) . ")
         AND p.id != ? 
-        GROUP BY p.id, p.name, p.price, p.original_price, c.category_name
+        GROUP BY p.id
         LIMIT 3";
-
+    
     $similar_products_stmt = $conn->prepare($similar_products_query);
     $similar_products_stmt->bind_param("i", $product_id);
     $similar_products_stmt->execute();
@@ -137,6 +137,7 @@ $prev_product = $prev_product_result->fetch_assoc();
 // Close the database connection
 $conn->close();
 ?>
+
 
 <!-- Product Image Carousel Section -->
 <section class="product-section mt-4">
@@ -326,7 +327,7 @@ $conn->close();
                     <h5>Terms and Conditions:</h5>
                 </div>
 
-        <div class="container product-terms mt-4">
+               <div class="container product-terms mt-4">
                     <div class="row">
                         <div class="col-12 term-image-column">
                             <img src="/tech_web/assets/term1.png" class="img-fluid term-image" alt="Term Image 1">
@@ -335,10 +336,41 @@ $conn->close();
                         </div>
                     </div>
                 </div>
+
+                <!-- Add to Cart Section -->
+                    <div class="add-to-cart-section mt-4">
+                    <form id="addToCartForm" action="../web/add_to_cart.php" method="post">
+                        <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+
+                        <!-- Styled Add to Cart Button -->
+                        <button type="submit" class="btn btn-danger w-25 mt-3" style="font-size: 0.9rem; font-weight: normal; padding: 10px 0; border-radius: 0px; background-color: #e04c44; border: none;">
+                            <i class="bi bi-cart-plus-fill me-2"></i> Add to Cart
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Add to Cart Confirmation Modal -->
+<div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addToCartModalLabel">Item Added to Cart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                The product has been successfully added to your cart.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continue Shopping</button>
+                <a href="cart.php" class="btn btn-secondary">View Cart</a>
+            </div>
+        </div>
+    </div>
+</div>
 
  <!-- navigation bar-->
  <section class="product-navigation mt-4">
@@ -437,17 +469,19 @@ $conn->close();
                 while ($similar_product = $similar_products_result->fetch_assoc()) {
                     ?>
                     <div class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <img src="<?php echo htmlspecialchars($similar_product['image_path']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($similar_product['name']); ?>">
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($similar_product['category_name']); ?></h6> 
-                                <h5 class="card-title"><?php echo htmlspecialchars($similar_product['name']); ?></h5>
-                                <p class="card-text mt-auto">
-                                    <span class="text-danger">$<?php echo number_format($similar_product['price'], 2); ?></span> 
-                                    <span class="text-muted text-decoration-line-through">$<?php echo number_format($similar_product['original_price'], 2); ?></span>
-                                </p>
+                        <a href="product_page.php?id=<?php echo $similar_product['id']; ?>" class="text-decoration-none">
+                            <div class="card h-100">
+                                <img src="<?php echo htmlspecialchars($similar_product['image_path']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($similar_product['name']); ?>">
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($similar_product['category_name']); ?></h6> 
+                                    <h5 class="card-title"><?php echo htmlspecialchars($similar_product['name']); ?></h5>
+                                    <p class="card-text mt-auto">
+                                        <span class="text-danger">$<?php echo number_format($similar_product['price'], 2); ?></span> 
+                                        <span class="text-muted text-decoration-line-through">$<?php echo number_format($similar_product['original_price'], 2); ?></span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <?php
                 }
@@ -462,6 +496,34 @@ $conn->close();
 <?php include 'footer.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    // JavaScript to handle Add to Cart without page reload
+    document.getElementById('addToCartForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // AJAX request to add product to cart
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show the modal if the item is successfully added
+                const addToCartModal = new bootstrap.Modal(document.getElementById('addToCartModal'));
+                addToCartModal.show();
+            } else {
+                alert('Failed to add product to cart. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </body>
