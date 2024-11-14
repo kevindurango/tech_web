@@ -1,63 +1,33 @@
 <?php
 session_start();
 include '../web/db_connection.php';
+include '../classes/cart.php';
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to login page if not logged in
     header("Location: login.php");
     exit;
 }
 
-// Check if the cart session exists
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
+$userId = $_SESSION['user_id'];
+$cart = new Cart($conn, $userId);
 
-// Function to fetch product details and main image by product ID
-function getProductDetails($productId, $conn) {
-    $stmt = $conn->prepare("
-        SELECT p.*, i.image_path AS main_image
-        FROM products p
-        LEFT JOIN images i ON p.id = i.product_id
-        WHERE p.id = ?
-        LIMIT 1
-    ");
-    $stmt->bind_param("i", $productId);
-    $stmt->execute();
-    $product = $stmt->get_result()->fetch_assoc();
-    $attributeStmt = $conn->prepare("
-        SELECT a.attribute_name, av.value
-        FROM product_attributes pa
-        JOIN attribute_values av ON pa.attribute_value_id = av.id
-        JOIN attributes a ON av.attribute_id = a.id
-        WHERE pa.product_id = ? AND a.attribute_name != 'tags'
-    ");
-    $attributeStmt->bind_param("i", $productId);
-    $attributeStmt->execute();
-    $attributes = $attributeStmt->get_result();
-    $product['attributes'] = [];
-    while ($attr = $attributes->fetch_assoc()) {
-        $product['attributes'][] = $attr;
-    }
-
-    return $product;
-}
-
-// Fetch product details for all items in the cart
-$cartItems = [];
-$totalPrice = 0;
-
-foreach ($_SESSION['cart'] as $productId => $quantity) {
-    $product = getProductDetails($productId, $conn);
-    if ($product) {
-        $product['quantity'] = $quantity;
-        $totalPrice += $product['price'] * $quantity;
-        $cartItems[] = $product;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $productId = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity']);
+    
+    if ($_POST['action'] === 'add') {
+        $cart->addProduct($productId, $quantity);
+    } elseif ($_POST['action'] === 'update') {
+        $cart->updateQuantity($productId, $quantity);
+    } elseif ($_POST['action'] === 'remove') {
+        $cart->removeProduct($productId);
     }
 }
 
-$estimatedDelivery = date('F j, Y', strtotime('+5 days'));
+$cartItemsData = $cart->getCartItems();
+$cartItems = $cartItemsData['items'];
+$totalPrice = $cartItemsData['total'];
+$estimatedDelivery = $cartItemsData['estimatedDelivery'];
 ?>
 
 <!DOCTYPE html>
@@ -197,14 +167,13 @@ function changeQuantity(button, productId, delta) {
         if (!response.ok) {
             throw new Error('Network response was not OK');
         }
-        return response.json(); // Parse JSON response
+        return response.json(); 
     })
     .then(data => {
         if (data.success) {
-            // Update the item's total price in the row
+
             priceCell.innerText = `$${(unitPrice * newQuantity).toFixed(2)}`;
 
-            // Update the subtotal and total amounts on the page
             document.getElementById('subtotal').innerText = `$${(data.cartTotal).toFixed(2)}`;
             document.getElementById('total').innerText = `$${(data.cartTotal).toFixed(2)}`;
         } else {

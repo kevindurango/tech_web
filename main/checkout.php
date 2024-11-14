@@ -1,27 +1,17 @@
 <?php
 session_start();
 include '../web/db_connection.php';
+include '../classes/cart.php';
 
-// Function to fetch product details and price
-function getProductDetails($productId, $conn) {
-    $stmt = $conn->prepare("SELECT price FROM products WHERE id = ?");
-    $stmt->bind_param("i", $productId);
-    $stmt->execute();
-    return $stmt->get_result()->fetch_assoc();
+// Redirect to login if not authenticated
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
 }
 
-// Calculate the total dynamically based on items in the cart
-$totalPrice = 0;
-if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $productId => $quantity) {
-        $product = getProductDetails($productId, $conn);
-        if ($product) {
-            $totalPrice += $product['price'] * $quantity;
-        }
-    }
-}
-
-$taxes = 0.00; // Set taxes if needed
+$userId = $_SESSION['user_id'];
+$cart = new Cart($conn, $userId);
+$checkoutDetails = $cart->getCheckoutDetails();
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +64,7 @@ $taxes = 0.00; // Set taxes if needed
                     </div>
                     <div class="col">
                         <label for="phone" class="form-label">Phone</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+1" required>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -109,15 +99,13 @@ $taxes = 0.00; // Set taxes if needed
                         </select>
                     </div>
                 </div>
-
                 <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="sameAddress" name="sameAddress" checked>
                     <label class="form-check-label" for="sameAddress">Ship to the same address</label>
                 </div>
-
                 <div class="button-group">
                     <button type="button" class="btn-back" onclick="history.back()">Back</button>
-                    <button type="submit" class="btn-next">Next</button>
+                    <button type="submit" class="btn-next">Proceed to Payment</button>
                 </div>
             </form>
         </div>
@@ -125,10 +113,10 @@ $taxes = 0.00; // Set taxes if needed
         <!-- Order Summary -->
         <div class="checkout-summary">
             <h5>Order Total</h5>
-            <p>Subtotal: <span id="subtotal">$<?= number_format($totalPrice, 2) ?></span></p>
-            <p>Taxes: <span id="taxes">$<?= number_format($taxes, 2) ?></span></p>
+            <p>Subtotal: <span id="subtotal">$<?= number_format($checkoutDetails['subtotal'], 2) ?></span></p>
+            <p>Taxes: <span id="taxes">$<?= number_format($checkoutDetails['taxes'], 2) ?></span></p>
             <div class="total-box mt-3 p-3 border-top">
-                <strong>Total:</strong> <span id="total">$<?= number_format($totalPrice + $taxes, 2) ?></span>
+                <strong>Total:</strong> <span id="total">$<?= number_format($checkoutDetails['total'], 2) ?></span>
             </div>
             <a href="checkout.php" class="btn btn-next-summary w-100 mt-3">Proceed to Checkout</a>
         </div>
