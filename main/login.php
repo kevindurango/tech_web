@@ -55,6 +55,8 @@ $conn->close();
 </head>
 <body>
 
+<?php include 'header.php'; // Include your header ?>
+
 <div class="container mt-5">
     <h2 class="text-center">Login</h2>
     <?php if (isset($error)): ?>
@@ -73,6 +75,8 @@ $conn->close();
         <p class="mt-3">Don't have an account? <a href="register.php">Register here</a></p>
     </form>
 </div>
+
+<?php include 'footer.php';?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

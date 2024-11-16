@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../web/db_connection.php';
-include '../classes/cart.php';
+include '../classes/Cart.php'; // Include the Cart class
 
 // Redirect to login if not authenticated
 if (!isset($_SESSION['user_id'])) {
@@ -9,9 +9,36 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['user_id']; // Get the logged-in user ID
+
+// Create Cart object
 $cart = new Cart($conn, $userId);
-$checkoutDetails = $cart->getCheckoutDetails();
+
+// Fetch cart items and calculate totals
+$cartItems = $cart->getCartItems();
+$checkoutDetails = $cart->calculateTotals($cartItems);
+
+// Insert checkout info into the database if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $street1 = $_POST['street1'];
+    $street2 = $_POST['street2'];
+    $city = $_POST['city'];
+    $zip = $_POST['zip'];
+    $country = $_POST['country'];
+    $state = $_POST['state'];
+    $sameAddress = isset($_POST['sameAddress']) ? 1 : 0;
+
+    // Save checkout info in the database
+    $cart->insertCheckoutInfo($name, $email, $phone, $street1, $street2, $city, $zip, $country, $state, $sameAddress);
+
+    // Redirect to payment page after saving checkout info
+    header("Location: payment.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +79,7 @@ $checkoutDetails = $cart->getCheckoutDetails();
         <!-- Billing and Shipping Form -->
         <div class="checkout-form-section">
             <h3>Fill in your address or <a href="login.php">Sign in</a></h3>
-            <form action="payment.php" method="POST">
+            <form action="checkout.php" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -90,12 +117,18 @@ $checkoutDetails = $cart->getCheckoutDetails();
                         <label for="country" class="form-label">Country</label>
                         <select class="form-select" id="country" name="country" required>
                             <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Mexico">Mexico</option>
                         </select>
                     </div>
                     <div class="col">
                         <label for="state" class="form-label">State / Province</label>
                         <select class="form-select" id="state" name="state" required>
-                            <option value="Armed Forces Americas">Armed Forces Americas</option>
+                            <option value="California">California</option>
+                            <option value="New York">New York</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Ontario">Ontario</option>
+                            <option value="Quebec">Quebec</option>
                         </select>
                     </div>
                 </div>

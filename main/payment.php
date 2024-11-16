@@ -1,15 +1,38 @@
 <?php
 session_start();
 include '../web/db_connection.php';
-include '../classes/cart.php';
+include '../classes/Cart.php'; // Include the Cart class
 
+// Redirect to login if not authenticated
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-$cart = new Cart($conn, $_SESSION['user_id'] ?? null);
-$checkoutDetails = $cart->getCheckoutDetails();
+$userId = $_SESSION['user_id']; // Get the logged-in user ID
+
+// Create Cart object
+$cart = new Cart($conn, $userId);
+
+// Fetch cart items for the user and calculate the totals
+$cartItems = $cart->getCartItems();
+$checkoutDetails = $cart->calculateTotals($cartItems);
+
+// Insert payment data into the database if form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get payment form data
+    $cardType = $_POST['cardType'];
+    $cardNumber = $_POST['cardNumber'];
+    $expirationDate = $_POST['expirationDate'];
+    $cvv = $_POST['cvv'];
+
+    // Save payment details in the database using the Cart class method
+    $cart->savePaymentInfo($cardType, $cardNumber, $expirationDate, $cvv);
+
+    // Redirect to the confirmation page after successfully saving the payment info
+    header("Location: confirmation.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +56,7 @@ $checkoutDetails = $cart->getCheckoutDetails();
             <div>Review Order</div>
         </div>
         <div class="step completed">
-            <div class="icon">2</div>
+            <div class="icon">✔</div>
             <div>Billing & Shipping</div>
         </div>
         <div class="step active">
@@ -47,47 +70,48 @@ $checkoutDetails = $cart->getCheckoutDetails();
     </div>
 
     <div class="checkout-container d-flex justify-content-between">
-        <!-- Payment Form Section -->
-        <div class="payment-form-section">
-            <h3>Enter Your Payment Information</h3>
-            <form action="confirm_order.php" method="POST">
+        <!-- Payment Form -->
+        <div class="checkout-form-section">
+            <h3>Enter Payment Details</h3>
+            <form action="payment.php" method="POST">
                 <div class="mb-3">
-                    <label for="cardName" class="form-label">Cardholder's Name</label>
-                    <input type="text" class="form-control" id="cardName" name="cardName" required>
+                    <label for="cardType" class="form-label">Card Type</label>
+                    <select class="form-select" id="cardType" name="cardType" required>
+                        <option value="Visa">Visa</option>
+                        <option value="MasterCard">MasterCard</option>
+                        <option value="American Express">American Express</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="cardNumber" class="form-label">Card Number</label>
-                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="19" required>
+                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
                 </div>
                 <div class="mb-3 row">
                     <div class="col">
-                        <label for="expiryDate" class="form-label">Expiry Date (MM/YY)</label>
-                        <input type="text" class="form-control" id="expiryDate" name="expiryDate" maxlength="5" placeholder="MM/YY" required>
+                        <label for="expirationDate" class="form-label">Expiration Date</label>
+                        <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/YY" required>
                     </div>
                     <div class="col">
                         <label for="cvv" class="form-label">CVV</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv" maxlength="3" required>
+                        <input type="text" class="form-control" id="cvv" name="cvv" required>
                     </div>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="saveCard" name="saveCard">
-                    <label class="form-check-label" for="saveCard">Save card for future purchases</label>
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn-back" onclick="history.back()">Back</button>
-                    <button type="submit" class="btn-next">Confirm Payment</button>
+                    <button type="submit" class="btn-next">Proceed to Confirmation</button>
                 </div>
             </form>
         </div>
 
         <!-- Order Summary -->
         <div class="checkout-summary">
-            <h5>Order Summary</h5>
+            <h5>Order Total</h5>
             <p>Subtotal: <span id="subtotal">$<?= number_format($checkoutDetails['subtotal'], 2) ?></span></p>
             <p>Taxes: <span id="taxes">$<?= number_format($checkoutDetails['taxes'], 2) ?></span></p>
             <div class="total-box mt-3 p-3 border-top">
                 <strong>Total:</strong> <span id="total">$<?= number_format($checkoutDetails['total'], 2) ?></span>
             </div>
+            <a href="payment.php" class="btn btn-next-summary w-100 mt-3">Proceed to Confirmation</a>
         </div>
     </div>
 </main>

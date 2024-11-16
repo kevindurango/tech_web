@@ -1,9 +1,23 @@
 <?php
+// Remove the session_start() here as it is already being called in cart.php
 include '../web/db_connection.php';
+require_once '../classes/cart.php';
 
-// Start the session only if it hasn't already been started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Get the logged-in user ID
+$userId = $_SESSION['user_id'] ?? null;
+$cartCount = 0;
+
+// If the user is logged in, fetch their cart items count from the database
+if ($userId) {
+    $stmt = $conn->prepare("
+        SELECT COUNT(*) as item_count
+        FROM cart_items
+        WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?)
+    ");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $cartCount = ($result && $result->num_rows > 0) ? $result->fetch_assoc()['item_count'] : 0;
 }
 
 // Fetch categories from the database and organize them by parent-child relationship
@@ -234,12 +248,13 @@ function renderCategoryItems($categories) {
             <a href="#" class="nav-link-red text-dark fw-semibold nav-item-wrapper">Top Deals</a>
         </div>
 
+        <!-- Cart Icon with Count -->
         <div class="col nav-column-spacing position-relative">
             <a href="cart.php" class="nav-link-red text-dark fw-semibold nav-item-wrapper position-relative">
                 <i class="bi bi-cart me-1"></i> Cart
-                <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
+                <?php if ($cartCount > 0): ?>
                     <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-                        <?= count($_SESSION['cart']) ?>
+                        <?= $cartCount ?>
                     </span>
                 <?php endif; ?>
             </a>

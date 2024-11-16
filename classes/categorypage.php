@@ -123,5 +123,4 @@ class CategoryPage {
         $stmt->close();
         return $count;
     }
-    
 }

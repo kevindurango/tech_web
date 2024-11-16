@@ -1,33 +1,52 @@
 <?php
+
 session_start();
 include '../web/db_connection.php';
 include '../classes/cart.php';
 
+// Redirect to login if not authenticated
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header('Location: login.php');
     exit;
 }
 
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['user_id']; // Get the logged-in user ID
+
+// Create Cart object
 $cart = new Cart($conn, $userId);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Handle adding or updating items in the cart
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     $productId = intval($_POST['product_id']);
-    $quantity = intval($_POST['quantity']);
-    
-    if ($_POST['action'] === 'add') {
-        $cart->addProduct($productId, $quantity);
-    } elseif ($_POST['action'] === 'update') {
-        $cart->updateQuantity($productId, $quantity);
-    } elseif ($_POST['action'] === 'remove') {
-        $cart->removeProduct($productId);
+    $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+
+    // Update cart item or add new item
+    if (isset($_POST['decrease'])) {
+        $cart->updateCartItem($productId, -1); // Decrease quantity
+    } else if (isset($_POST['increase'])) {
+        $cart->updateCartItem($productId, 1); // Increase quantity
+    } else {
+        $cart->updateCartItem($productId, $quantity); // Add new item
     }
+
+    header('Location: cart.php');
+    exit;
 }
 
-$cartItemsData = $cart->getCartItems();
-$cartItems = $cartItemsData['items'];
-$totalPrice = $cartItemsData['total'];
-$estimatedDelivery = $cartItemsData['estimatedDelivery'];
+// Handle removing items from the cart
+if (isset($_GET['remove'])) {
+    $productId = intval($_GET['remove']);
+    $cart->removeCartItem($productId);
+    header('Location: cart.php');
+    exit;
+}
+
+// Fetch cart items for the user
+$cartItems = $cart->getCartItems();
+$checkoutDetails = $cart->calculateTotals($cartItems);
+
+// Calculate the total price
+$totalPrice = $checkoutDetails['total'];
 ?>
 
 <!DOCTYPE html>
@@ -80,48 +99,25 @@ $estimatedDelivery = $cartItemsData['estimatedDelivery'];
                     </thead>
                     <tbody>
                         <?php foreach ($cartItems as $item): ?>
-                            <tr data-product-id="<?= $item['id'] ?>">
+                            <tr data-product-id="<?= $item['product_id'] ?>">
                                 <td>
-                                    <img src="<?= htmlspecialchars($item['main_image'] ?? '/tech_web/assets/placeholder.png') ?>" alt="<?= htmlspecialchars($item['name'] ?? 'Unnamed Product') ?>" width="60">
+                                    <img src="<?= htmlspecialchars($item['image'] ?? '/tech_web/assets/placeholder.png') ?>" alt="<?= htmlspecialchars($item['name'] ?? 'Unnamed Product') ?>" width="60">
                                     <div>
                                         <strong><?= htmlspecialchars($item['name']) ?></strong>
-                                        <?php if (!empty($item['short_description'])): ?>
-                                            <p class="text-muted mb-1" style="font-size: 0.85rem;">
-                                                <?= htmlspecialchars($item['short_description']) ?></p>
-                                        <?php endif; ?>
-
-                                        <!-- Display product attributes -->
-                                <?php if (!empty($item['attributes'])): ?>
-                                    <ul class="list-unstyled mb-1" style="font-size: 0.85rem;">
-                                        <?php foreach ($item['attributes'] as $attr): ?>
-                                            <?php if ($attr['attribute_name'] !== 'tags'): ?>
-                                                <li><strong><?= htmlspecialchars($attr['attribute_name']) ?>:</strong> <?= htmlspecialchars($attr['value']) ?></li>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php endif; ?>
-
-                                        <p class="text-muted mb-1" style="font-size: 0.85rem;">Estimated Delivery: <?= $estimatedDelivery ?></p>
-                                        <a href="../web/remove_from_cart.php?product_id=<?= $item['id'] ?>" class="text-danger">Remove</a>
+                                        <p class="text-muted"><?= htmlspecialchars($item['attributes']) ?></p>
+                                        <a href="?remove=<?= $item['product_id'] ?>" class="text-danger">Remove</a>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="quantity-control">
-                                        <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, -1)">-</button>
+                                    <form method="POST" action="cart.php" class="quantity-control">
+                                        <input type="hidden" name="product_id" value="<?= $item['product_id'] ?>">
+                                        <button type="submit" name="decrease" class="btn-icon">-</button>
                                         <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" readonly>
-                                        <button type="button" class="btn-icon" onclick="changeQuantity(this, <?= $item['id'] ?>, 1)">+</button>
-                                    </div>
+                                        <button type="submit" name="increase" class="btn-icon">+</button>
+                                    </form>
                                 </td>
-                                <td class="text-end total-price" data-price="<?= $item['price'] ?>">
-                                    <?php if ($item['discount_percentage'] > 0): ?>
-                                        <p class="mb-0" style="font-size: 1rem;">
-                                            <del class="text-muted">$<?= number_format($item['original_price'], 2) ?></del>
-                                            <span class="text-danger">$<?= number_format($item['price'], 2) ?></span>
-                                        </p>
-                                        <p class="text-success small">Save <?= $item['discount_percentage'] ?>%</p>
-                                    <?php else: ?>
-                                        <p class="mb-0" style="font-size: 1rem;">$<?= number_format($item['price'], 2) ?></p>
-                                    <?php endif; ?>
+                                <td class="text-end total-price">
+                                    <p class="mb-0" style="font-size: 1rem;">$<?= number_format($item['total'], 2) ?></p>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -138,7 +134,7 @@ $estimatedDelivery = $cartItemsData['estimatedDelivery'];
 
         <div class="order-summary mb-4">
             <h5>Order Total</h5>
-            <p>Subtotal: <span id="subtotal">$<?= number_format($totalPrice, 2) ?></span></p>
+            <p>Subtotal: <span id="subtotal">$<?= number_format($checkoutDetails['subtotal'], 2) ?></span></p>
             <p>Taxes: <span id="taxes">$0.00</span></p>
             <p><strong>Total: <span id="total">$<?= number_format($totalPrice, 2) ?></span></strong></p>
             <a href="checkout.php" class="btn btn-primary w-100 mt-3">Proceed to Checkout</a>
@@ -148,42 +144,5 @@ $estimatedDelivery = $cartItemsData['estimatedDelivery'];
 
 <?php include 'footer.php'; ?>
 
-<script>
-function changeQuantity(button, productId, delta) {
-    const row = button.closest('tr');
-    const input = row.querySelector('input[type="number"]');
-    const priceCell = row.querySelector('.total-price');
-    const unitPrice = parseFloat(priceCell.getAttribute('data-price'));
-    let newQuantity = parseInt(input.value) + delta;
-    if (newQuantity < 1) newQuantity = 1;
-    input.value = newQuantity;
-
-    fetch(`../web/update_cart.php`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `product_id=${productId}&quantity=${newQuantity}`
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not OK');
-        }
-        return response.json(); 
-    })
-    .then(data => {
-        if (data.success) {
-
-            priceCell.innerText = `$${(unitPrice * newQuantity).toFixed(2)}`;
-
-            document.getElementById('subtotal').innerText = `$${(data.cartTotal).toFixed(2)}`;
-            document.getElementById('total').innerText = `$${(data.cartTotal).toFixed(2)}`;
-        } else {
-            console.error(data.message || 'Could not update the cart. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-</script>
 </body>
 </html>

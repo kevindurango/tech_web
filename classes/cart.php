@@ -1,201 +1,110 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 class Cart {
     private $conn;
     private $userId;
+    private $cartId;
 
-    public function __construct($conn, $userId = null) {
+    // Constructor to initialize the database connection and userId
+    public function __construct($conn, $userId) {
         $this->conn = $conn;
         $this->userId = $userId;
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
+        $this->cartId = $this->getCartId();
     }
 
-    // Add product to the cart
-    public function addProduct($productId, $quantity = 1) {
-        if (isset($_SESSION['cart'][$productId])) {
-            $_SESSION['cart'][$productId] += $quantity;
-        } else {
-            $_SESSION['cart'][$productId] = $quantity;
-        }
-        return ['success' => true, 'message' => 'Product added to cart.'];
-    }
-
-    // Remove a product from the cart
-    public function removeProduct($productId) {
-        if (isset($_SESSION['cart'][$productId])) {
-            unset($_SESSION['cart'][$productId]);
-            return ['success' => true, 'message' => 'Product removed from cart.'];
-        }
-        return ['success' => false, 'message' => 'Product not found in cart.'];
-    }
-
-    // Update the quantity of a specific product in the cart
-    public function updateQuantity($productId, $quantity) {
-        if ($quantity <= 0) {
-            return $this->removeProduct($productId);
-        } else {
-            $_SESSION['cart'][$productId] = $quantity;
-            return ['success' => true, 'message' => 'Quantity updated.'];
-        }
-    }
-
-    // Get all items in the cart along with calculated totals
-    public function getCartItems() {
-        $cartItems = [];
-        $totalPrice = 0;
-
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
-            $product = $this->getProductDetails($productId);
-            if ($product) {
-                $product['quantity'] = $quantity;
-                $totalPrice += $product['price'] * $quantity;
-                $cartItems[] = $product;
-            }
-        }
-
-        return [
-            'items' => $cartItems,
-            'total' => $totalPrice,
-            'estimatedDelivery' => date('F j, Y', strtotime('+5 days')),
-        ];
-    }
-
-    // Fetch product details, including main image and attributes
-    private function getProductDetails($productId) {
-        $stmt = $this->conn->prepare("
-            SELECT p.*, i.image_path AS main_image
-            FROM products p
-            LEFT JOIN images i ON p.id = i.product_id
-            WHERE p.id = ?
-            LIMIT 1
-        ");
-        $stmt->bind_param("i", $productId);
-        $stmt->execute();
-        $product = $stmt->get_result()->fetch_assoc();
-
-        if ($product) {
-            $product['attributes'] = $this->getProductAttributes($productId);
-        }
-
-        return $product;
-    }
-
-    // Fetch product attributes
-    private function getProductAttributes($productId) {
-        $attributeStmt = $this->conn->prepare("
-            SELECT a.attribute_name, av.value
-            FROM product_attributes pa
-            JOIN attribute_values av ON pa.attribute_value_id = av.id
-            JOIN attributes a ON av.attribute_id = a.id
-            WHERE pa.product_id = ? AND a.attribute_name != 'tags'
-        ");
-        $attributeStmt->bind_param("i", $productId);
-        $attributeStmt->execute();
-        $attributes = $attributeStmt->get_result();
-
-        $productAttributes = [];
-        while ($attr = $attributes->fetch_assoc()) {
-            $productAttributes[] = $attr;
-        }
-
-        return $productAttributes;
-    }
-
-    // Clear the entire cart
-    public function clearCart() {
-        $_SESSION['cart'] = [];
-        return ['success' => true, 'message' => 'Cart cleared.'];
-    }
-
-    // Calculate and return the total price including any additional fees or taxes
-    public function getTotalPrice() {
-        return $this->calculateCartTotal();
-    }
-
-    // Calculate the subtotal of the cart
-    private function calculateCartTotal() {
-        $total = 0;
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
-            $productPrice = $this->getProductPrice($productId);
-            if ($productPrice !== null) {
-                $total += $productPrice * $quantity;
-            }
-        }
-        return $total;
-    }
-
-    // Update item quantity and recalculate totals
-    public function updateItemQuantity($productId, $quantity) {
-        if ($quantity < 1) {
-            return [
-                'success' => false,
-                'message' => 'Quantity must be at least 1.'
-            ];
-        }
-
-        if (isset($_SESSION['cart'][$productId])) {
-            $_SESSION['cart'][$productId] = $quantity;
-            return $this->calculateTotals($productId);
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Product not found in the cart.'
-            ];
-        }
-    }
-
-    // Calculate the item total for a specific item and the overall cart total
-    private function calculateTotals($productId) {
-        $cartTotal = 0;
-        $itemTotal = 0;
-
-        foreach ($_SESSION['cart'] as $id => $qty) {
-            $productPrice = $this->getProductPrice($id);
-            if ($productPrice !== null) {
-                $currentItemTotal = $productPrice * $qty;
-                $cartTotal += $currentItemTotal;
-
-                if ($id == $productId) {
-                    $itemTotal = $currentItemTotal;
-                }
-            }
-        }
-
-        return [
-            'success' => true,
-            'itemTotal' => $itemTotal,
-            'cartTotal' => $cartTotal,
-            'message' => 'Cart updated successfully!'
-        ];
-    }
-
-    // Fetch product price for a specific product
-    private function getProductPrice($productId) {
-        $stmt = $this->conn->prepare("SELECT price FROM products WHERE id = ?");
-        $stmt->bind_param("i", $productId);
+    // Get the user's cart ID or create a new cart if it doesn't exist
+    private function getCartId() {
+        $stmt = $this->conn->prepare("SELECT id FROM cart WHERE user_id = ?");
+        $stmt->bind_param("i", $this->userId);
         $stmt->execute();
         $result = $stmt->get_result();
-        $product = $result->fetch_assoc();
+        $cart = $result->fetch_assoc();
 
-        return $product ? $product['price'] : null;
+        if ($cart) {
+            return $cart['id'];
+        } else {
+            $stmt = $this->conn->prepare("INSERT INTO cart (user_id) VALUES (?)");
+            $stmt->bind_param("i", $this->userId);
+            $stmt->execute();
+            return $this->conn->insert_id;
+        }
     }
 
-    // Calculate taxes based on a defined rate
-    private function calculateTaxes($amount) {
-        $taxRate = 0.10; // Example 10% tax rate
-        return $amount * $taxRate;
+    // Fetch all cart items for the user
+    public function getCartItems() {
+        $stmt = $this->conn->prepare("
+            SELECT 
+                ci.id AS cart_item_id, 
+                p.id AS product_id, 
+                p.name, 
+                p.price, 
+                ci.quantity, 
+                (p.price * ci.quantity) AS total, 
+                i.image_path AS image,
+                GROUP_CONCAT(av.value SEPARATOR ', ') AS attributes
+            FROM 
+                cart_items ci
+            JOIN 
+                products p ON ci.product_id = p.id
+            LEFT JOIN 
+                images i ON p.id = i.product_id
+            LEFT JOIN 
+                product_attributes pa ON pa.product_id = p.id
+            LEFT JOIN 
+                attribute_values av ON pa.attribute_value_id = av.id
+            LEFT JOIN 
+                attributes a ON av.attribute_id = a.id
+            WHERE 
+                ci.cart_id = ?
+            AND 
+                a.attribute_name != 'tags'
+            GROUP BY 
+                ci.id
+            ORDER BY 
+                i.id ASC
+        ");
+        $stmt->bind_param("i", $this->cartId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Checkout details with taxes and total summary
-    public function getCheckoutDetails() {
-        $cartItems = $this->getCartItems(); // Fetch items
-        $subtotal = $cartItems['total'];
-        $taxes = $this->calculateTaxes($subtotal);
+    // Update product quantity in the cart
+    public function updateCartItem($productId, $quantity) {
+        $stmt = $this->conn->prepare("SELECT id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ?");
+        $stmt->bind_param("ii", $this->cartId, $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cartItem = $result->fetch_assoc();
+
+        if ($cartItem) {
+            $newQuantity = max(1, $cartItem['quantity'] + $quantity);
+            $stmt = $this->conn->prepare("UPDATE cart_items SET quantity = ? WHERE id = ?");
+            $stmt->bind_param("ii", $newQuantity, $cartItem['id']);
+            $stmt->execute();
+        } else {
+            $stmt = $this->conn->prepare("INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $this->cartId, $productId, $quantity);
+            $stmt->execute();
+        }
+    }
+
+    // Remove product from the cart
+    public function removeCartItem($productId) {
+        $stmt = $this->conn->prepare("DELETE FROM cart_items WHERE cart_id = ? AND product_id = ?");
+        $stmt->bind_param("ii", $this->cartId, $productId);
+        $stmt->execute();
+    }
+
+    // Calculate the subtotal, taxes, and total for the cart
+    public function calculateTotals($cartItems) {
+        $subtotal = 0;
+        foreach ($cartItems as $item) {
+            $subtotal += $item['total'];
+        }
+
+        // Example: 10% tax rate
+        $taxes = $subtotal * 0.1;
         $total = $subtotal + $taxes;
 
         return [
@@ -203,6 +112,52 @@ class Cart {
             'taxes' => $taxes,
             'total' => $total
         ];
+    }
+
+    // Insert checkout details into the database
+    public function insertCheckoutInfo($name, $email, $phone, $street1, $street2, $city, $zip, $country, $state, $sameAddress) {
+        $stmt = $this->conn->prepare("INSERT INTO checkout_info (user_id, name, email, phone, street1, street2, city, zip, country, state, same_address) 
+                                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("issssssssss", $this->userId, $name, $email, $phone, $street1, $street2, $city, $zip, $country, $state, $sameAddress);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Save payment information
+    public function savePaymentInfo($cardType, $cardNumber, $expirationDate, $cvv) {
+        $stmt = $this->conn->prepare("INSERT INTO payment_info (user_id, card_type, card_number, expiration_date, cvv) VALUES (?, ?, ?, ?, ?)");
+        
+        if (!$stmt) {
+            die("Failed to prepare the statement: " . $this->conn->error);
+        }
+
+        $stmt->bind_param("issss", $this->userId, $cardType, $cardNumber, $expirationDate, $cvv);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die("Error executing the query: " . $stmt->error);
+        }
+    }
+
+    // Get checkout information (for confirmation)
+    public function getCheckoutInfo() {
+        $stmt = $this->conn->prepare("SELECT * FROM checkout_info WHERE user_id = ? ORDER BY id DESC LIMIT 1");
+        $stmt->bind_param("i", $this->userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    // Get payment information (for confirmation)
+    public function getPaymentDetails() {
+        $stmt = $this->conn->prepare("SELECT * FROM payment_info WHERE user_id = ? ORDER BY id DESC LIMIT 1");
+        $stmt->bind_param("i", $this->userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 }
 ?>

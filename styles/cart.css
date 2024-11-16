@@ -1,43 +1,39 @@
-/* cart.css */
-
 /* General layout */
 .cart-container {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
   margin-top: 20px;
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .cart-table {
   width: 65%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background: #f9f9f9;
+  border-radius: 4px; /* Reduced rounded corners */
+  background: #ffffff;
   overflow: hidden;
-  border: 1px solid #eaeaea;
+  border: 1px solid #e0e0e0;
 }
 
 .order-summary {
   width: 30%;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #f9f9f9;
-  border: 1px solid #eaeaea;
-  align-self: flex-start; /* Align to top of the container */
-  box-sizing: border-box; /* Ensure padding doesn't affect total width */
+  border-radius: 4px; /* Reduced rounded corners */
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  align-self: flex-start;
+  box-sizing: border-box;
 }
 
 /* Header styling for sections */
 .cart-table h3,
 .order-summary h5 {
-  padding: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: 1px solid #e0e0e0;
   color: #333;
-  background: #ffffff;
+  background: #fafafa;
   margin: 0;
   text-align: center;
 }
@@ -49,16 +45,16 @@
   align-items: center;
   padding: 15px 0;
   margin: 20px 0;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .progress-bar-custom .step {
   flex: 1;
   text-align: center;
   font-weight: 500;
-  color: #6c757d;
-  position: relative;
+  color: #666;
   font-size: 0.9rem;
+  position: relative;
 }
 
 .progress-bar-custom .step::before {
@@ -67,7 +63,7 @@
   top: 50%;
   left: -50%;
   right: 50%;
-  height: 2px;
+  height: 1px;
   background: #ddd;
   transform: translateY(-50%);
   z-index: 0;
@@ -75,7 +71,7 @@
 
 .progress-bar-custom .step.completed .icon,
 .progress-bar-custom .step.active .icon {
-  background: #4caf50;
+  background: #333;
   color: #fff;
 }
 
@@ -85,40 +81,39 @@
 }
 
 .progress-bar-custom .icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: #ddd;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   position: relative;
   z-index: 1;
 }
 
 /* Table styling */
 .table-borderless thead th {
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
   color: #333;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1rem;
 }
 
 .table-borderless tbody tr td {
-  padding: 20px;
+  padding: 15px;
   vertical-align: middle;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #555;
 }
 
 .cart-table img {
-  max-width: 60px;
+  max-width: 50px;
   margin-right: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 3px; /* Slightly rounded for image */
 }
 
 /* Quantity control styling */
@@ -129,27 +124,27 @@
 }
 
 .quantity-control input[type="number"] {
-  width: 60px;
+  width: 50px;
   text-align: center;
   border: 1px solid #ddd;
   margin: 0 5px;
-  border-radius: 5px;
+  border-radius: 3px; /* Reduced radius for input fields */
   background-color: #fafafa;
 }
 
 .quantity-control .btn-icon {
-  background: #007bff;
+  background: #333;
   color: #fff;
   border: none;
-  padding: 6px 12px;
-  font-size: 1rem;
+  padding: 6px 10px;
+  font-size: 0.9rem;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px; /* Reduced radius */
   transition: background 0.3s ease;
 }
 
 .quantity-control .btn-icon:hover {
-  background: #0056b3;
+  background: #555;
 }
 
 /* Cart action buttons */
@@ -158,40 +153,35 @@
   justify-content: space-between;
   padding: 15px;
   border-top: 1px solid #e0e0e0;
-  background-color: #ffffff;
+  background-color: #fafafa;
+}
+
+.btn-continue-shopping,
+.btn-primary {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 3px; /* Reduced radius for buttons */
+  transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .btn-continue-shopping {
-  background-color: #6c757d;
+  background-color: #666;
   color: #fff;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
 }
 
 .btn-continue-shopping:hover {
-  background-color: #5a6268;
-  color: #fff;
+  background-color: #555;
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #333;
   color: #fff;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #555;
 }
 
 /* Order Summary Styling */
@@ -208,17 +198,17 @@
 .order-summary .w-100 {
   padding: 12px;
   font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
+  font-weight: 600;
+  border-radius: 3px; /* Reduced radius */
   color: #fff;
-  background: #007bff;
+  background: #333;
   text-align: center;
   text-decoration: none;
   transition: background 0.3s ease;
 }
 
 .order-summary .w-100:hover {
-  background: #0056b3;
+  background: #555;
 }
 
 /* Minor adjustments for cleaner layout */
@@ -234,41 +224,40 @@
   margin-top: 20px;
 }
 
+.checkout-form-section,
+.checkout-summary {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 4px; /* Reduced radius */
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+}
+
 .checkout-form-section {
   width: 65%;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eaeaea;
 }
 
 .checkout-summary {
   width: 30%;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eaeaea;
   text-align: center;
   align-self: flex-start;
 }
 
 .checkout-summary h5 {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: #333;
   margin-bottom: 15px;
 }
 
 .checkout-summary p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #333;
   margin-bottom: 8px;
 }
 
 .checkout-summary .total-box {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #333;
   margin-top: 15px;
@@ -281,11 +270,11 @@
   width: 100%;
   padding: 12px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   color: #fff;
-  background: #007bff;
+  background: #333;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px; /* Reduced radius */
   text-align: center;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -293,8 +282,9 @@
 }
 
 .checkout-summary .btn-next-summary:hover {
-  background: #0056b3;
+  background: #555;
 }
+
 /* Back and Next button styling */
 .button-group {
   display: flex;
@@ -305,29 +295,153 @@
 
 .btn-back,
 .btn-next {
-  background-color: #6c757d; /* Darker gray for visibility */
-  color: #fff;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
   font-size: 1rem;
-  font-weight: bold; /* Make the text stand out */
-  cursor: pointer; /* Change cursor to pointer */
+  font-weight: 600;
+  border: none;
+  border-radius: 3px; /* Reduced radius */
+  cursor: pointer;
   transition: background-color 0.3s ease;
+  color: #fff;
 }
 
 .btn-back {
-  background-color: #6c757d; /* Gray color for Back button */
+  background-color: #666;
 }
 
 .btn-back:hover {
-  background-color: #5a6268; /* Slightly darker on hover */
+  background-color: #555;
 }
 
 .btn-next {
-  background-color: #007bff; /* Blue color for Next button */
+  background-color: #333;
 }
 
 .btn-next:hover {
-  background-color: #0056b3; /* Slightly darker blue on hover */
+  background-color: #555;
+}
+
+body {
+  background-color: #f4f7fa;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+.confirmation-container {
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-header h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #e04c44;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.order-summary,
+.payment-summary,
+.cart-items {
+  margin-bottom: 30px;
+}
+
+.order-summary h5,
+.payment-summary h5,
+.cart-items h5 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.cart-items table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-items table th,
+.cart-items table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-items table th {
+  font-weight: 600;
+  color: black;
+}
+
+.total-box {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1.2rem;
+}
+
+.total-box span {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.btn-continue {
+  display: inline-block;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  width: 50%;
+  margin-top: 20px;
+}
+
+.btn-continue:hover {
+  background-color: #45a049;
+}
+
+.payment-summary p {
+  font-size: 1rem;
+}
+
+/* Custom CSS for Buttons */
+.button-container {
+  display: flex;
+  justify-content: space-between; /* This will push the buttons to the left and right */
+  margin-top: 1rem;
+}
+
+.btn-continue-shopping,
+.btn-print {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: none;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-continue-shopping {
+  background-color: #e04c44;
+  color: white;
+  width: 25%; /* Make sure it doesn’t take full width */
+}
+
+.btn-continue-shopping:hover {
+  background-color: #e04c44;
+  cursor: pointer;
+}
+
+.btn-print {
+  background-color: #6c757d;
+  color: white;
+  width: 25%; /* Make sure it doesn’t take full width */
+}
+
+.btn-print:hover {
+  background-color: #5a6268;
+  cursor: pointer;
 }
