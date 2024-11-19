@@ -18,18 +18,38 @@ $cart = new Cart($conn, $userId);
 $cartItems = $cart->getCartItems();
 $checkoutDetails = $cart->calculateTotals($cartItems);
 
-// Insert payment data into the database if form is submitted
+// Handle form submission for shipping and payment
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get payment form data
+    // Capture shipping information
+    $deliveryMethod = $_POST['deliveryMethod'];
+    $carrier = $_POST['carrier'] ?? null;
+    $accountNumber = $_POST['accountNumber'] ?? null;
+    $serviceType = $_POST['serviceType'] ?? null;
+
+    // Capture payment information
     $cardType = $_POST['cardType'];
     $cardNumber = $_POST['cardNumber'];
     $expirationDate = $_POST['expirationDate'];
     $cvv = $_POST['cvv'];
 
-    // Save payment details in the database using the Cart class method
-    $cart->savePaymentInfo($cardType, $cardNumber, $expirationDate, $cvv);
+    // Save shipping info in the `shipping_info` table
+    $stmtShipping = $conn->prepare("
+        INSERT INTO shipping_info (user_id, order_id, carrier, account_number, service_type, delivery_method)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ");
+    $orderId = $cart->getOrderId(); // Implement a method in the `Cart` class to fetch the active order ID
+    $stmtShipping->bind_param("iissss", $userId, $orderId, $carrier, $accountNumber, $serviceType, $deliveryMethod);
+    $stmtShipping->execute();
 
-    // Redirect to the confirmation page after successfully saving the payment info
+    // Save payment info in the `payment_info` table
+    $stmtPayment = $conn->prepare("
+        INSERT INTO payment_info (user_id, card_type, card_number, expiration_date, cvv)
+        VALUES (?, ?, ?, ?, ?)
+    ");
+    $stmtPayment->bind_param("issss", $userId, $cardType, $cardNumber, $expirationDate, $cvv);
+    $stmtPayment->execute();
+
+    // Redirect to the confirmation page
     header("Location: confirmation.php");
     exit;
 }
@@ -49,14 +69,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include 'header.php'; ?>
 
-<main class="container mb-5">
-    <div class="progress-bar-custom">
+<main class="container my-5">
+    <!-- Progress Bar -->
+    <div class="progress-bar-custom mb-4">
         <div class="step completed">
             <div class="icon">1</div>
             <div>Review Order</div>
         </div>
         <div class="step completed">
-            <div class="icon">✔</div>
+            <div class="icon">2</div>
             <div>Billing & Shipping</div>
         </div>
         <div class="step active">
@@ -69,49 +90,122 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <div class="checkout-container d-flex justify-content-between">
-        <!-- Payment Form -->
-        <div class="checkout-form-section">
-            <h3>Enter Payment Details</h3>
-            <form action="payment.php" method="POST">
-                <div class="mb-3">
-                    <label for="cardType" class="form-label">Card Type</label>
-                    <select class="form-select" id="cardType" name="cardType" required>
-                        <option value="Visa">Visa</option>
-                        <option value="MasterCard">MasterCard</option>
-                        <option value="American Express">American Express</option>
-                    </select>
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-lg-8">
+            <!-- Order Confirmation Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Confirm Order</h4>
                 </div>
-                <div class="mb-3">
-                    <label for="cardNumber" class="form-label">Card Number</label>
-                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                <div class="card-body">
+                    <?php foreach ($cartItems as $item): ?>
+                        <div class="d-flex mb-3">
+                            <img src="<?= htmlspecialchars($item['image'] ?? '/tech_web/assets/product.jpg') ?>" alt="Product Image" class="img-fluid" style="width: 100px; margin-right: 15px;">
+                            <div>
+                                <h6><?= htmlspecialchars($item['name']) ?></h6>
+                                <p>Quantity: <?= $item['quantity'] ?></p>
+                                <p class="text-muted">$<?= number_format($item['total'], 2) ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-                <div class="mb-3 row">
-                    <div class="col">
-                        <label for="expirationDate" class="form-label">Expiration Date</label>
-                        <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/YY" required>
-                    </div>
-                    <div class="col">
-                        <label for="cvv" class="form-label">CVV</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv" required>
-                    </div>
+            </div>
+
+            <!-- Delivery Method Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Choose a delivery method</h4>
                 </div>
-                <div class="button-group">
-                    <button type="button" class="btn-back" onclick="history.back()">Back</button>
-                    <button type="submit" class="btn-next">Proceed to Confirmation</button>
+                <div class="card-body">
+                    <form id="shippingForm" action="payment.php" method="POST">
+                        <div class="mb-3">
+                            <input type="radio" id="shipAccount" name="deliveryMethod" value="Ship On Account" checked>
+                            <label for="shipAccount" class="fw-bold">Ship On Account</label>
+                            <div class="mt-2">
+                                <select name="carrier" class="form-select mb-2">
+                                    <option value="FEDEX">FEDEX</option>
+                                    <option value="UPS">UPS</option>
+                                </select>
+                                <input type="text" name="accountNumber" class="form-control mb-2" placeholder="Account #">
+                                <select name="serviceType" class="form-select">
+                                    <option value="Standard Overnight">Standard Overnight</option>
+                                    <option value="Priority Overnight">Priority Overnight</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" id="ground" name="deliveryMethod" value="Ground">
+                            <label class="form-check-label" for="ground">Ground</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" id="standardOvernight" name="deliveryMethod" value="Standard Overnight">
+                            <label class="form-check-label" for="standardOvernight">Standard Overnight</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" id="priorityOvernight" name="deliveryMethod" value="Priority Overnight">
+                            <label class="form-check-label" for="priorityOvernight">Priority Overnight</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="twoDay" name="deliveryMethod" value="2 Day">
+                            <label class="form-check-label" for="twoDay">2 Day</label>
+                        </div>
                 </div>
-            </form>
+            </div>
+
+            <!-- Payment Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>Pay with</h4>
+                </div>
+                <div class="card-body">
+                        <div class="mb-3">
+                            <label for="cardType" class="form-label">Card Type</label>
+                            <select id="cardType" name="cardType" class="form-select" required>
+                                <option value="Visa">Visa</option>
+                                <option value="MasterCard">MasterCard</option>
+                                <option value="American Express">American Express</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col">
+                                <label for="expirationDate" class="form-label">Expiration Date</label>
+                                <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/YY" required>
+                            </div>
+                            <div class="col">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="cvv" name="cvv" required>
+                            </div>
+                        </div>
+                        <!-- Buttons Row -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="cart.php" class="btn-continue-shopping w-25">Return to Cart</a>
+                            <button type="submit" class="btn-next">Pay Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <!-- Order Summary -->
-        <div class="checkout-summary">
-            <h5>Order Total</h5>
-            <p>Subtotal: <span id="subtotal">$<?= number_format($checkoutDetails['subtotal'], 2) ?></span></p>
-            <p>Taxes: <span id="taxes">$<?= number_format($checkoutDetails['taxes'], 2) ?></span></p>
-            <div class="total-box mt-3 p-3 border-top">
-                <strong>Total:</strong> <span id="total">$<?= number_format($checkoutDetails['total'], 2) ?></span>
+        <!-- Right Column -->
+        <div class="col-lg-4">
+            <!-- Order Summary -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>Order Total</h4>
+                </div>
+                <div class="card-body">
+                    <p>Delivery: <span class="float-end">$0.00</span></p>
+                    <p>Subtotal: <span class="float-end">$<?= number_format($checkoutDetails['subtotal'], 2) ?></span></p>
+                    <p>Taxes: <span class="float-end">$<?= number_format($checkoutDetails['taxes'], 2) ?></span></p>
+                    <hr>
+                    <p class="fw-bold">Total: <span class="float-end">$<?= number_format($checkoutDetails['total'], 2) ?></span></p>
+                </div>
             </div>
-            <a href="payment.php" class="btn btn-next-summary w-100 mt-3">Proceed to Confirmation</a>
         </div>
     </div>
 </main>

@@ -52,7 +52,7 @@
   flex: 1;
   text-align: center;
   font-weight: 500;
-  color: #666;
+  color: #e0e0e0;
   font-size: 0.9rem;
   position: relative;
 }
@@ -71,7 +71,7 @@
 
 .progress-bar-custom .step.completed .icon,
 .progress-bar-custom .step.active .icon {
-  background: #333;
+  background: #e04c44;
   color: #fff;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .quantity-control .btn-icon {
-  background: #333;
+  background: #e04c44;
   color: #fff;
   border: none;
   padding: 6px 10px;
@@ -144,7 +144,7 @@
 }
 
 .quantity-control .btn-icon:hover {
-  background: #555;
+  background: #c63933;
 }
 
 /* Cart action buttons */
@@ -167,17 +167,17 @@
 }
 
 .btn-continue-shopping {
-  background-color: #666;
-  color: #fff;
+  background-color: #e04c44;
+  color: white;
 }
 
 .btn-continue-shopping:hover {
-  background-color: #555;
+  background-color: #d43f3a;
 }
 
 .btn-primary {
   background-color: #333;
-  color: #fff;
+  color: white;
 }
 
 .btn-primary:hover {
@@ -201,14 +201,14 @@
   font-weight: 600;
   border-radius: 3px; /* Reduced radius */
   color: #fff;
-  background: #333;
+  background: #e04c44;
   text-align: center;
   text-decoration: none;
   transition: background 0.3s ease;
 }
 
 .order-summary .w-100:hover {
-  background: #555;
+  background: #d43f3a;
 }
 
 /* Minor adjustments for cleaner layout */
@@ -272,7 +272,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: #fff;
-  background: #333;
+  background: #e04c44;
   border: none;
   border-radius: 3px; /* Reduced radius */
   text-align: center;
@@ -282,7 +282,7 @@
 }
 
 .checkout-summary .btn-next-summary:hover {
-  background: #555;
+  background: #d43f3a;
 }
 
 /* Back and Next button styling */
@@ -314,11 +314,11 @@
 }
 
 .btn-next {
-  background-color: #333;
+  background-color: #e04c44;
 }
 
 .btn-next:hover {
-  background-color: #555;
+  background-color: #d43f3a;
 }
 
 body {
@@ -389,7 +389,7 @@ body {
 
 .btn-continue {
   display: inline-block;
-  background-color: #4caf50;
+  background-color: #e04c44;
   color: white;
   padding: 10px 10px;
   border-radius: 2px;
@@ -401,7 +401,7 @@ body {
 }
 
 .btn-continue:hover {
-  background-color: #45a049;
+  background-color: #d43f3a;
 }
 
 .payment-summary p {
@@ -427,21 +427,51 @@ body {
 .btn-continue-shopping {
   background-color: #e04c44;
   color: white;
-  width: 25%; /* Make sure it doesn’t take full width */
+  width: 45%; /* Make sure it doesn’t take full width */
 }
 
 .btn-continue-shopping:hover {
-  background-color: #e04c44;
+  background-color: #d43f3a;
   cursor: pointer;
 }
 
 .btn-print {
-  background-color: #6c757d;
+  background-color: #e04c44;
   color: white;
-  width: 25%; /* Make sure it doesn’t take full width */
+  width: 45%; /* Make sure it doesn’t take full width */
 }
 
 .btn-print:hover {
-  background-color: #5a6268;
+  background-color: #d43f3a;
+  cursor: pointer;
+}
+
+.delivery-method-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.delivery-method-section h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.delivery-account-details {
+  padding-left: 20px;
+}
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-size: 1rem;
+  margin-left: 10px;
   cursor: pointer;
 }

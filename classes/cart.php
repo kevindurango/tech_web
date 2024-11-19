@@ -18,7 +18,7 @@ class Cart {
         $stmt->execute();
         $result = $stmt->get_result();
         $cart = $result->fetch_assoc();
-
+    
         if ($cart) {
             return $cart['id'];
         } else {
@@ -28,7 +28,7 @@ class Cart {
             return $this->conn->insert_id;
         }
     }
-
+    
     // Fetch all cart items for the user
     public function getCartItems() {
         $stmt = $this->conn->prepare("
@@ -159,5 +159,31 @@ class Cart {
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+
+    public function getOrderId() {
+        $stmt = $this->conn->prepare("SELECT id FROM orders WHERE user_id = ? AND status = 'pending' ORDER BY created_at DESC LIMIT 1");
+        $stmt->bind_param("i", $this->userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $order = $result->fetch_assoc();
+    
+        if ($order) {
+            return $order['id'];
+        } else {
+            // Create a new order if none exists
+            $stmt = $this->conn->prepare("INSERT INTO orders (user_id, total, status) VALUES (?, 0.00, 'pending')");
+            $stmt->bind_param("i", $this->userId);
+            $stmt->execute();
+            return $this->conn->insert_id;
+        }
+    }
+    
+    public function clearCart() {
+        $stmt = $this->conn->prepare("DELETE FROM cart_items WHERE cart_id = ?");
+        $stmt->bind_param("i", $this->cartId);
+        $stmt->execute();
+    }
+    
 }
+
 ?>

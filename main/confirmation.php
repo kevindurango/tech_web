@@ -24,6 +24,9 @@ $checkoutDetails = $cart->calculateTotals($cartItems);
 $checkoutInfo = $cart->getCheckoutInfo();
 $paymentDetails = $cart->getPaymentDetails();
 
+// Clear the cart after confirmation
+$cart->clearCart();
+
 // Function to format the card number to show only the last 4 digits
 function formatCardNumber($cardNumber) {
     return '**** **** **** ' . substr($cardNumber, -4);
