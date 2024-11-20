@@ -1,3 +1,4 @@
+
 <?php
 class Cart {
     private $conn;
@@ -5,10 +6,17 @@ class Cart {
     private $cartId;
 
     // Constructor to initialize the database connection and userId
-    public function __construct($conn, $userId) {
+    public function __construct($conn, $userId = null) {
         $this->conn = $conn;
-        $this->userId = $userId;
-        $this->cartId = $this->getCartId();
+
+        if ($userId) {
+            $this->userId = $userId;
+            $this->cartId = $this->getCartId();
+        } else {
+            session_start(); // Ensure session is started for guests
+            $this->userId = null; // No user ID for guest users
+            $this->cartId = $this->getCartIdForGuest();
+        }
     }
 
     // Get the user's cart ID or create a new cart if it doesn't exist
@@ -28,8 +36,31 @@ class Cart {
             return $this->conn->insert_id;
         }
     }
-    
-    // Fetch all cart items for the user
+
+    // Get the guest's cart ID or create a new cart if it doesn't exist
+    private function getCartIdForGuest() {
+        if (!isset($_SESSION['guest_session_id'])) {
+            $_SESSION['guest_session_id'] = uniqid('guest_', true); // Generate unique session ID
+        }
+        $guestSessionId = $_SESSION['guest_session_id'];
+
+        $stmt = $this->conn->prepare("SELECT id FROM cart WHERE guest_session_id = ?");
+        $stmt->bind_param("s", $guestSessionId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cart = $result->fetch_assoc();
+
+        if ($cart) {
+            return $cart['id'];
+        } else {
+            $stmt = $this->conn->prepare("INSERT INTO cart (guest_session_id) VALUES (?)");
+            $stmt->bind_param("s", $guestSessionId);
+            $stmt->execute();
+            return $this->conn->insert_id;
+        }
+    }
+
+    // Fetch all cart items for the user or guest
     public function getCartItems() {
         $stmt = $this->conn->prepare("
             SELECT 
@@ -116,53 +147,49 @@ class Cart {
 
     // Insert checkout details into the database
     public function insertCheckoutInfo($name, $email, $phone, $street1, $street2, $city, $zip, $country, $state, $sameAddress) {
-        $stmt = $this->conn->prepare("INSERT INTO checkout_info (user_id, name, email, phone, street1, street2, city, zip, country, state, same_address) 
-                                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("issssssssss", $this->userId, $name, $email, $phone, $street1, $street2, $city, $zip, $country, $state, $sameAddress);
+        $guestSessionId = $_SESSION['guest_session_id'] ?? null;
+
+        $stmt = $this->conn->prepare("INSERT INTO checkout_info (user_id, guest_session_id, name, email, phone, street1, street2, city, zip, country, state, same_address) 
+                                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssssssssss", $this->userId, $guestSessionId, $name, $email, $phone, $street1, $street2, $city, $zip, $country, $state, $sameAddress);
         
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
 
     // Save payment information
     public function savePaymentInfo($cardType, $cardNumber, $expirationDate, $cvv) {
-        $stmt = $this->conn->prepare("INSERT INTO payment_info (user_id, card_type, card_number, expiration_date, cvv) VALUES (?, ?, ?, ?, ?)");
-        
-        if (!$stmt) {
-            die("Failed to prepare the statement: " . $this->conn->error);
-        }
+        $guestSessionId = $_SESSION['guest_session_id'] ?? null;
 
-        $stmt->bind_param("issss", $this->userId, $cardType, $cardNumber, $expirationDate, $cvv);
+        $stmt = $this->conn->prepare("INSERT INTO payment_info (user_id, guest_session_id, card_type, card_number, expiration_date, cvv) 
+                                      VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssss", $this->userId, $guestSessionId, $cardType, $cardNumber, $expirationDate, $cvv);
 
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            die("Error executing the query: " . $stmt->error);
-        }
+        return $stmt->execute();
     }
 
     // Get checkout information (for confirmation)
     public function getCheckoutInfo() {
-        $stmt = $this->conn->prepare("SELECT * FROM checkout_info WHERE user_id = ? ORDER BY id DESC LIMIT 1");
-        $stmt->bind_param("i", $this->userId);
+        $stmt = $this->conn->prepare("SELECT * FROM checkout_info WHERE user_id = ? OR guest_session_id = ? ORDER BY id DESC LIMIT 1");
+        $guestSessionId = $_SESSION['guest_session_id'] ?? null;
+        $stmt->bind_param("is", $this->userId, $guestSessionId);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
 
     // Get payment information (for confirmation)
     public function getPaymentDetails() {
-        $stmt = $this->conn->prepare("SELECT * FROM payment_info WHERE user_id = ? ORDER BY id DESC LIMIT 1");
-        $stmt->bind_param("i", $this->userId);
+        $stmt = $this->conn->prepare("SELECT * FROM payment_info WHERE user_id = ? OR guest_session_id = ? ORDER BY id DESC LIMIT 1");
+        $guestSessionId = $_SESSION['guest_session_id'] ?? null;
+        $stmt->bind_param("is", $this->userId, $guestSessionId);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
 
     public function getOrderId() {
-        $stmt = $this->conn->prepare("SELECT id FROM orders WHERE user_id = ? AND status = 'pending' ORDER BY created_at DESC LIMIT 1");
-        $stmt->bind_param("i", $this->userId);
+        $guestSessionId = $_SESSION['guest_session_id'] ?? null;
+
+        $stmt = $this->conn->prepare("SELECT id FROM orders WHERE (user_id = ? OR guest_session_id = ?) AND status = 'pending' ORDER BY created_at DESC LIMIT 1");
+        $stmt->bind_param("is", $this->userId, $guestSessionId);
         $stmt->execute();
         $result = $stmt->get_result();
         $order = $result->fetch_assoc();
@@ -170,9 +197,8 @@ class Cart {
         if ($order) {
             return $order['id'];
         } else {
-            // Create a new order if none exists
-            $stmt = $this->conn->prepare("INSERT INTO orders (user_id, total, status) VALUES (?, 0.00, 'pending')");
-            $stmt->bind_param("i", $this->userId);
+            $stmt = $this->conn->prepare("INSERT INTO orders (user_id, guest_session_id, total, status) VALUES (?, ?, 0.00, 'pending')");
+            $stmt->bind_param("is", $this->userId, $guestSessionId);
             $stmt->execute();
             return $this->conn->insert_id;
         }
@@ -183,7 +209,5 @@ class Cart {
         $stmt->bind_param("i", $this->cartId);
         $stmt->execute();
     }
-    
 }
-
 ?>

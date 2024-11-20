@@ -4,13 +4,8 @@ session_start();
 include '../web/db_connection.php';
 include '../classes/cart.php';
 
-// Redirect to login if not authenticated
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-$userId = $_SESSION['user_id']; // Get the logged-in user ID
+// Check if the user is logged in
+$userId = $_SESSION['user_id'] ?? null; 
 
 // Create Cart object
 $cart = new Cart($conn, $userId);
@@ -41,7 +36,7 @@ if (isset($_GET['remove'])) {
     exit;
 }
 
-// Fetch cart items for the user
+// Fetch cart items
 $cartItems = $cart->getCartItems();
 $checkoutDetails = $cart->calculateTotals($cartItems);
 
@@ -135,7 +130,7 @@ $totalPrice = $checkoutDetails['total'];
         <div class="order-summary mb-4">
             <h5>Order Total</h5>
             <p>Subtotal: <span id="subtotal">$<?= number_format($checkoutDetails['subtotal'], 2) ?></span></p>
-            <p>Taxes: <span id="taxes">$0.00</span></p>
+            <p>Taxes: <span id="taxes">$<?= number_format($checkoutDetails['taxes'], 2) ?></span></p>
             <p><strong>Total: <span id="total">$<?= number_format($totalPrice, 2) ?></span></strong></p>
             <a href="checkout.php" class="btn btn-primary w-100 mt-3">Proceed to Checkout</a>
         </div>

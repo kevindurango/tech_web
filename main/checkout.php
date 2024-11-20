@@ -3,13 +3,8 @@ session_start();
 include '../web/db_connection.php';
 include '../classes/Cart.php'; // Include the Cart class
 
-// Redirect to login if not authenticated
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-$userId = $_SESSION['user_id']; // Get the logged-in user ID
+// Get user ID from session or set to null for guests
+$userId = $_SESSION['user_id'] ?? null;
 
 // Create Cart object
 $cart = new Cart($conn, $userId);
@@ -151,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="total-box mt-3 p-3 border-top">
                 <strong>Total:</strong> <span id="total">$<?= number_format($checkoutDetails['total'], 2) ?></span>
             </div>
-            <a href="checkout.php" class="btn btn-next-summary w-100 mt-3">Proceed to Checkout</a>
+            <a href="payment.php" class="btn btn-next-summary w-100 mt-3">Proceed to Payment</a>
         </div>
     </div>
 </main>
