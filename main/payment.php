@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <h6><?= htmlspecialchars($item['name']) ?></h6>
                                 <p>Quantity: <?= $item['quantity'] ?></p>
                                 <p class="text-muted">$<?= number_format($item['total'], 2) ?></p>
-                            </div>
+ </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -120,8 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card-body">
                     <form id="shippingForm" action="payment.php" method="POST">
                         <div class="mb-3">
-                            <input type="radio" id="shipAccount" name="deliveryMethod" value="Ship On Account" checked>
-                            <label for="shipAccount" class="fw-bold">Ship On Account</label>
+                            <input type="radio" id="shipAccount" name="deliveryMethod" value="Ship On Account" class="custom-radio" checked>
+                            <label for="shipAccount" class="delivery-label fw-bold">Ship On Account</label>
                             <div class="mt-2">
                                 <select name="carrier" class="form-select mb-2">
                                     <option value="FEDEX">FEDEX</option>
@@ -134,21 +134,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </select>
                             </div>
                         </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="radio" id="ground" name="deliveryMethod" value="Ground">
-                            <label class="form-check-label" for="ground">Ground</label>
+                        <div class="form-check mb-2 ps-0">
+                            <input class="form-check-input custom-radio" type="radio" id="ground" name="deliveryMethod" value="Ground">
+                            <label class="form-check-label delivery-label" for="ground">Ground</label>
                         </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="radio" id="standardOvernight" name="deliveryMethod" value="Standard Overnight">
-                            <label class="form-check-label" for="standardOvernight">Standard Overnight</label>
+                        <div class="form-check mb-2 ps-0">
+                            <input class="form-check-input custom-radio" type="radio" id="standardOvernight" name="deliveryMethod" value="Standard Overnight">
+                            <label class="form-check-label delivery-label" for="standardOvernight">Standard Overnight</label>
                         </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="radio" id="priorityOvernight" name="deliveryMethod" value="Priority Overnight">
-                            <label class="form-check-label" for="priorityOvernight">Priority Overnight</label>
+                        <div class="form-check mb-2 ps-0">
+                            <input class="form-check-input custom-radio" type="radio" id="priorityOvernight" name="deliveryMethod" value="Priority Overnight">
+                            <label class="form-check-label delivery-label" for="priorityOvernight">Priority Overnight</label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="twoDay" name="deliveryMethod" value="2 Day">
-                            <label class="form-check-label" for="twoDay">2 Day</label>
+                        <div class="form-check ps-0">
+                            <input class="form-check-input custom-radio" type="radio" id="twoDay" name="deliveryMethod" value="2 Day">
+                            <label class="form-check-label delivery-label" for="twoDay">2 Day</label>
                         </div>
                 </div>
             </div>
@@ -159,33 +159,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h4>Pay with</h4>
                 </div>
                 <div class="card-body">
-                        <div class="mb-3">
-                            <label for="cardType" class="form-label">Card Type</label>
-                            <select id="cardType" name="cardType" class="form-select" required>
-                                <option value="Visa">Visa</option>
-                                <option value="MasterCard">MasterCard</option>
-                                <option value="American Express">American Express</option>
-                            </select>
+                    <div class="mb-3">
+                        <label for="cardType" class="form-label">Card Type</label>
+                        <select id="cardType" name="cardType" class="form-select" required>
+                            <option value="Visa">Visa</option>
+                            <option value="MasterCard">MasterCard</option>
+                            <option value="American Express">American Express</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col">
+                            <label for="expirationDate" class="form-label">Expiration Date</label>
+                            <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/YY" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="cardNumber" class="form-label">Card Number</label>
-                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                        <div class="col">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv" required>
                         </div>
-                        <div class="mb-3 row">
-                            <div class="col">
-                                <label for="expirationDate" class="form-label">Expiration Date</label>
-                                <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/YY" required>
-                            </div>
-                            <div class="col">
-                                <label for="cvv" class="form-label">CVV</label>
-                                <input type="text" class="form-control" id="cvv" name="cvv" required>
-                            </div>
-                        </div>
-                        <!-- Buttons Row -->
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="cart.php" class="btn-continue-shopping w-25">Return to Cart</a>
-                            <button type="submit" class="btn-next">Pay Now</button>
-                        </div>
+                    </div>
+                    <!-- Buttons Row -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="cart.php" class="btn-continue-shopping w-25">Return to Cart</a>
+                        <button type="submit" class="btn-next">Pay Now</button>
+                    </div>
                     </form>
                 </div>
             </div>

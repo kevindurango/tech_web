@@ -127,9 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </select>
                     </div>
                 </div>
-                <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="sameAddress" name="sameAddress" checked>
-                    <label class="form-check-label" for="sameAddress">Ship to the same address</label>
+                <div class="form-check mb-3 ps-0">
+                    <input type="checkbox" class="custom-checkbox" id="sameAddress" name="sameAddress" checked>
+                    <label class="form-check-label delivery-label" for="sameAddress">Ship to the same address</label>
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn-back" onclick="history.back()">Back</button>

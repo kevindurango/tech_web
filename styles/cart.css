@@ -9,18 +9,20 @@
 
 .cart-table {
   width: 65%;
-  border-radius: 4px; /* Reduced rounded corners */
+  border-radius: 8px; /* Increased rounded corners for a softer look */
   background: #ffffff;
   overflow: hidden;
   border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
 .order-summary {
   width: 30%;
   padding: 20px;
-  border-radius: 4px; /* Reduced rounded corners */
+  border-radius: 8px; /* Increased rounded corners */
   background: #ffffff;
   border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
   align-self: flex-start;
   box-sizing: border-box;
 }
@@ -29,9 +31,9 @@
 .cart-table h3,
 .order-summary h5 {
   padding: 15px;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased font size for emphasis */
   font-weight: 600;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0; /* Thicker border for separation */
   color: #333;
   background: #fafafa;
   margin: 0;
@@ -63,7 +65,7 @@
   top: 50%;
   left: -50%;
   right: 50%;
-  height: 1px;
+  height: 2px; /* Thicker line for better visibility */
   background: #ddd;
   transform: translateY(-50%);
   z-index: 0;
@@ -81,14 +83,14 @@
 }
 
 .progress-bar-custom .icon {
-  width: 32px;
-  height: 32px;
+  width: 36px; /* Slightly larger icon */
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: #ddd;
-  font-size: 0.9rem;
+  font-size: 1rem; /* Increased font size for better readability */
   font-weight: bold;
   margin-bottom: 6px;
   position: relative;
@@ -97,7 +99,7 @@
 
 /* Table styling */
 .table-borderless thead th {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0; /* Thicker border */
   color: #333;
   font-weight: 500;
   font-size: 1rem;
@@ -106,14 +108,14 @@
 .table-borderless tbody tr td {
   padding: 15px;
   vertical-align: middle;
-  font-size: 0.9rem;
+  font-size: 0.95rem; /* Slightly increased font size */
   color: #555;
 }
 
 .cart-table img {
-  max-width: 50px;
+  max-width: 60px; /* Increased image size for better visibility */
   margin-right: 10px;
-  border-radius: 3px; /* Slightly rounded for image */
+  border-radius: 5px; /* Softer corners for images */
 }
 
 /* Quantity control styling */
@@ -124,22 +126,24 @@
 }
 
 .quantity-control input[type="number"] {
-  width: 50px;
+  width: 60px; /* Increased width for better usability */
   text-align: center;
   border: 1px solid #ddd;
   margin: 0 5px;
-  border-radius: 3px; /* Reduced radius for input fields */
+  border-radius: 5px; /* Softer corners */
   background-color: #fafafa;
+  font-size: 1rem; /* Increased font size */
 }
 
 .quantity-control .btn-icon {
   background: #e04c44;
   color: #fff;
   border: none;
-  padding: 6px 10px;
-  font-size: 0.9rem;
+  padding: 8px 12px; /* Increased padding for a better button feel */
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 3px; /* Reduced radius */
+  border-radius: 5px; /* Softer corners */
   transition: background 0.3s ease;
 }
 
@@ -158,10 +162,10 @@
 
 .btn-continue-shopping,
 .btn-primary {
-  padding: 10px 20px;
+  padding: 12px 24px; /* Increased padding for a more substantial button */
   font-size: 1rem;
   font-weight: 500;
-  border-radius: 3px; /* Reduced radius for buttons */
+  border-radius: 5px; /* Softer corners */
   transition: background-color 0.3s ease;
   text-align: center;
 }
@@ -199,7 +203,7 @@
   padding: 12px;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 3px; /* Reduced radius */
+  border-radius: 5px; /* Softer corners */
   color: #fff;
   background: #e04c44;
   text-align: center;
@@ -228,7 +232,7 @@
 .checkout-summary {
   padding: 20px;
   background: #ffffff;
-  border-radius: 4px; /* Reduced radius */
+  border-radius: 8px; /* Increased radius for a softer look */
   border: 1px solid #e0e0e0;
   box-sizing: border-box;
 }
@@ -244,20 +248,20 @@
 }
 
 .checkout-summary h5 {
-  font-size: 1.3rem;
+  font-size: 1.5rem; /* Increased font size for emphasis */
   font-weight: 600;
   color: #333;
   margin-bottom: 15px;
 }
 
 .checkout-summary p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #333;
   margin-bottom: 8px;
 }
 
 .checkout-summary .total-box {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #333;
   margin-top: 15px;
@@ -274,7 +278,7 @@
   color: #fff;
   background: #e04c44;
   border: none;
-  border-radius: 3px; /* Reduced radius */
+  border-radius: 5px; /* Softer corners */
   text-align: center;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -295,11 +299,11 @@
 
 .btn-back,
 .btn-next {
-  padding: 10px 20px;
+  padding: 12px 24px; /* Increased padding for a more substantial button */
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 3px; /* Reduced radius */
+  border-radius: 5px; /* Softer corners */
   cursor: pointer;
   transition: background-color 0.3s ease;
   color: #fff;
@@ -336,7 +340,7 @@ body {
 }
 
 .confirmation-header h2 {
-  font-size: 2rem;
+  font-size: 2.5rem; /* Increased font size for emphasis */
   font-weight: 600;
   color: #e04c44;
   margin-bottom: 30px;
@@ -353,7 +357,7 @@ body {
 .payment-summary h5,
 .cart-items h5 {
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased font size for emphasis */
   color: #333;
 }
 
@@ -364,7 +368,7 @@ body {
 
 .cart-items table th,
 .cart-items table td {
-  padding: 12px;
+  padding: 15px; /* Increased padding for better spacing */
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -377,22 +381,22 @@ body {
 .total-box {
   background: #f9f9f9;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 8px; /* Softer corners */
   border: 1px solid #ddd;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Increased font size for emphasis */
 }
 
 .total-box span {
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.6rem; /* Increased font size for emphasis */
 }
 
 .btn-continue {
   display: inline-block;
   background-color: #e04c44;
   color: white;
-  padding: 10px 10px;
-  border-radius: 2px;
+  padding: 12px 12px; /* Increased padding for a more substantial button */
+  border-radius: 5px; /* Softer corners */
   text-decoration: none;
   font-weight: 600;
   text-align: center;
@@ -405,7 +409,7 @@ body {
 }
 
 .payment-summary p {
-  font-size: 1rem;
+  font-size: 1.1rem; /* Increased font size for better readability */
 }
 
 /* Custom CSS for Buttons */
@@ -417,9 +421,9 @@ body {
 
 .btn-continue-shopping,
 .btn-print {
-  padding: 10px;
+  padding: 12px; /* Increased padding for a more substantial button */
   font-size: 16px;
-  border-radius: none;
+  border-radius: 5px; /* Softer corners */
   border: none;
   transition: background-color 0.3s ease;
 }
@@ -449,12 +453,12 @@ body {
 .delivery-method-section {
   background: #f9f9f9;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 8px; /* Softer corners */
   border: 1px solid #ddd;
 }
 
 .delivery-method-section h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem; /* Increased font size for emphasis */
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -463,15 +467,77 @@ body {
   padding-left: 20px;
 }
 
-.form-check-input {
-  width: 20px;
-  height: 20px;
-  margin-top: 3px;
-  cursor: pointer;
+/* Custom Radio Button Styles */
+
+.custom-radio {
+  display: none;
 }
 
-.form-check-label {
-  font-size: 1rem;
-  margin-left: 10px;
+.delivery-label {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
   cursor: pointer;
+  transition: border-color 0.3s;
+  font-size: 0.8rem;
+}
+
+.custom-radio:checked + .delivery-label::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: #e04c44;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.delivery-label::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Custom Checkbox Styles */
+
+.custom-checkbox {
+  display: none;
+}
+
+.delivery-label {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  font-size: 0.8rem;
+}
+
+.custom-checkbox:checked + .delivery-label::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #e04c44;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.delivery-label::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  margin-right: 5px;
+  vertical-align: middle;
 }
