@@ -14,7 +14,7 @@ if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
 
     // Debugging output
     echo "Category ID: " . htmlspecialchars($category_id); // Check the category ID
-    echo "Number of products found: " . count($products); // Check how many products were found
+    echo "Number of products found: " . count($products); 
 } else {
     echo "Invalid category ID.";
     exit;

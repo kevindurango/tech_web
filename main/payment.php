@@ -20,40 +20,74 @@ $checkoutDetails = $cart->calculateTotals($cartItems);
 
 // Handle form submission for shipping and payment
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Capture shipping information
-    $deliveryMethod = $_POST['deliveryMethod'];
-    $carrier = $_POST['carrier'] ?? null;
-    $accountNumber = $_POST['accountNumber'] ?? null;
-    $serviceType = $_POST['serviceType'] ?? null;
+    try {
+        // Start a transaction
+        $conn->begin_transaction();
 
-    // Capture payment information
-    $cardType = $_POST['cardType'];
-    $cardNumber = $_POST['cardNumber'];
-    $expirationDate = $_POST['expirationDate'];
-    $cvv = $_POST['cvv'];
+        // Capture shipping information
+        $deliveryMethod = $_POST['deliveryMethod'];
+        $carrier = $_POST['carrier'] ?? null;
+        $accountNumber = $_POST['accountNumber'] ?? null;
+        $serviceType = $_POST['serviceType'] ?? null;
 
-    // Save shipping info in the `shipping_info` table
-    $stmtShipping = $conn->prepare("
-        INSERT INTO shipping_info (user_id, order_id, carrier, account_number, service_type, delivery_method)
-        VALUES (?, ?, ?, ?, ?, ?)
-    ");
-    $orderId = $cart->getOrderId(); // Implement a method in the `Cart` class to fetch the active order ID
-    $stmtShipping->bind_param("iissss", $userId, $orderId, $carrier, $accountNumber, $serviceType, $deliveryMethod);
-    $stmtShipping->execute();
+        // Capture payment information
+        $cardType = $_POST['cardType'];
+        $cardNumber = $_POST['cardNumber'];
+        $expirationDate = $_POST['expirationDate'];
+        $cvv = $_POST['cvv'];
 
-    // Save payment info in the `payment_info` table
-    $stmtPayment = $conn->prepare("
-        INSERT INTO payment_info (user_id, card_type, card_number, expiration_date, cvv)
-        VALUES (?, ?, ?, ?, ?)
-    ");
-    $stmtPayment->bind_param("issss", $userId, $cardType, $cardNumber, $expirationDate, $cvv);
-    $stmtPayment->execute();
+        // Create checkout entry if not already created
+        $checkoutStmt = $conn->prepare("
+            INSERT INTO checkout_info (user_id, name, email, phone, street1, street2, city, zip, country, state, same_address)
+            SELECT ?, u.first_name, u.email, '', '', '', '', '', '', '', 1
+            FROM users u WHERE u.id = ?
+        ");
+        $checkoutStmt->bind_param("ii", $userId, $userId);
+        if (!$checkoutStmt->execute()) {
+            throw new Exception("Failed to create checkout info: " . $checkoutStmt->error);
+        }
 
-    // Redirect to the confirmation page
-    header("Location: confirmation.php");
-    exit;
+        // Get the newly created or last checkout info ID
+        $checkoutId = $conn->insert_id;
+
+        if (!$checkoutId) {
+            throw new Exception("Failed to fetch checkout info ID.");
+        }
+
+        // Save shipping info
+        $stmtShipping = $conn->prepare("
+            INSERT INTO shipping_info (user_id, order_id, carrier, account_number, service_type, delivery_method)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ");
+        $stmtShipping->bind_param("iissss", $userId, $checkoutId, $carrier, $accountNumber, $serviceType, $deliveryMethod);
+        if (!$stmtShipping->execute()) {
+            throw new Exception("Failed to insert shipping info: " . $stmtShipping->error);
+        }
+
+        // Save payment info
+        $stmtPayment = $conn->prepare("
+            INSERT INTO payment_info (user_id, card_type, card_number, expiration_date, cvv)
+            VALUES (?, ?, ?, ?, ?)
+        ");
+        $stmtPayment->bind_param("issss", $userId, $cardType, $cardNumber, $expirationDate, $cvv);
+        if (!$stmtPayment->execute()) {
+            throw new Exception("Failed to insert payment info: " . $stmtPayment->error);
+        }
+
+        // Commit the transaction
+        $conn->commit();
+
+        // Redirect to confirmation
+        header("Location: confirmation.php");
+        exit;
+    } catch (Exception $e) {
+        // Rollback the transaction in case of an error
+        $conn->rollback();
+        die("Error processing payment: " . $e->getMessage());
+    }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <h6><?= htmlspecialchars($item['name']) ?></h6>
                                 <p>Quantity: <?= $item['quantity'] ?></p>
                                 <p class="text-muted">$<?= number_format($item['total'], 2) ?></p>
- </div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>

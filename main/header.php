@@ -100,6 +100,7 @@ function renderCategoryItems($categories) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
    <title>Header</title>  
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">  
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
    <link rel="stylesheet" href="/tech_web/styles/styles.css">   
    <link rel="stylesheet" href="/tech_web/styles/product.css">  
    <style>  

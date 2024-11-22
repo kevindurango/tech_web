@@ -541,3 +541,46 @@ body {
   margin-right: 5px;
   vertical-align: middle;
 }
+
+body {
+  background-color: #f7f9fc;
+}
+.confirmation-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #dc3545;
+  margin-bottom: 15px;
+}
+.summary,
+.cart-items,
+.payment-summary {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.confirmation-total-box {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+  padding: 10px;
+  text-align: center;
+  background-color: #fff5f5;
+  border-radius: 5px;
+}
+.table th,
+.table td {
+  vertical-align: middle;
+}
+.button-container .btn {
+  width: 48%;
+}
